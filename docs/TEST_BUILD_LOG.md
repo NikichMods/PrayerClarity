@@ -1,5 +1,31 @@
 # Test / Research Build Log
 
+## 2026-09-27 — Rebalanced 0.2.49 / Vanilla 1.0.55 Technology heading-alignment candidate
+
+- Baseline: accepted Rebalanced 0.2.48 / `accepted/rebalanced-0.2.48`, exact source `42b284986f768b6dd1e1760f7d80c8e5763765b2`.
+- Candidate branch: `candidate/rebalanced-0.2.49`.
+- Gate-only commit: `404d5ff78dd8330d847406ea220ff506596a3284`.
+- Exact candidate source SHA: `8e95d45a4b501c2852428eb8d4d37883be93b7c4`.
+- CI run: `36272619150`; result: **success**.
+- Artifact ID: `10915983019`.
+- Artifact: `PrayerClarity-rebalanced-0.2.49-ci-8e95d45a4b501c2852428eb8d4d37883be93b7c4`.
+- Artifact ZIP digest: `sha256:82a8d69fd8d1dd5c219d6291af41d50cc213b359d97b17a598414c7d46bcb6e4`.
+- Rebalanced 0.2.49 DLL SHA-256: `f3d42a45e539a5af1de5f128158588daeaf74c82b700f728dfac479033cabbce`.
+- Shared sibling Vanilla 1.0.55 DLL SHA-256: `c6c3437538598e112fc941477a2c1a6bbbf823637313d2ef30d70ecf9d6f41b9`.
+- Alignment policy:
+  - top prayer Technology title (`Create: Prayer ...`) = **Center**;
+  - `Base Result` header = **Center**;
+  - `On Success` header = **Center**;
+  - Base Result / On Success mechanics content remains **Left**;
+  - lore/description and crafting-source alignment remain stock-owned.
+- Shared-path proof:
+  - mouse prayer unlocks use stock `TechUnlock.GetTooltip`;
+  - stock gamepad Technology assembly uses the same `TechUnlock.GetTooltip`;
+  - PrayerClarity's gamepad prayer carousel rebuilds the selected child by invoking that same method;
+  - therefore the data-level alignment normalization applies identically to mouse/gamepad and Vanilla/Rebalanced.
+- No width, viewport clamp, carousel navigation, prayer-item, pulpit, Temporary Effects, localization or mechanics behavior changed.
+- Focused runtime acceptance: inspect one prayer Technology with mouse and one with gamepad. Confirm the three headers are centered, content remains left-aligned, and the tooltip size/position is unchanged. A quick Vanilla sibling check is useful to confirm the shared path, but no separate mechanics test is required.
+
 ## 2026-09-27 — Rebalanced 0.2.48 runtime accepted
 
 - User runtime acceptance: **2026-09-27** — Combo Prayer showed the intended values consistently in Technology, a concrete prayer item and the pulpit; no problems were observed.
