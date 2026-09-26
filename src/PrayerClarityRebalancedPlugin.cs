@@ -10,7 +10,7 @@ namespace PrayerClarity
     {
         internal const string PluginGuid = "nikich.graveyardkeeper.prayerclarity.rebalanced";
         internal const string PluginName = "PrayerClarity: Rebalanced";
-        internal const string PluginVersion = "0.2.49";
+        internal const string PluginVersion = "0.2.50";
         private static readonly Guid SupportedGameMvid = new Guid("6f50b8e7-156b-49ac-bbe8-7505894b2364");
         private static ManualLogSource _log;
         private static bool _runtimeErrorLogged;
