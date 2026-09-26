@@ -296,3 +296,27 @@ Because the correction never exceeds the width the native bubble already had, it
 - Vanilla sibling DLL SHA-256: `2aa6f9361fcd2d2c0218bd3d195192ee347239d00d6634ca9af931e9fc6ca7e4`.
 
 Runtime acceptance is pending only for the visible mouse/gamepad header-centering result and a quick control that the previously accepted prayer-item alignment remains unchanged after the shared native-span helper refactor.
+
+
+### 0.2.50 runtime result and 0.2.51 composition correction
+
+0.2.50 proved that the native-span final layout correction is sufficient for mouse Technology section headers: `Base Result` and `On Success` centered correctly without changing the outer parchment width. The top `Create: Prayer...` row alone remained left-aligned.
+
+That isolates the remaining defect to **semantic row identification**, not to the final layout writer.
+
+The stock 1.407 `TechUnlock.GetTooltip` contract is structural: each call first appends the current unlock title row, then a blank separator. PrayerClarity therefore no longer needs to infer that row by comparing localized text to `TechUnlock.GetData().name`.
+
+0.2.51 uses a composition-role model:
+
+- current stock title -> structurally identified `Title`;
+- `Base Result` -> assigned `SectionHeader` when reused/created;
+- `On Success` -> assigned `SectionHeader` when created;
+- mechanics rows -> remain body/Left.
+
+A prefix on the same `TechUnlock.GetTooltip` call records the pre-call row count, so the exact current title index remains unambiguous even when gamepad Technology combines multiple unlocks into one tooltip. The existing native-span final writer then treats only those marked centered headings.
+
+Candidate identity:
+- source `13c85c824bd2932b1175200368d212e03bbae79f`;
+- CI `36275212482` — success;
+- Rebalanced DLL SHA-256 `083168ec6cd76fd55366ca10426e212a30a3bc2c7ca61a9e9de0dc6f656c8ccd`;
+- Vanilla sibling DLL SHA-256 `3ff5f830a3ce20d1bf789e5f9ff0d3ac11cf9511d4457660b56c1f286dc31195`.
