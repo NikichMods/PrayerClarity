@@ -21,6 +21,7 @@ namespace PrayerClarity
             string vanillaLore,
             out string lore)
         {
+            if (!RebalancedRuntimeState.IsReady) return false;
             lore = vanillaLore;
 
             RebalancedPrayerRule rule;
@@ -48,6 +49,7 @@ namespace PrayerClarity
             string currentEventId,
             out string effectiveEventId)
         {
+            if (!RebalancedRuntimeState.IsReady) return false;
             effectiveEventId = currentEventId;
             string mapped;
             if (!RebalancedRuleSet.TryGetEffectivePrayEventId(craftId, out mapped))
@@ -59,6 +61,7 @@ namespace PrayerClarity
 
         private static bool TryGetSoulConversion(string craftId, out int cap, out int conversion)
         {
+            if (!RebalancedRuntimeState.IsReady) return false;
             cap = 0;
             conversion = 0;
 
@@ -76,6 +79,7 @@ namespace PrayerClarity
 
         internal static bool TryBuildTierEffect(string craftId, string buffId, out string text, out string semanticKey)
         {
+            if (!RebalancedRuntimeState.IsReady) return false;
             text = null;
             semanticKey = null;
 
@@ -89,6 +93,7 @@ namespace PrayerClarity
 
         internal static bool TryBuildActiveEffect(string buffId, out string text)
         {
+            if (!RebalancedRuntimeState.IsReady) return false;
             text = null;
             string semanticKey;
             RebalancedPrayerRule rule;
@@ -131,6 +136,7 @@ namespace PrayerClarity
 
         internal static bool TryBuildTechnologyEffect(string craftId, out string sharedText, out string tierText)
         {
+            if (!RebalancedRuntimeState.IsReady) return false;
             sharedText = null;
             tierText = null;
 

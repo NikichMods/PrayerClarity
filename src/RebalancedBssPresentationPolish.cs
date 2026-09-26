@@ -9,7 +9,7 @@ namespace PrayerClarity
 {
     // Rebalanced-only final pass for Better Save Soul Technology presentation.
     // It deliberately runs after SecondarySurfacePresentation so Vanilla can keep the
-    // exact accepted 1.0.33 bytes while Rebalanced replaces stale stock BSS lore with
+    // the accepted Vanilla sibling behavior while Rebalanced replaces stale stock BSS lore with
     // edition-owned text and adds the accepted Contentment duration emphasis.
     internal static class RebalancedBssPresentationPolish
     {
@@ -63,6 +63,7 @@ namespace PrayerClarity
         {
             try
             {
+                if (!RebalancedRuntimeState.IsReady) return;
                 if (__instance == null || __0 == null) return;
 
                 List<object> crafts = ResolveCrafts(__instance);

@@ -41,6 +41,7 @@
     <Compile Include="src/PrayerLorePresentation.cs" />
     <Compile Include="src/Localization.cs" />
     <Compile Include="src/RebalancedRuleSet.cs" />
+    <Compile Include="src/RebalancedRuntimeState.cs" />
     <Compile Include="src/RebalancedStaticProjection.cs" />
     <Compile Include="src/RebalancedExpressionProjection.cs" />
     <Compile Include="src/RebalancedTierState.cs" />

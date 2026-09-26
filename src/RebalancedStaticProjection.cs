@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using BepInEx.Logging;
@@ -8,6 +9,202 @@ namespace PrayerClarity
 {
     internal static class RebalancedStaticProjection
     {
+        private sealed class MemberSnapshot
+        {
+            internal readonly object Target;
+            internal readonly MemberInfo Member;
+            internal readonly object Value;
+
+            internal MemberSnapshot(object target, MemberInfo member, object value)
+            {
+                Target = target;
+                Member = member;
+                Value = value;
+            }
+
+            internal void Restore()
+            {
+                FieldInfo field = Member as FieldInfo;
+                if (field != null)
+                {
+                    field.SetValue(Target, Value);
+                    return;
+                }
+
+                PropertyInfo property = Member as PropertyInfo;
+                if (property != null)
+                {
+                    property.SetValue(Target, Value, null);
+                    return;
+                }
+
+                throw new NotSupportedException("Unsupported projection snapshot member: " + Member.MemberType);
+            }
+        }
+
+        private sealed class ListSnapshot
+        {
+            internal readonly IList Target;
+            internal readonly object[] Items;
+
+            internal ListSnapshot(IList target)
+            {
+                Target = target;
+                Items = new object[target.Count];
+                target.CopyTo(Items, 0);
+            }
+
+            internal void Restore()
+            {
+                Target.Clear();
+                foreach (object item in Items)
+                    Target.Add(item);
+            }
+        }
+
+        private sealed class ProjectionSnapshot
+        {
+            private readonly List<MemberSnapshot> _members = new List<MemberSnapshot>();
+            private readonly List<ListSnapshot> _lists = new List<ListSnapshot>();
+
+            internal static ProjectionSnapshot Capture()
+            {
+                ProjectionSnapshot snapshot = new ProjectionSnapshot();
+                snapshot.CaptureAll();
+                return snapshot;
+            }
+
+            internal bool Restore(out Exception failure)
+            {
+                failure = null;
+
+                for (int i = _lists.Count - 1; i >= 0; i--)
+                {
+                    try { _lists[i].Restore(); }
+                    catch (Exception ex) { if (failure == null) failure = ex; }
+                }
+
+                for (int i = _members.Count - 1; i >= 0; i--)
+                {
+                    try { _members[i].Restore(); }
+                    catch (Exception ex) { if (failure == null) failure = ex; }
+                }
+
+                return failure == null;
+            }
+
+            private void CaptureAll()
+            {
+                object combatBuff = R.BalanceData("buff_sword", "BuffDefinition", true);
+                if (combatBuff == null) throw new MissingMemberException("BuffDefinition buff_sword");
+                CaptureMember(combatBuff, "tick_period");
+                CaptureMember(combatBuff, "se_tick");
+
+                for (int tier = 1; tier <= 3; tier++)
+                {
+                    string craftId = RebalancedRuleSet.CraftId("b_shield", tier);
+                    object craft = R.BalanceData(craftId, "CraftDefinition", true);
+                    if (craft == null)
+                        throw new MissingMemberException("Missing legacy Combat alias prayer craft " + craftId);
+                    CaptureMember(craft, "buff");
+                }
+
+                object tech = R.BalanceData("Martial skills", "TechDefinition", true);
+                if (tech == null) throw new MissingMemberException("TechDefinition Martial skills");
+                CaptureRequiredList(tech, "crafts");
+                CaptureOptionalList(tech, "_unlocks_list");
+
+                CaptureRequiredMember(R.BalanceData("b_shield", "CraftDefinition", true), "b_shield", "hidden");
+                CaptureRequiredMember(R.BalanceData("b_shield_2", "CraftDefinition", true), "b_shield_2", "hidden");
+
+                Type itemType = R.GameType("Item");
+                ConstructorInfo itemConstructor = itemType?.GetConstructor(new[] { typeof(string), typeof(int) });
+                if (itemConstructor == null) throw new MissingMethodException("Item(string,int)");
+
+                foreach (RebalancedPrayerRule rule in RebalancedRuleSet.All)
+                {
+                    if (!HasStaticProjection(rule)) continue;
+
+                    for (int tier = 1; tier <= 3; tier++)
+                    {
+                        string craftId = RebalancedRuleSet.CraftId(rule.PrayerId, tier);
+                        object craft = R.BalanceData(craftId, "CraftDefinition", true);
+                        if (craft == null)
+                        {
+                            if (rule.OptionalDlc) continue;
+                            throw new MissingMemberException("Missing required prayer craft " + craftId);
+                        }
+
+                        if (rule.Requirements != null) CaptureMember(craft, "needs_quality");
+                        if (rule.FaithBonusRates != null) CaptureMember(craft, "k_faith");
+                        if (rule.MoneyBonusRates != null) CaptureMember(craft, "k_money");
+                        if (rule.DurationMinutes != null) CaptureMember(craft, "dur_parameter");
+                        if (rule.LinkedPrayEventIds != null) CaptureMember(craft, "linked_sub_id");
+
+                        bool changesOutput =
+                            rule.RemoveFixedFaith ||
+                            rule.RemoveFixedMoney ||
+                            rule.FixedFaithBonuses != null ||
+                            rule.FixedMoneyBonusesCents != null ||
+                            !string.IsNullOrEmpty(rule.SuccessRewardBaseItemId);
+                        if (changesOutput)
+                            CaptureRequiredList(craft, "output");
+                    }
+                }
+            }
+
+            private void CaptureRequiredMember(object target, string targetName, string memberName)
+            {
+                if (target == null) throw new MissingMemberException("CraftDefinition " + targetName);
+                CaptureMember(target, memberName);
+            }
+
+            private void CaptureMember(object target, string memberName)
+            {
+                if (target == null) throw new ArgumentNullException(nameof(target));
+                MemberInfo member = FindWritableMember(target.GetType(), memberName);
+                if (member == null) throw new MissingMemberException(target.GetType().FullName, memberName);
+                _members.Add(new MemberSnapshot(target, member, ReadMember(target, member)));
+            }
+
+            private void CaptureRequiredList(object target, string memberName)
+            {
+                IList list = R.Get(target, memberName) as IList;
+                if (list == null) throw new MissingMemberException(target.GetType().FullName, memberName);
+                _lists.Add(new ListSnapshot(list));
+            }
+
+            private void CaptureOptionalList(object target, string memberName)
+            {
+                IList list = R.Get(target, memberName) as IList;
+                if (list != null) _lists.Add(new ListSnapshot(list));
+            }
+
+            private static MemberInfo FindWritableMember(Type type, string name)
+            {
+                for (Type current = type; current != null; current = current.BaseType)
+                {
+                    FieldInfo field = current.GetField(name, R.Inst);
+                    if (field != null) return field;
+
+                    PropertyInfo property = current.GetProperty(name, R.Inst);
+                    if (property != null && property.CanRead && property.CanWrite) return property;
+                }
+                return null;
+            }
+
+            private static object ReadMember(object target, MemberInfo member)
+            {
+                FieldInfo field = member as FieldInfo;
+                if (field != null) return field.GetValue(target);
+
+                PropertyInfo property = member as PropertyInfo;
+                if (property != null) return property.GetValue(target, null);
+
+                throw new NotSupportedException("Unsupported projection snapshot member: " + member.MemberType);
+            }
+        }
+
         private static ManualLogSource _log;
         private static bool _projectedForCurrentLoad;
         private static bool _projectionFailed;
@@ -31,28 +228,44 @@ namespace PrayerClarity
         {
             _projectedForCurrentLoad = false;
             _projectionFailed = false;
+            RebalancedRuntimeState.MarkPending();
         }
 
         private static void FillCraftsListPostfix()
         {
             if (_projectedForCurrentLoad || _projectionFailed) return;
 
+            ProjectionSnapshot snapshot = null;
             try
             {
+                RebalancedRoots.ValidateDefinitions();
+                snapshot = ProjectionSnapshot.Capture();
                 ApplyOnce();
+
                 _projectedForCurrentLoad = true;
-                _log?.LogInfo("PrayerClarity: Rebalanced static prayer projection applied for this save load.");
+                RebalancedRuntimeState.MarkReady();
+                _log?.LogDebug("PC_STATIC_PROJECTION_READY edition=rebalanced");
             }
             catch (Exception ex)
             {
+                Exception rollbackFailure = null;
+                bool rolledBack = snapshot == null || snapshot.Restore(out rollbackFailure);
+
                 _projectionFailed = true;
-                _log?.LogError("PrayerClarity: Rebalanced static prayer projection failed closed for this save load. " + ex);
+                RebalancedRuntimeState.Disable();
+
+                _log?.LogError(
+                    "PC_STATIC_PROJECTION_FAILED edition=rebalanced rollback=" +
+                    (rolledBack ? "success" : "failed") +
+                    " runtime=disabled " + ex);
+
+                if (rollbackFailure != null)
+                    _log?.LogError("PC_ROLLBACK_FAILED edition=rebalanced phase=static-projection " + rollbackFailure);
             }
         }
 
         private static void ApplyOnce()
         {
-            RebalancedRoots.ValidateDefinitions();
             RebalancedExpressionProjection.Apply();
             ApplyCombatAliasProjection();
             RetireProtectionCrafting();
