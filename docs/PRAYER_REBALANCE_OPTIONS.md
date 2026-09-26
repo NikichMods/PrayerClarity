@@ -78,9 +78,9 @@ Combo is the percentage generalist:
 
 No prayer-owned flat Faith or money is added.
 
-### Pending 0.2.48 candidate delta
+### Accepted 0.2.48 development delta
 
-The stable 0.2.47 values above remain canonical until acceptance. The product-approved 0.2.48 candidate changes **only Combo donations** to:
+Public stable 0.2.47 remains represented in the stable table above. The runtime-accepted 0.2.48 development baseline changes **only Combo donations** to:
 
 - Bronze: **+100%**
 - Silver: **+250%**
