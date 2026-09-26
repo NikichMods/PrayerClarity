@@ -1,5 +1,19 @@
 # Test / Research Build Log
 
+## 2026-09-27 — Rebalanced 0.2.48 runtime accepted
+
+- User runtime acceptance: **2026-09-27** — Combo Prayer showed the intended values consistently in Technology, a concrete prayer item and the pulpit; no problems were observed.
+- Frozen accepted ref: `accepted/rebalanced-0.2.48`.
+- Exact accepted runtime/source SHA: `42b284986f768b6dd1e1760f7d80c8e5763765b2`.
+- Accepted Rebalanced DLL SHA-256: `38d51a9647d67b1b14f70a9045b8bbf493dae4b434251284bbab22c2bf1f10e3`.
+- Accepted Combo values:
+  - Faith: **+100 / +150 / +200%**;
+  - donations: **+100 / +250 / +500%**;
+  - q40 / q60 / q80 and the Hard Book +7 Faith craft gate remain unchanged.
+- The native `k_money` calculation path was not changed and did not require sermon replay.
+- This accepted ref becomes the Rebalanced development/runtime baseline for subsequent candidates.
+- Public stable remains Rebalanced **0.2.47** until a separate promotion decision.
+
 ## 2026-09-27 — Rebalanced 0.2.48 Combo donation-scaling candidate
 
 - Stable runtime remains Rebalanced 0.2.47 / `accepted/rebalanced-0.2.47`. Public Vanilla remains 1.0.33.
