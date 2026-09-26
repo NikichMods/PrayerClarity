@@ -78,6 +78,16 @@ Combo is the percentage generalist:
 
 No prayer-owned flat Faith or money is added.
 
+### Pending 0.2.48 candidate delta
+
+The stable 0.2.47 values above remain canonical until acceptance. The product-approved 0.2.48 candidate changes **only Combo donations** to:
+
+- Bronze: **+100%**
+- Silver: **+250%**
+- Gold: **+500%**
+
+Combo Faith remains **+100 / +150 / +200%**, requirements remain **q40 / q60 / q80**, and no other prayer balance value changes.
+
 ## Better Save Soul endgame structure
 
 ### Soul's Repose
