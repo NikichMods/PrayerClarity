@@ -463,7 +463,7 @@ At terminal 1.407 progression this resolves to the nine known 10-total-skull tie
 
 Historical Rebalanced 0.1.5 set `tier_min = tier_max` directly. At the terminal raw `2..4` state that could request `4..4`, for which stock `GenerateBody` has no definition and returns null. This was a **latent late-game edge-case in 0.1.5**, not an accepted behavior target.
 
-The current stable Rebalanced 0.2.15 resolves the highest actually existing eligible ordinary BodyDefinition before narrowing and, for Gold, restricts that tier to the maximum live total skull score. Runtime evidence observed all 9 maximum-score terminal candidates and ten consecutive real native generations producing tier-3, 10-total-skull bodies with exact catalog restoration after each call. The old `4..4` failure mode is no longer the production design. Only the terminal endpoint wording/presentation remains a deferred non-blocking user-runtime observation.
+The current stable Rebalanced 0.2.51 resolves the highest actually existing eligible ordinary BodyDefinition before narrowing and, for Gold, restricts that tier to the maximum live total skull score. Runtime evidence observed all 9 maximum-score terminal candidates and ten consecutive real native generations producing tier-3, 10-total-skull bodies with exact catalog restoration after each call. The old `4..4` failure mode is no longer the production design. The formerly deferred terminal endpoint wording/presentation was later runtime-observed and accepted across the relevant Repose surfaces.
 
 
 ### Directly inspected fixed success outputs relevant to specialist cleanup
