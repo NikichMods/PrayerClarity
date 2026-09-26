@@ -247,6 +247,10 @@ The Repose and prayer-item presentation work through 0.2.47 is **closed and runt
 
 No further in-game retest is required for these accepted 0.2.47 properties unless their implementation changes.
 
+### Current Technology presentation candidate
+
+- **Prayer Technology alignment unification — Rebalanced 0.2.49 / Vanilla sibling 1.0.55 pending focused visual acceptance.** The shared prayer-Technology path now centers the top `Create: Prayer...` title plus `Base Result` and `On Success` headers while leaving mechanics content left-aligned. The change is data-level at `TechUnlock.GetTooltip`, so the same hierarchy applies to mouse, stock gamepad Technology assembly and PrayerClarity's gamepad prayer carousel without a second layout mechanism. Lore/crafting rows, tooltip width, viewport clamp and non-prayer Technology tooltips are preserved.
+
 ### Current accepted development balance
 
 - **Combo Prayer donation-side scaling — runtime-accepted in Rebalanced 0.2.48.** Faith remains **+100 / +150 / +200%** while donations are **+100 / +250 / +500%**. With the accepted Donations specialist (+20 / +50 / +100 silver), the same-quality pure-money crossover is roughly **GQ 500 with Cardinal** or **GQ 667 without Cardinal** for all three qualities. No other prayer balance value changed. Public stable remains 0.2.47 until separate promotion.
