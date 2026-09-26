@@ -1,6 +1,6 @@
 # Prayer Power Budget — Graveyard Keeper 1.407
 
-Status: **historical quantitative design-analysis input**, 2026-09-14, retained as rationale for the accepted Rebalanced roster. Stock mechanics remain canonical in `PRAYER_MECHANICS.md`; current accepted Rebalanced values are canonical only in `PRAYER_REBALANCE_OPTIONS.md`. Candidate coefficient examples below are historical and must not override the current stable Rebalanced 0.2.15 ruleset.
+Status: **historical quantitative design-analysis input**, 2026-09-14, retained as rationale for the accepted Rebalanced roster. Stock mechanics remain canonical in `PRAYER_MECHANICS.md`; current accepted Rebalanced values are canonical only in `PRAYER_REBALANCE_OPTIONS.md`. Candidate coefficient examples below are historical and must not override the current stable Rebalanced 0.2.51 ruleset.
 
 The technology and recipe values below were recovered from direct 1.407 `GameBalance`/craft-registry runtime dumps rather than inferred from the wiki. Where a technology is hidden/quest-gated, its internal `price` field is not automatically treated as a player-paid cost.
 
@@ -83,7 +83,7 @@ Do not nerf Combo first. Test a **specialist premium**:
 - Donations becomes the best money-producing ordinary sermon;
 - silver/gold specialist progression should increasingly reward committing to the specialty.
 
-Illustrative coefficient families such as `.75 / 1.5 / 2.25` were **historical design hypotheses only**. They were superseded by later accepted roster revisions; the current stable specialist/generalist grammar is documented only in `PRAYER_REBALANCE_OPTIONS.md` for Rebalanced 0.2.15.
+Illustrative coefficient families such as `.75 / 1.5 / 2.25` were **historical design hypotheses only**. They were superseded by later accepted roster revisions; the current stable specialist/generalist grammar is documented only in `PRAYER_REBALANCE_OPTIONS.md` for Rebalanced 0.2.51.
 
 ## Combo gate — candidate levers
 
@@ -201,7 +201,7 @@ These show that a niche prayer can be highly desirable without becoming the univ
 
 ## Design gate result
 
-This historical gate was completed during the early Rebalanced line. The roster was revised further and the current stable result is PrayerClarity: Rebalanced 0.2.15. This file remains useful for the underlying unlock/craft/quality/opportunity-cost evidence, but it is **not** the source of truth for current Rebalanced numbers.
+This historical gate was completed during the early Rebalanced line. The roster was revised further and the current stable result is PrayerClarity: Rebalanced 0.2.51. This file remains useful for the underlying unlock/craft/quality/opportunity-cost evidence, but it is **not** the source of truth for current Rebalanced numbers.
 
 Any future rebalance should reuse this full-cost framework and create a new explicit proposal rather than resurrecting the superseded candidate values above.
 
@@ -302,7 +302,7 @@ With Cardinal active and the accepted Gold Donations +30 silver, the Gold pure-m
 
 Status: **runtime-accepted Rebalanced 0.2.48 balance result**.
 
-Current stable 0.2.47 resource-family values are:
+At the time this 0.2.48 candidate was selected, stable 0.2.47 resource-family values were:
 
 - Donations: flat **+20 / +50 / +100 silver**;
 - Combo Faith: **+100 / +150 / +200%**;
@@ -344,7 +344,7 @@ This is intentionally not a smooth numeric ladder for its own sake. It normalize
 - Combo still pays the higher q40/60/80 gate and Hard Book +7 Faith recipe;
 - Combo additionally provides its unchanged Faith percentage, so it remains a generalist rather than a second money specialist.
 
-This supersedes the earlier 100/200/300 follow-up hypothesis. Rebalanced 0.2.48 is runtime-accepted with 100/250/500; public stable remains 0.2.47 until separate promotion.
+This superseded the earlier 100/200/300 follow-up hypothesis. Rebalanced 0.2.48 was runtime-accepted with 100/250/500 and that exact donation ladder was later promoted into stable Rebalanced 0.2.51.
 
 ## 2026-09-23 Premium Gold q95 success-gate research
 
