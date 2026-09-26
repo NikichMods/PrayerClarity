@@ -249,7 +249,7 @@ No further in-game retest is required for these accepted 0.2.47 properties unles
 
 ### Current Technology presentation candidate
 
-- **Prayer Technology alignment unification — Rebalanced 0.2.49 / Vanilla sibling 1.0.55 pending focused visual acceptance.** The shared prayer-Technology path now centers the top `Create: Prayer...` title plus `Base Result` and `On Success` headers while leaving mechanics content left-aligned. The change is data-level at `TechUnlock.GetTooltip`, so the same hierarchy applies to mouse, stock gamepad Technology assembly and PrayerClarity's gamepad prayer carousel without a second layout mechanism. Lore/crafting rows, tooltip width, viewport clamp and non-prayer Technology tooltips are preserved.
+- **Prayer Technology alignment unification — 0.2.49 rejected; Rebalanced 0.2.50 / Vanilla sibling 1.0.56 is the current candidate.** Runtime showed that row-level Center alignment was sufficient on gamepad but not on the mouse child tooltip because the mouse bubble's Left container still positions the narrow child at the left edge. 0.2.50 preserves the centered row semantics and expands only those three header child widgets to the already-existing native maximum child width at the stock layout commit point. Mechanics content, lore/crafting rows, outer width, viewport clamp and non-prayer Technology tooltips remain preserved.
 
 ### Current accepted development balance
 
