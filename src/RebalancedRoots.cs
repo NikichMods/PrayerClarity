@@ -292,7 +292,7 @@ namespace PrayerClarity
         {
             if (_runtimeFailureLogged) return;
             _runtimeFailureLogged = true;
-            _log?.LogError(message + ex);
+            _log?.LogError("PC_RUNTIME_FALLBACK edition=rebalanced feature=roots action=stock " + message + ex);
         }
     }
 }

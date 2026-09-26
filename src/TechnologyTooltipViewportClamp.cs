@@ -417,7 +417,7 @@ namespace PrayerClarity
         {
             if (_runtimeFailed) return;
             _runtimeFailed = true;
-            _log?.LogError("PrayerClarity Technology tooltip viewport safety disabled after failure while " + operation + ". Vanilla placement remains available. " + ex);
+            _log?.LogError("PC_RUNTIME_FALLBACK feature=technology-viewport action=vanilla-placement operation=\"" + operation + "\" " + ex);
         }
 
         private static void PatchAfter(string harmonyId, MethodInfo target, string postfixName, string[] afterOwners)

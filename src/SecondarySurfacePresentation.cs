@@ -93,7 +93,7 @@ namespace PrayerClarity
             {
                 if (_buffErrorLogged) return;
                 _buffErrorLogged = true;
-                _log?.LogError("PrayerClarity active-effect presentation failed; vanilla Temporary Effects text remains available. " + ex);
+                _log?.LogError("PC_RUNTIME_FALLBACK feature=temporary-effects action=vanilla-text " + ex);
             }
         }
 
@@ -146,7 +146,7 @@ namespace PrayerClarity
                 if (!_hudTimerErrorLogged)
                 {
                     _hudTimerErrorLogged = true;
-                    _log?.LogError("PrayerClarity HUD prayer-buff day timer failed; vanilla timer remains available. " + ex);
+                    _log?.LogError("PC_RUNTIME_FALLBACK feature=hud-prayer-timer action=vanilla-timer " + ex);
                 }
                 return true;
             }
@@ -165,7 +165,7 @@ namespace PrayerClarity
             {
                 if (_timerErrorLogged) return;
                 _timerErrorLogged = true;
-                _log?.LogError("PrayerClarity prayer-buff day timer failed; vanilla timer remains available. " + ex);
+                _log?.LogError("PC_RUNTIME_FALLBACK feature=prayer-timer action=vanilla-timer " + ex);
             }
         }
 
@@ -274,7 +274,7 @@ namespace PrayerClarity
             {
                 if (_techErrorLogged) return;
                 _techErrorLogged = true;
-                _log?.LogError("PrayerClarity technology-tooltip presentation failed; vanilla technology tooltip remains available. " + ex);
+                _log?.LogError("PC_RUNTIME_FALLBACK feature=technology-tooltip action=vanilla-tooltip " + ex);
             }
         }
 

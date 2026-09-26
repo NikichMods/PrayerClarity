@@ -113,7 +113,7 @@ namespace PrayerClarity
             Patch(left, nameof(LeftPrefix), null);
             Patch(right, nameof(RightPrefix), null);
 
-            _log?.LogInfo(
+            _log?.LogDebug(
                 "PrayerClarity prayer-Technology navigation enabled: on gamepad, Left/Right traverses visible unlocks one at a time in any multi-unlock Technology that contains a prayer, then falls through to native Technology navigation at the outer edges.");
         }
 
@@ -532,7 +532,7 @@ namespace PrayerClarity
             Exception inner = ex is TargetInvocationException && ex.InnerException != null
                 ? ex.InnerException
                 : ex;
-            _log?.LogError(prefix + inner);
+            _log?.LogError("PC_RUNTIME_FALLBACK feature=technology-carousel action=native-navigation " + prefix + inner);
         }
     }
 }

@@ -147,8 +147,7 @@ namespace PrayerClarity
                 if (_prayerItemAlignmentErrorLogged) return;
                 _prayerItemAlignmentErrorLogged = true;
                 _log?.LogError(
-                    "PrayerClarity tooltip native-span alignment failed; " +
-                    "the native tooltip remains usable. " + ex);
+                    "PC_RUNTIME_FALLBACK feature=tooltip-native-span action=native-layout " + ex);
             }
         }
 
@@ -256,8 +255,7 @@ namespace PrayerClarity
                 if (_errorLogged) return;
                 _errorLogged = true;
                 _log?.LogError(
-                    "PrayerClarity Technology tooltip anchor-width sizing failed; " +
-                    "the tooltip remains available at the wide fallback ceiling. " + ex);
+                    "PC_RUNTIME_FALLBACK feature=technology-anchor-width action=wide-fallback " + ex);
             }
         }
 

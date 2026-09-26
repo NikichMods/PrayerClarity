@@ -161,7 +161,7 @@ namespace PrayerClarity
         {
             if (_runtimeErrorLogged) return;
             _runtimeErrorLogged = true;
-            _log?.LogError(message + ex);
+            _log?.LogError("PC_RUNTIME_FALLBACK edition=rebalanced feature=souls-repose action=stock " + message + ex);
         }
     }
 }
