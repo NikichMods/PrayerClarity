@@ -228,3 +228,39 @@ Before implementation, use this hypothesis to define a narrow Technology-only ca
 6. ordinary non-prayer Technology tooltips remain untouched.
 
 Only after that visual/runtime check should this hypothesis replace the accepted 1.0.9 Technology renderer design.
+
+## 2026-09-27 — prayer Technology alignment unification candidate
+
+Status: **Rebalanced 0.2.49 / Vanilla sibling 1.0.55 pending focused runtime acceptance**.
+
+### UX rule
+
+Prayer Technology should use the same hierarchy already accepted on prayer-item surfaces:
+
+- prayer title/header: centered;
+- `Base Result` header: centered;
+- `On Success` header: centered;
+- mechanics/body content: left-aligned.
+
+Lore/description and crafting-source rows remain stock-owned rather than being normalized merely for symmetry.
+
+### Owner / input-path proof
+
+Stock 1.407 `TechUnlock.GetTooltip(Tooltip)` creates the Technology title and prayer rows as `BubbleWidgetTextData`. `BubbleWidgetText.Draw` later applies that row's `alignment` directly to its `UILabel`.
+
+The same data producer is used for both input modes:
+
+- mouse prayer-unlock tooltip -> `TechUnlock.GetTooltip`;
+- stock gamepad Technology assembly -> `TechTreeGUIItem.InitGamepadTooltip` -> `TechUnlock.GetTooltip`;
+- PrayerClarity selected-unlock carousel -> clears/rebuilds the selected tooltip by invoking the same `TechUnlock.GetTooltip`.
+
+Therefore the least-complex adequate implementation is to normalize only the three prayer heading rows in the shared tooltip data, rather than add mouse/controller-specific or late-layout alignment patches.
+
+### Candidate identity
+
+- exact source: `8e95d45a4b501c2852428eb8d4d37883be93b7c4`;
+- CI: `36272619150` — success;
+- Rebalanced DLL SHA-256: `f3d42a45e539a5af1de5f128158588daeaf74c82b700f728dfac479033cabbce`;
+- Vanilla sibling DLL SHA-256: `c6c3437538598e112fc941477a2c1a6bbbf823637313d2ef30d70ecf9d6f41b9`.
+
+No Technology width/viewport policy, navigation behavior, mechanics or localization strings are changed by this candidate.
