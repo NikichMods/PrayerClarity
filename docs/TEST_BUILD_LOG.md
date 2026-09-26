@@ -1,5 +1,29 @@
 # Test / Research Build Log
 
+## 2026-09-27 — PrayerClarity Rebalanced 0.2.51 / Vanilla 1.0.57 runtime accepted for stable promotion
+
+- User runtime acceptance: **2026-09-27** — no problems found in the requested shared presentation checks.
+- Exact accepted runtime/source SHA: `13c85c824bd2932b1175200368d212e03bbae79f`.
+- Frozen accepted refs:
+  - Rebalanced: `accepted/rebalanced-0.2.51`;
+  - Vanilla: `accepted/vanilla-1.0.57`.
+- Candidate CI run: `36275212482`; result: **success**.
+- Artifact ID: `10917221616`.
+- Artifact: `PrayerClarity-rebalanced-0.2.51-ci-13c85c824bd2932b1175200368d212e03bbae79f`.
+- Artifact ZIP digest: `sha256:066f935e119e46a0b9705d6e35bb95ef729079a8aee6eb6f0186f3330c89b9c0`.
+- Accepted Rebalanced 0.2.51 DLL SHA-256: `083168ec6cd76fd55366ca10426e212a30a3bc2c7ca61a9e9de0dc6f656c8ccd`.
+- Accepted Vanilla 1.0.57 DLL SHA-256: `3ff5f830a3ce20d1bf789e5f9ff0d3ac11cf9511d4457660b56c1f286dc31195`.
+- Accepted visual/runtime result:
+  1. Rebalanced mouse Technology: title / Base Result / On Success centered; body rows left-aligned.
+  2. Vanilla mouse Technology: same hierarchy correct.
+  3. Gamepad Technology checked and correct.
+  4. Prayer-item presentation checked and unchanged/correct.
+- Rebalanced 0.2.51 also carries the separately runtime-accepted 0.2.48 Combo balance result: Faith **+100 / +150 / +200%**, donations **+100 / +250 / +500%**.
+- Stable-source merge: PR #41, merge commit `eb9955974da0c0da865a79a06d18fd07ddb7de6f`. This merge preserved later documentation history while bringing the exact accepted runtime source into `main`.
+- Vanilla helper behavior is expected: the Rebalanced Neutral Test Console and Repose State Switcher declare a hard dependency on the Rebalanced plugin, so they do not load under Vanilla alone; F2/F3 therefore being unavailable in a Vanilla-only test session is **not a Vanilla defect**.
+- Stable publication must reuse the exact accepted CI DLL bytes; no rebuild is permitted.
+- No further in-game test is required unless the accepted implementation changes.
+
 ## 2026-09-27 — Rebalanced 0.2.51 / Vanilla 1.0.57 semantic Technology heading-role candidate
 
 - Baseline: Rebalanced 0.2.50 source `da770d4e3d2131ece502f6379bca520cb2819d2a`, itself based on accepted Rebalanced 0.2.48.
