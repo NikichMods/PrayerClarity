@@ -1,5 +1,22 @@
 # Test / Research Build Log
 
+## 2026-09-27 — Rebalanced 0.2.49 Technology alignment partial failure
+
+- Exact tested candidate: Rebalanced **0.2.49**, source `8e95d45a4b501c2852428eb8d4d37883be93b7c4`.
+- Runtime result: **superseded before acceptance**.
+- User evidence:
+  - prayer Technology headers remained visibly left-aligned with mouse;
+  - prayer Technology headers were centered with gamepad;
+  - prayer-item headers were centered as expected in both input modes.
+- The 0.2.49 data-level change itself did set the prayer title, Base Result and On Success rows to `Center`. The failed assumption was that row text alignment alone owned the visible horizontal position.
+- Host/final-writer proof:
+  - `Tooltip.Show` copies the concrete Tooltip component's alignment into the `BubbleWidgetDataContainer`;
+  - `WidgetsBubbleGUI.Redraw` maps container `Left` to `SimpleUITable.TopLeft` / `UITable.TopLeft`;
+  - `WidgetsBubbleGUI.Reposition` additionally gives labels a Left pivot when the container is Left;
+  - therefore a short child UILabel can have centered text but still sit at the left edge as a narrow child widget.
+- This exactly explains the mouse/gamepad split: the mouse child Technology tooltip and gamepad parent tooltip use different container placement contexts.
+- 0.2.49 must not be promoted. The next correction keeps the accepted Center row alignment but changes only the centered header child span at the stock `UpdateSizeAndWidgetsPositions` commit point, up to the already-existing native maximum width.
+
 ## 2026-09-27 — Rebalanced 0.2.49 / Vanilla 1.0.55 Technology heading-alignment candidate
 
 - Baseline: accepted Rebalanced 0.2.48 / `accepted/rebalanced-0.2.48`, exact source `42b284986f768b6dd1e1760f7d80c8e5763765b2`.
