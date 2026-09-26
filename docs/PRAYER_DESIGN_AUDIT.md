@@ -32,7 +32,7 @@ The Rebalanced roster values were established in 0.2.0. Releases 0.2.2 and 0.2.3
 | Ordinary | **No change** | Stock starter baseline, q10. |
 | Faith | **Accepted specialist rework** | q20/40/60; flat success-only **+5/+10/+20 Faith**; no prayer-owned donation bonus. |
 | Donations | **Accepted specialist rework** | q20/40/60; flat success-only **+20/+50/+100 silver-equivalent**; no prayer-owned Faith bonus. |
-| Combo | **Accepted generalist rework** | q40/60/80; success-only **+100/+150/+200% Faith and donations**; no prayer-owned flat Faith/money. |
+| Combo | **Accepted generalist rework** | q40/60/80; stable 0.2.47 success-only Faith **+100/+150/+200%**, donations **+100/+200/+300%**; no prayer-owned flat Faith/money. |
 | Prosperity | **No balance change** | Stock q10/20/30 and 1/2/3 Commercial Blessings. |
 | Shoots & Roots | **Accepted repair + scaling** | q10/30/50; nominal growth time **-20/-30/-40%**, 36/72/108 min; current runtime also enforces the accepted 95% combined reduction safety cap. |
 | Repentance | **Accepted rework** | q20/40/60; daily confession probability **50/75/100%**; duration **30/42/54 min**. |
@@ -48,7 +48,7 @@ The Rebalanced roster values were established in 0.2.0. Releases 0.2.2 and 0.2.3
 
 Faith and Donations are flat specialists: Faith gives +5/+10/+20 Faith, Donations gives +20/+50/+100 silver-equivalent, and both guarantee at q20/q40/q60.
 
-Combo is a percentage generalist: +100/+150/+200% to both Faith and donations, guaranteed at q40/q60/q80.
+Combo is a percentage generalist: stable 0.2.47 gives Faith +100/+150/+200% and donations +100/+200/+300%, guaranteed at q40/q60/q80.
 
 This creates the intended progression:
 
@@ -57,6 +57,8 @@ This creates the intended progression:
 The specialists retain early value because their prayer-owned reward does not depend on a large church/graveyard base. Combo becomes increasingly attractive as the underlying sermon economy matures, but pays the higher Church Quality gate and Hard Book recipe.
 
 Do not restore the obsolete +200/+300/+400% specialist ladder or q25/40/70 requirements from the early audit. Those values are historical only.
+
+Pending Rebalanced 0.2.48 candidate: keep Faith at +100/+150/+200% and change Combo donations to **+100/+250/+500%**. This candidate is product-approved but is not part of the accepted stable roster until focused visual acceptance and promotion.
 
 ## BSS Soul's Repose
 
