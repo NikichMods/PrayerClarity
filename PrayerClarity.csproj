@@ -4,7 +4,7 @@
     <LangVersion>7.3</LangVersion>
     <AssemblyName>PrayerClarity</AssemblyName>
     <RootNamespace>PrayerClarity</RootNamespace>
-    <Version>1.0.56</Version>
+    <Version>1.0.57</Version>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <Optimize>true</Optimize>
     <DebugType>none</DebugType>
