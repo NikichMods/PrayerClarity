@@ -1,6 +1,6 @@
 # PrayerClarity — Design Notes
 
-Status: product/architecture source of truth, reconciled 2026-09-26 with the accepted stable releases PrayerClarity: Vanilla 1.0.33 and PrayerClarity: Rebalanced 0.2.38.
+Status: product/architecture source of truth, reconciled 2026-09-27 with the accepted stable releases PrayerClarity: Vanilla 1.0.33 and PrayerClarity: Rebalanced 0.2.47.
 
 Detailed evidence and history live in specialized documents rather than being duplicated here:
 
@@ -39,7 +39,7 @@ Internal evidence/design layers remain distinct:
 Current accepted stable runtime identities are edition-specific:
 
 - **PrayerClarity: Vanilla 1.0.33** — accepted ref `accepted/vanilla-1.0.33`, exact source `93b66e747ffe1685003afb894b24f14416edb8c0`, release `v1.0.33`, DLL SHA-256 `30b23f9ed62148f3fd08e0c34ae54f165da0e639a041d1e9d7c4abe74268da8a`.
-- **PrayerClarity: Rebalanced 0.2.38** — accepted ref `accepted/rebalanced-0.2.38`, exact runtime source `6f5ef168810945135cee57082cbf90d31776e46b`, release `rebalanced-v0.2.38`, DLL SHA-256 `e547f7bb76e0ef512dc669ea30543dada5a2aeb8044b1c7ffcbe7fecf17303e5`.
+- **PrayerClarity: Rebalanced 0.2.47** — accepted ref `accepted/rebalanced-0.2.47`, exact runtime source `6b3aa5399c8913d368f2b09bab963326db17e7f3`, release `rebalanced-v0.2.47`, DLL SHA-256 `2482a159c3108a7868123d7c2cac7a8a620fe537952fee0cda6024c6ea5c7c96`.
 
 Both stable releases were published from their exact accepted CI artifacts without rebuilding. Later `main` documentation/repository-hygiene commits do not redefine those frozen runtime identities.
 
@@ -247,9 +247,9 @@ The Repose and prayer-item presentation work through 0.2.47 is **closed and runt
 
 No further in-game retest is required for these accepted 0.2.47 properties unless their implementation changes.
 
-### Open balance question
+### Current balance candidate
 
-- **Combo Prayer donation-side scaling remains open for later product/balance discussion.** The stable 0.2.47 values remain **+100 / +200 / +300% donations** (with Faith **+100 / +150 / +200%**). No production balance change is authorized yet; the open question is whether the donation side stays tempting enough at the mid/late-game stage where Combo becomes relevant.
+- **Combo Prayer donation-side scaling — Rebalanced 0.2.48 pending focused visual acceptance.** Product decision: Faith remains **+100 / +150 / +200%** while donations become **+100 / +250 / +500%**. With the accepted Donations specialist (+20 / +50 / +100 silver), this places the same-quality pure-money crossover at roughly **GQ 500 with Cardinal** or **GQ 667 without Cardinal** for all three qualities. The goal is a consistent specialist-to-generalist crossover rather than a late Gold Combo whose money side remains weaker for disproportionately long. No other prayer balance value is reopened by this candidate.
 
 **Closed product decision:**
 
