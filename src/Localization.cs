@@ -177,7 +177,7 @@ namespace PrayerClarity
         private static void WarnOnce(string id, string message)
         {
             if (!Warned.Add(id)) return;
-            _log?.LogWarning(message);
+            _log?.LogWarning("PC_LOCALIZATION_WARNING " + message);
         }
 
         private static class FlatJson

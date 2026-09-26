@@ -60,7 +60,7 @@ namespace PrayerClarity
             {
                 if (_errorLogged) return;
                 _errorLogged = true;
-                _log?.LogError("PrayerClarity prayer-item tooltip presentation failed; vanilla item tooltip remains available. " + ex);
+                _log?.LogError("PC_RUNTIME_FALLBACK feature=prayer-item-tooltip action=vanilla-tooltip " + ex);
             }
         }
 

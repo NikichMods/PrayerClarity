@@ -56,7 +56,7 @@ namespace PrayerClarity
             {
                 if (_errorLogged) return;
                 _errorLogged = true;
-                _log?.LogError("PrayerClarity Excellence lore fallback failed; vanilla craft description remains available. " + ex);
+                _log?.LogError("PC_RUNTIME_FALLBACK feature=prayer-lore action=vanilla-description " + ex);
             }
         }
 

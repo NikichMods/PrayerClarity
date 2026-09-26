@@ -97,8 +97,8 @@ namespace PrayerClarity
                 if (_errorLogged) return;
                 _errorLogged = true;
                 _log?.LogError(
-                    "PrayerClarity Rebalanced BSS presentation polish failed; existing Technology text remains available. " +
-                    ex);
+                    "PC_RUNTIME_FALLBACK edition=rebalanced feature=bss-technology-polish " +
+                    "action=existing-technology-text " + ex);
             }
         }
 

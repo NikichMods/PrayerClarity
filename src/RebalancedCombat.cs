@@ -235,7 +235,7 @@ namespace PrayerClarity
         {
             if (_runtimeErrorLogged) return;
             _runtimeErrorLogged = true;
-            _log?.LogError("PrayerClarity: Rebalanced " + context + ". Stock combat behavior remains active for the affected call. " + ex);
+            _log?.LogError("PC_RUNTIME_FALLBACK edition=rebalanced feature=combat action=stock context=\"" + context + "\" " + ex);
         }
     }
 }
