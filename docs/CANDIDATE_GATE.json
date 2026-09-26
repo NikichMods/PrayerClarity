@@ -1,34 +1,129 @@
 {
   "schema_version": 1,
-  "candidate_branch": "candidate/rebalanced-0.2.51",
-  "baseline_sha": "da770d4e3d2131ece502f6379bca520cb2819d2a",
+  "candidate_branch": "candidate/rebalanced-0.2.52",
+  "baseline_sha": "ce915344064655cde5273cea8a10ec4ec2beb2e5",
   "changes": [
     {
-      "id": "technology-prayer-semantic-heading-roles",
-      "observable_property": "Prayer Technology uses one semantic alignment policy in Vanilla/Rebalanced and mouse/gamepad: Title, Base Result and On Success are visibly centered; mechanics/body rows remain left-aligned.",
-      "canonical_owner": "TechUnlock.GetTooltip owns the stock Technology row order. For prayer Craft unlocks it always emits the title as the first BubbleWidgetTextData row, followed by a blank separator. SecondarySurfacePresentation owns PrayerClarity section composition and can assign semantic roles when rows are created or structurally identified. A prefix on the same TechUnlock.GetTooltip call records the pre-call data-list count; stock then appends the current unlock title at exactly that index before any other row, so the current title can be identified structurally without localized text matching.",
-      "final_writer_or_commit_point": "TechnologyTooltipContentWidth at WidgetsBubbleGUI.UpdateSizeAndWidgetsPositions remains the accepted final layout commit point that expands only marked centered Technology headings to the already-existing native maximum child width. 0.2.50 runtime proves this final-writer path works for Base Result and On Success. The remaining failure is title-role identification before that commit point.",
+      "id": "unverified-host-best-effort",
+      "observable_property": "PrayerClarity no longer disables solely because Assembly-CSharp has an unknown MVID. The exact Graveyard Keeper 1.407 MVID is reported as verified; any other Assembly-CSharp MVID is reported as unverified and installation continues only through the existing exact type/signature/data-contract checks.",
+      "canonical_owner": "PrayerClarityPlugin.Awake and PrayerClarityRebalancedPlugin.Awake own startup admission; ReflectionBridge resolves the exact host types/method signatures used by installed patches, while each Rebalanced mechanic validates its required host/data contract before use.",
+      "final_writer_or_commit_point": "Harmony patch installation is the executable activation commit point. Missing required targets still throw and are contained by the owned initialization rollback change; unknown MVID itself is no longer an early-return writer.",
       "blast_radius": [
-        "Prayer Technology top title role",
-        "Prayer Technology Base Result section-header role",
-        "Prayer Technology On Success section-header role",
-        "Shared Vanilla/Rebalanced Technology composition for mouse and gamepad"
+        "Vanilla startup compatibility policy",
+        "Rebalanced startup compatibility policy",
+        "support diagnostics for alternate storefront/build identities"
       ],
       "preserved_invariants": [
-        "The accepted 0.2.50 native-span layout mechanism is not broadened beyond marked heading roles",
-        "Base Result and On Success mechanics content remains Left",
-        "Prayer lore/description and crafting-source rows remain stock-owned and unchanged",
-        "Technology tooltip outer width, viewport clamp and carousel/navigation remain unchanged",
-        "Prayer-item, pulpit and Temporary Effects presentation remain unchanged",
-        "Non-prayer Technology tooltips remain untouched",
-        "No prayer mechanics, balance values or localization strings change"
+        "Verified Graveyard Keeper 1.407 behavior remains unchanged",
+        "Assembly-CSharp absence still disables the plugin",
+        "missing required runtime contracts are never guessed or silently retargeted",
+        "no new save-owned compatibility state",
+        "unknown builds are explicitly identified as unverified in the log"
       ],
-      "acceptance_evidence": "Production diff must replace localized text-matching for Technology heading roles with structural/creation-time role assignment: prefix state identifies the current stock title index; PrayerClarity-created/reused Base Result and On Success headers are marked when composed. CI/build/localization validation must pass. Focused runtime acceptance: with mouse, the top Create: Prayer... title must now center like Base Result and On Success; gamepad must remain centered; one prayer-item control check confirms no regression. One quick Vanilla mouse check is sufficient for the shared sibling path.",
+      "acceptance_evidence": "CI compilation plus source/diff inspection must prove the MVID mismatch path warns and continues rather than returns. Runtime smoke on the verified 1.407 build must log compatibility=verified and retain accepted behavior. Future alternate-build support logs provide evidence for genuinely unverified hosts without requiring a synthetic fake host.",
       "evidence_refs": [
-        "0.2.50 runtime evidence on 2026-09-27: Base Result and On Success are visibly centered on mouse, but the top Create: Prayer... title remains left-aligned; all gamepad headings are correct.",
-        "Stock 1.407 TechUnlock.GetTooltip source: first operation after GetData is AddData(BubbleWidgetTextData(data.name,...Left...)), immediately followed by BubbleWidgetBlankSeparatorData.",
-        "0.2.50 source currently identifies all three headings by exact localized text equality; Base Result and On Success are PrayerClarity-owned known strings, while the stock title is host-generated.",
-        "No later stock title-specific alignment writer exists between TechUnlock.GetTooltip postfix and BubbleWidgetText.Draw; all text rows share the same renderer. The observed one-row failure therefore localizes the remaining defect to semantic title identification rather than the accepted native-span final writer."
+        "Current stable source hard-returns on MVID mismatch in both plugin Awake methods.",
+        "DevRules host/runtime compatibility policy merged in NikichMods/DevRules PR #4.",
+        "The project already resolves exact method signatures/data shapes and fails rather than guessing alternate targets."
+      ],
+      "state": "READY"
+    },
+    {
+      "id": "owned-patch-initialization-rollback",
+      "observable_property": "If PrayerClarity initialization fails after some Harmony patches were installed, every patch owner installed by that activation is removed while unrelated mods' Harmony patches remain untouched. Optional presentation feature failure rolls back only that feature's newly installed owners.",
+      "canonical_owner": "ReflectionBridge is the central Harmony patch-install boundary. Plugin Awake owns activation scope and optional-feature containment.",
+      "final_writer_or_commit_point": "HarmonyX patch ownership is the runtime registration commit point; rollback must call owner-specific unpatch for only the recorded PrayerClarity IDs before initialization failure is reported.",
+      "blast_radius": [
+        "Vanilla Harmony patch activation",
+        "Rebalanced Clarity patch activation",
+        "Rebalanced mechanics patch activation",
+        "optional presentation feature degradation"
+      ],
+      "preserved_invariants": [
+        "No global Harmony unpatch operation",
+        "existing successful patch ordering/owner IDs remain stable",
+        "one optional presentation failure does not disable unrelated accepted presentation",
+        "a Rebalanced core mechanics initialization failure cannot leave a partial Rebalanced mechanics set"
+      ],
+      "acceptance_evidence": "CI compile and source inspection must show every PrayerClarity Harmony install route records its owner, including the three custom patch helpers, and rollback uses HarmonyX owner-specific unpatch. Verified 1.407 runtime smoke must load both editions normally with no rollback event.",
+      "evidence_refs": [
+        "BepInEx 5.4.21 uses the HarmonyX 2.9 line; HarmonyX v2.9.0 exposes Harmony.UnpatchID(string) and UnpatchSelf owner-scoped removal.",
+        "Audit of current source found R.PatchHooks plus custom patch helpers in TechnologyPrayerCarousel, TechnologyTooltipViewportClamp and RebalancedBssPresentationPolish."
+      ],
+      "state": "READY"
+    },
+    {
+      "id": "static-projection-atomic-rollback",
+      "observable_property": "Rebalanced once-per-load static definition projection is all-or-nothing: if any projection step throws, exact pre-projection scalar/list references and contents are restored before the load is marked projection-failed.",
+      "canonical_owner": "RebalancedStaticProjection owns the once-per-load mutation of prayer CraftDefinition fields/outputs, Combat BuffDefinition expression/tick data, legacy Combat aliases, and retired Protection Technology/craft visibility.",
+      "final_writer_or_commit_point": "RebalancedStaticProjection.FillCraftsListPostfix is the projection transaction boundary; all static definition mutations for that load occur synchronously inside it before gameplay consumes the projected definitions.",
+      "blast_radius": [
+        "Rebalanced prayer CraftDefinition projections",
+        "Combat buff expression projection",
+        "legacy Combat alias projection",
+        "Protection retirement projection",
+        "failure behavior on structurally incompatible game data"
+      ],
+      "preserved_invariants": [
+        "successful 1.407 projected values remain byte-for-behavior identical",
+        "optional missing DLC prayer definitions remain optional",
+        "Roots definition validation remains pre-mutation",
+        "no persistent snapshot or save data is introduced",
+        "rollback restores the exact state observed immediately before projection, including changes made by other mods before this seam"
+      ],
+      "acceptance_evidence": "Source review must enumerate every field/list mutated by ApplyOnce and prove it is captured before the first mutation and restored on failure. CI build must pass. Verified 1.407 runtime smoke must show successful projection and accepted mechanics remain available; no deliberate destructive fault injection is required in the user's save.",
+      "evidence_refs": [
+        "Architecture audit found current ApplyOnce mutates sequentially and sets _projectionFailed after an exception without restoring earlier mutations.",
+        "Current POST_AUDIT_VERDICT documents FillCraftsList as the accepted once-per-load projection seam."
+      ],
+      "state": "READY"
+    },
+    {
+      "id": "single-source-build-version",
+      "observable_property": "Each edition's version is authored once in its project Version property; BepInEx plugin metadata and CI artifact/package naming derive from that same value instead of repeating hard-coded versions.",
+      "canonical_owner": "PrayerClarity.csproj and PrayerClarity.Rebalanced.csproj Version properties are the canonical per-edition build identity.",
+      "final_writer_or_commit_point": "MSBuild generates the compile-time BepInEx version constant from $(Version), and candidate workflows query the project Version property before staging named artifacts.",
+      "blast_radius": [
+        "Vanilla assembly/plugin version metadata",
+        "Rebalanced assembly/plugin version metadata",
+        "candidate artifact filenames",
+        "BUILD_INFO version records"
+      ],
+      "preserved_invariants": [
+        "installed canonical DLL filenames remain version-independent",
+        "numbered handoff artifacts remain immutable",
+        "Vanilla and Rebalanced retain independent version numbers",
+        "Git tags/releases remain explicit promotion metadata rather than runtime version sources"
+      ],
+      "acceptance_evidence": "Shared candidate CI must compile both projects and BUILD_INFO/artifact names must report exactly Vanilla 1.0.58 and Rebalanced 0.2.52 from project properties. No other production/workflow hard-coded current-version literal may remain necessary for build identity.",
+      "evidence_refs": [
+        "Audit found current version duplicated in csproj, BepInPlugin constants and workflows; the post-1.0.57 release cleanup already had to correct one stale workflow version."
+      ],
+      "state": "READY"
+    },
+    {
+      "id": "support-oriented-production-logging",
+      "observable_property": "Ordinary production logs provide sparse support context: one startup/ready identity with edition/version/game MVID/compatibility mode, one warning for unverified hosts, stable semantic failure codes, and no routine per-frame/per-call success spam.",
+      "canonical_owner": "Plugin startup owns environment identity; each feature owner retains its existing one-shot runtime failure guard; Localization retains WarnOnce.",
+      "final_writer_or_commit_point": "BepInEx ManualLogSource is the shared host log sink consumed in user LogOutput.log support reports.",
+      "blast_radius": [
+        "Vanilla LogOutput.log entries",
+        "Rebalanced LogOutput.log entries",
+        "support triage of game/storefront/build mismatches",
+        "severity/noise of routine projection/navigation startup messages"
+      ],
+      "preserved_invariants": [
+        "unexpected exceptions retain stack traces",
+        "runtime recurring failures remain log-once",
+        "research FEATURE_DIAGNOSTIC output stays outside production",
+        "no personal/sensitive state is added to logs",
+        "gameplay/UI behavior is unchanged by logging"
+      ],
+      "acceptance_evidence": "Static log-call audit after implementation plus one verified 1.407 startup log from each edition must show concise identity/ready lines, no compatibility warning on the verified MVID, and no recurring success noise. CI requires no log-specific runtime harness.",
+      "evidence_refs": [
+        "Current audit found no per-frame logging and mostly one-shot errors, but successful startup omits explicit host MVID/compatibility mode and static projection logs routine success at Info.",
+        "DevRules production logging policy merged in NikichMods/DevRules PR #4.",
+        "NEXUS_SUPPORT_WORKFLOW treats the complete BepInEx LogOutput.log as the canonical support artifact."
       ],
       "state": "READY"
     }
