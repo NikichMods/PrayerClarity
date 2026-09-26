@@ -249,7 +249,7 @@ No further in-game retest is required for these accepted 0.2.47 properties unles
 
 ### Current Technology presentation candidate
 
-- **Prayer Technology alignment unification — 0.2.49 rejected; Rebalanced 0.2.50 / Vanilla sibling 1.0.56 is the current candidate.** Runtime showed that row-level Center alignment was sufficient on gamepad but not on the mouse child tooltip because the mouse bubble's Left container still positions the narrow child at the left edge. 0.2.50 preserves the centered row semantics and expands only those three header child widgets to the already-existing native maximum child width at the stock layout commit point. Mechanics content, lore/crafting rows, outer width, viewport clamp and non-prayer Technology tooltips remain preserved.
+- **Prayer Technology alignment unification — 0.2.49 and 0.2.50 superseded; Rebalanced 0.2.51 / Vanilla sibling 1.0.57 is the current candidate.** 0.2.50 proved the native-span final writer by centering Base Result and On Success on mouse without widening the parchment, but the stock-generated top title was still missed by localized text matching. 0.2.51 assigns semantic roles during composition: the current stock title is identified structurally by the pre-call row count, while PrayerClarity section headers are marked when created/reused. The same accepted native-span final writer then centers only those roles. Mechanics content, lore/crafting rows, outer width, viewport clamp and non-prayer Technology tooltips remain preserved.
 
 ### Current accepted development balance
 
