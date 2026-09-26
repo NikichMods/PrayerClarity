@@ -58,7 +58,7 @@ The specialists retain early value because their prayer-owned reward does not de
 
 Do not restore the obsolete +200/+300/+400% specialist ladder or q25/40/70 requirements from the early audit. Those values are historical only.
 
-Pending Rebalanced 0.2.48 candidate: keep Faith at +100/+150/+200% and change Combo donations to **+100/+250/+500%**. This candidate is product-approved but is not part of the accepted stable roster until focused visual acceptance and promotion.
+Runtime-accepted Rebalanced 0.2.48 development baseline: keep Faith at +100/+150/+200% and use Combo donations **+100/+250/+500%**. Public stable remains 0.2.47 until separate promotion.
 
 ## BSS Soul's Repose
 
