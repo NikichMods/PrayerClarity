@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
@@ -14,6 +15,70 @@ namespace PrayerClarity
         private static bool _vanillaLocalizeResolved;
         private static MethodInfo _ensureLabelHasCorrectFontMethod;
         private static bool _ensureLabelHasCorrectFontResolved;
+        private static PatchTransaction _activePatchTransaction;
+        private static MethodInfo _harmonyUnpatchId;
+
+        internal sealed class PatchTransaction
+        {
+            private readonly List<string> _owners = new List<string>();
+            private bool _completed;
+
+            internal int Savepoint
+            {
+                get { return _owners.Count; }
+            }
+
+            internal void Track(string harmonyId)
+            {
+                if (_completed) throw new InvalidOperationException("Patch transaction is already completed.");
+                if (string.IsNullOrEmpty(harmonyId)) throw new ArgumentNullException(nameof(harmonyId));
+                if (!_owners.Contains(harmonyId)) _owners.Add(harmonyId);
+            }
+
+            internal bool RollbackTo(int savepoint, out Exception failure)
+            {
+                if (_completed) throw new InvalidOperationException("Patch transaction is already completed.");
+                if (savepoint < 0 || savepoint > _owners.Count) throw new ArgumentOutOfRangeException(nameof(savepoint));
+
+                failure = null;
+                for (int i = _owners.Count - 1; i >= savepoint; i--)
+                {
+                    try
+                    {
+                        UnpatchOwner(_owners[i]);
+                    }
+                    catch (Exception ex)
+                    {
+                        if (failure == null) failure = Unwrap(ex);
+                    }
+                }
+
+                if (_owners.Count > savepoint)
+                    _owners.RemoveRange(savepoint, _owners.Count - savepoint);
+
+                return failure == null;
+            }
+
+            internal bool RollbackAll(out Exception failure)
+            {
+                bool ok = RollbackTo(0, out failure);
+                Complete();
+                return ok;
+            }
+
+            internal void Commit()
+            {
+                Complete();
+            }
+
+            private void Complete()
+            {
+                if (_completed) return;
+                _completed = true;
+                if (ReferenceEquals(_activePatchTransaction, this))
+                    _activePatchTransaction = null;
+            }
+        }
 
         internal static bool BindGameAssembly()
         {
@@ -251,6 +316,50 @@ namespace PrayerClarity
                 : sign + formatted;
         }
 
+        internal static PatchTransaction BeginPatchTransaction()
+        {
+            if (_activePatchTransaction != null)
+                throw new InvalidOperationException("Nested PrayerClarity patch transactions are not supported.");
+
+            ResolveHarmonyUnpatchApi();
+            _activePatchTransaction = new PatchTransaction();
+            return _activePatchTransaction;
+        }
+
+        internal static void TrackPatchOwner(string harmonyId)
+        {
+            _activePatchTransaction?.Track(harmonyId);
+        }
+
+        private static void ResolveHarmonyUnpatchApi()
+        {
+            if (_harmonyUnpatchId != null) return;
+
+            Type harmonyType = AnyType("HarmonyLib.Harmony");
+            if (harmonyType == null) throw new InvalidOperationException("Harmony unavailable");
+
+            _harmonyUnpatchId = harmonyType.GetMethod(
+                "UnpatchID",
+                Stat,
+                null,
+                new[] { typeof(string) },
+                null);
+            if (_harmonyUnpatchId == null)
+                throw new MissingMethodException("Harmony.UnpatchID(string)");
+        }
+
+        private static void UnpatchOwner(string harmonyId)
+        {
+            ResolveHarmonyUnpatchApi();
+            _harmonyUnpatchId.Invoke(null, new object[] { harmonyId });
+        }
+
+        private static Exception Unwrap(Exception ex)
+        {
+            TargetInvocationException target = ex as TargetInvocationException;
+            return target != null && target.InnerException != null ? target.InnerException : ex;
+        }
+
         internal static void Patch(string harmonyId, Type owner, MethodInfo target, string postfixName)
         {
             PatchHooks(harmonyId, owner, target, null, postfixName, null);
@@ -268,6 +377,7 @@ namespace PrayerClarity
             Type harmonyMethodType = AnyType("HarmonyLib.HarmonyMethod");
             if (harmonyType == null || harmonyMethodType == null) throw new InvalidOperationException("Harmony unavailable");
 
+            TrackPatchOwner(harmonyId);
             object harmony = Activator.CreateInstance(harmonyType, new object[] { harmonyId });
             object prefix = CreateHarmonyMethod(harmonyMethodType, owner, prefixName);
             object postfix = CreateHarmonyMethod(harmonyMethodType, owner, postfixName);

@@ -35,6 +35,16 @@ namespace PrayerClarity
             _loreOverride = loreOverride;
         }
 
+        internal static void Reset()
+        {
+            _tierEffect = null;
+            _activeEffect = null;
+            _technologyEffect = null;
+            _soulConversion = null;
+            _prayEvent = null;
+            _loreOverride = null;
+        }
+
         internal static bool TryBuildTierEffect(string craftId, string buffId, out string text, out string semanticKey)
         {
             text = null;

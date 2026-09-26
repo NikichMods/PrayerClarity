@@ -10,34 +10,45 @@ namespace PrayerClarity
     {
         internal const string PluginGuid = "nikich.graveyardkeeper.prayerclarity.rebalanced";
         internal const string PluginName = "PrayerClarity: Rebalanced";
-        internal const string PluginVersion = "0.2.51";
-        private static readonly Guid SupportedGameMvid = new Guid("6f50b8e7-156b-49ac-bbe8-7505894b2364");
+        internal const string PluginVersion = BuildVersion.Value;
         private static ManualLogSource _log;
         private static bool _runtimeErrorLogged;
 
         private void Awake()
         {
             _log = Logger;
+            R.PatchTransaction patches = null;
+            GameCompatibilityStatus compatibility = null;
+
             try
             {
                 if (!R.BindGameAssembly())
                 {
-                    Logger.LogError("Assembly-CSharp is unavailable; PrayerClarity: Rebalanced is disabled.");
+                    Logger.LogError("PC_HOST_MISSING edition=rebalanced assembly=Assembly-CSharp action=disabled");
                     return;
                 }
 
-                Guid actualMvid = R.GameAssembly.ManifestModule.ModuleVersionId;
-                if (actualMvid != SupportedGameMvid)
+                compatibility = GameCompatibility.Inspect(R.GameAssembly);
+                Logger.LogInfo(
+                    "PC_START edition=rebalanced version=" + PluginVersion +
+                    " target=\"" + GameCompatibility.VerifiedTarget + "\"" +
+                    " game_mvid=" + compatibility.GameMvid +
+                    " compatibility=" + compatibility.Mode);
+
+                if (!compatibility.Verified)
                 {
-                    Logger.LogWarning("Unsupported Graveyard Keeper build (Assembly-CSharp MVID " + actualMvid + "). PrayerClarity: Rebalanced is disabled rather than patching an unverified build.");
-                    return;
+                    Logger.LogWarning(
+                        "PC_COMPAT_UNVERIFIED edition=rebalanced game_mvid=" + compatibility.GameMvid +
+                        " action=best-effort required_contracts=exact");
                 }
 
                 RebalancedRuleSet.Validate();
                 Localization.Initialize(Assembly.GetExecutingAssembly(), Logger);
                 RebalancedPresentationSemantics.Install();
 
-                InstallClarityPresentation();
+                patches = R.BeginPatchTransaction();
+                InstallClarityPresentation(patches);
+
                 RebalancedStaticProjection.Install(PluginGuid, Logger);
                 RebalancedTierState.Install(PluginGuid, Logger);
                 RebalancedRoots.Install(PluginGuid, Logger);
@@ -49,81 +60,75 @@ namespace PrayerClarity
                 RebalancedThoroughCleansing.Install(PluginGuid, Logger);
                 RebalancedSoulContentment.Install(PluginGuid, Logger);
 
-                Logger.LogInfo(PluginName + " " + PluginVersion + " loaded. Includes the PrayerClarity: Vanilla presentation layer plus the Rebalanced mechanics foundation.");
+                patches.Commit();
+                Logger.LogInfo(
+                    "PC_READY edition=rebalanced version=" + PluginVersion +
+                    " compatibility=" + compatibility.Mode);
             }
             catch (Exception ex)
             {
-                Logger.LogError("PrayerClarity: Rebalanced initialization failed: " + ex);
+                Exception rollbackFailure = null;
+                bool rolledBack = patches == null || patches.RollbackAll(out rollbackFailure);
+                PrayerEditionSemantics.Reset();
+
+                Logger.LogError(
+                    "PC_INIT_FAILED edition=rebalanced compatibility=" +
+                    (compatibility == null ? "unknown" : compatibility.Mode) +
+                    " rollback=" + (rolledBack ? "success" : "failed") + " " + ex);
+
+                if (rollbackFailure != null)
+                    Logger.LogError("PC_ROLLBACK_FAILED edition=rebalanced " + rollbackFailure);
             }
         }
 
-        private void InstallClarityPresentation()
+        private void InstallClarityPresentation(R.PatchTransaction patches)
         {
             Type prayGui = R.GameType("PrayCraftGUI");
             MethodInfo redraw = R.Method(prayGui, "RedrawTextValues", false, new[] { typeof(float), typeof(float) });
             R.Patch(PluginGuid, typeof(PrayerClarityRebalancedPlugin), redraw, nameof(RedrawTextValuesPostfix));
 
-            try
-            {
-                TechnologyTooltipViewportClamp.Install(PluginGuid, Logger);
-            }
-            catch (Exception ex)
-            {
-                Logger.LogError("PrayerClarity Technology tooltip viewport safety is disabled; other Clarity surfaces remain active. " + ex);
-            }
+            InstallOptional(patches, "technology-viewport",
+                () => TechnologyTooltipViewportClamp.Install(PluginGuid, Logger));
+            InstallOptional(patches, "technology-content-width",
+                () => TechnologyTooltipContentWidth.Install(PluginGuid, Logger));
+            InstallOptional(patches, "secondary-surfaces",
+                () => SecondarySurfacePresentation.Install(PluginGuid, Logger));
+            InstallOptional(patches, "bss-presentation-polish",
+                () => RebalancedBssPresentationPolish.Install(PluginGuid, Logger));
+            InstallOptional(patches, "technology-carousel",
+                () => TechnologyPrayerCarousel.Install(PluginGuid, Logger));
+            InstallOptional(patches, "prayer-item-tooltip",
+                () => ItemTooltipPresentation.Install(PluginGuid, Logger));
+            InstallOptional(patches, "prayer-lore-fallback",
+                () => PrayerLorePresentation.Install(PluginGuid, Logger));
+        }
 
+        private void InstallOptional(R.PatchTransaction patches, string feature, Action install)
+        {
+            int savepoint = patches.Savepoint;
             try
             {
-                TechnologyTooltipContentWidth.Install(PluginGuid, Logger);
+                install();
             }
             catch (Exception ex)
             {
-                Logger.LogError("PrayerClarity Technology tooltip content-width sizing is disabled; Technology text remains available at vanilla/prefab width. " + ex);
-            }
-
-            try
-            {
-                SecondarySurfacePresentation.Install(PluginGuid, Logger);
-            }
-            catch (Exception ex)
-            {
-                Logger.LogError("PrayerClarity secondary Clarity surfaces are disabled; pulpit Clarity remains active. " + ex);
-            }
-
-            try
-            {
-                RebalancedBssPresentationPolish.Install(PluginGuid, Logger);
-            }
-            catch (Exception ex)
-            {
-                Logger.LogError("PrayerClarity Rebalanced BSS presentation polish is disabled; other Rebalanced behavior remains active. " + ex);
-            }
-
-            try
-            {
-                TechnologyPrayerCarousel.Install(PluginGuid, Logger);
-            }
-            catch (Exception ex)
-            {
-                Logger.LogError("PrayerClarity BSS Technology prayer navigation is disabled; other Rebalanced behavior remains active. " + ex);
-            }
-
-            try
-            {
-                ItemTooltipPresentation.Install(PluginGuid, Logger);
-            }
-            catch (Exception ex)
-            {
-                Logger.LogError("PrayerClarity prayer-item tooltip surface is disabled; other Clarity surfaces remain active. " + ex);
-            }
-
-            try
-            {
-                PrayerLorePresentation.Install(PluginGuid, Logger);
-            }
-            catch (Exception ex)
-            {
-                Logger.LogError("PrayerClarity Excellence lore fallback is disabled; other Clarity surfaces remain active. " + ex);
+                Exception rollbackFailure;
+                bool rolledBack = patches.RollbackTo(savepoint, out rollbackFailure);
+                if (rolledBack)
+                {
+                    Logger.LogWarning(
+                        "PC_FEATURE_DISABLED edition=rebalanced feature=" + feature +
+                        " rollback=success " + ex);
+                }
+                else
+                {
+                    Logger.LogError(
+                        "PC_FEATURE_DISABLED edition=rebalanced feature=" + feature +
+                        " rollback=failed " + ex);
+                    Logger.LogError(
+                        "PC_ROLLBACK_FAILED edition=rebalanced feature=" + feature + " " +
+                        rollbackFailure);
+                }
             }
         }
 
@@ -155,7 +160,7 @@ namespace PrayerClarity
                 PulpitPresentation.Hide(label, __instance);
                 if (_runtimeErrorLogged) return;
                 _runtimeErrorLogged = true;
-                _log?.LogError("PrayerClarity forecast failed; vanilla pulpit UI remains available. " + ex);
+                _log?.LogError("PC_RUNTIME_FALLBACK edition=rebalanced feature=pulpit action=vanilla-ui " + ex);
             }
         }
 

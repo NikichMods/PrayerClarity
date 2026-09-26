@@ -12,94 +12,103 @@ namespace PrayerClarity
         internal const string PluginGuid = "nikich.graveyardkeeper.prayerclarity";
         internal const string RebalancedPluginGuid = "nikich.graveyardkeeper.prayerclarity.rebalanced";
         internal const string PluginName = "PrayerClarity";
-        internal const string PluginVersion = "1.0.57";
-        private static readonly Guid SupportedGameMvid = new Guid("6f50b8e7-156b-49ac-bbe8-7505894b2364");
+        internal const string PluginVersion = BuildVersion.Value;
         private static ManualLogSource _log;
         private static bool _runtimeErrorLogged;
 
         private void Awake()
         {
             _log = Logger;
+            R.PatchTransaction patches = null;
+            GameCompatibilityStatus compatibility = null;
+
             try
             {
                 if (!R.BindGameAssembly())
                 {
-                    Logger.LogError("Assembly-CSharp is unavailable; PrayerClarity is disabled.");
+                    Logger.LogError("PC_HOST_MISSING edition=vanilla assembly=Assembly-CSharp action=disabled");
                     return;
                 }
 
-                Guid actualMvid = R.GameAssembly.ManifestModule.ModuleVersionId;
-                if (actualMvid != SupportedGameMvid)
+                compatibility = GameCompatibility.Inspect(R.GameAssembly);
+                Logger.LogInfo(
+                    "PC_START edition=vanilla version=" + PluginVersion +
+                    " target=\"" + GameCompatibility.VerifiedTarget + "\"" +
+                    " game_mvid=" + compatibility.GameMvid +
+                    " compatibility=" + compatibility.Mode);
+
+                if (!compatibility.Verified)
                 {
-                    Logger.LogWarning("Unsupported Graveyard Keeper build (Assembly-CSharp MVID " + actualMvid + "). PrayerClarity is disabled rather than patching an unverified build.");
-                    return;
+                    Logger.LogWarning(
+                        "PC_COMPAT_UNVERIFIED edition=vanilla game_mvid=" + compatibility.GameMvid +
+                        " action=best-effort required_contracts=exact");
                 }
 
                 Localization.Initialize(Assembly.GetExecutingAssembly(), Logger);
+                patches = R.BeginPatchTransaction();
 
                 Type prayGui = R.GameType("PrayCraftGUI");
                 MethodInfo redraw = R.Method(prayGui, "RedrawTextValues", false, new[] { typeof(float), typeof(float) });
                 R.Patch(PluginGuid, typeof(PrayerClarityPlugin), redraw, nameof(RedrawTextValuesPostfix));
 
-                try
-                {
-                    TechnologyTooltipViewportClamp.Install(PluginGuid, Logger);
-                }
-                catch (Exception ex)
-                {
-                    Logger.LogError("PrayerClarity Technology tooltip viewport safety is disabled; other Clarity surfaces remain active. " + ex);
-                }
+                InstallOptional(patches, "technology-viewport",
+                    () => TechnologyTooltipViewportClamp.Install(PluginGuid, Logger));
+                InstallOptional(patches, "technology-content-width",
+                    () => TechnologyTooltipContentWidth.Install(PluginGuid, Logger));
+                InstallOptional(patches, "secondary-surfaces",
+                    () => SecondarySurfacePresentation.Install(PluginGuid, Logger));
+                InstallOptional(patches, "technology-carousel",
+                    () => TechnologyPrayerCarousel.Install(PluginGuid, Logger));
+                InstallOptional(patches, "prayer-item-tooltip",
+                    () => ItemTooltipPresentation.Install(PluginGuid, Logger));
+                InstallOptional(patches, "prayer-lore-fallback",
+                    () => PrayerLorePresentation.Install(PluginGuid, Logger));
 
-                try
-                {
-                    TechnologyTooltipContentWidth.Install(PluginGuid, Logger);
-                }
-                catch (Exception ex)
-                {
-                    Logger.LogError("PrayerClarity Technology tooltip content-width sizing is disabled; Technology text remains available at vanilla/prefab width. " + ex);
-                }
-
-                try
-                {
-                    SecondarySurfacePresentation.Install(PluginGuid, Logger);
-                }
-                catch (Exception ex)
-                {
-                    Logger.LogError("PrayerClarity secondary Clarity surfaces are disabled; pulpit Clarity remains active. " + ex);
-                }
-
-                try
-                {
-                    TechnologyPrayerCarousel.Install(PluginGuid, Logger);
-                }
-                catch (Exception ex)
-                {
-                    Logger.LogError("PrayerClarity prayer-Technology navigation is disabled; other Clarity surfaces remain active. " + ex);
-                }
-
-                try
-                {
-                    ItemTooltipPresentation.Install(PluginGuid, Logger);
-                }
-                catch (Exception ex)
-                {
-                    Logger.LogError("PrayerClarity prayer-item tooltip surface is disabled; other Clarity surfaces remain active. " + ex);
-                }
-
-                try
-                {
-                    PrayerLorePresentation.Install(PluginGuid, Logger);
-                }
-                catch (Exception ex)
-                {
-                    Logger.LogError("PrayerClarity Excellence lore fallback is disabled; other Clarity surfaces remain active. " + ex);
-                }
-
-                Logger.LogInfo(PluginName + " " + PluginVersion + " loaded. Clarity-only pulpit, Technology, prayer-item tooltip and Temporary Effects presentation; prayer Technology tooltips receive atomic-anchor content width plus viewport safety; no prayer mechanics are changed.");
+                patches.Commit();
+                Logger.LogInfo(
+                    "PC_READY edition=vanilla version=" + PluginVersion +
+                    " compatibility=" + compatibility.Mode);
             }
             catch (Exception ex)
             {
-                Logger.LogError("PrayerClarity initialization failed: " + ex);
+                Exception rollbackFailure = null;
+                bool rolledBack = patches == null || patches.RollbackAll(out rollbackFailure);
+                Logger.LogError(
+                    "PC_INIT_FAILED edition=vanilla compatibility=" +
+                    (compatibility == null ? "unknown" : compatibility.Mode) +
+                    " rollback=" + (rolledBack ? "success" : "failed") + " " + ex);
+
+                if (rollbackFailure != null)
+                    Logger.LogError("PC_ROLLBACK_FAILED edition=vanilla " + rollbackFailure);
+            }
+        }
+
+        private void InstallOptional(R.PatchTransaction patches, string feature, Action install)
+        {
+            int savepoint = patches.Savepoint;
+            try
+            {
+                install();
+            }
+            catch (Exception ex)
+            {
+                Exception rollbackFailure;
+                bool rolledBack = patches.RollbackTo(savepoint, out rollbackFailure);
+                if (rolledBack)
+                {
+                    Logger.LogWarning(
+                        "PC_FEATURE_DISABLED edition=vanilla feature=" + feature +
+                        " rollback=success " + ex);
+                }
+                else
+                {
+                    Logger.LogError(
+                        "PC_FEATURE_DISABLED edition=vanilla feature=" + feature +
+                        " rollback=failed " + ex);
+                    Logger.LogError(
+                        "PC_ROLLBACK_FAILED edition=vanilla feature=" + feature + " " +
+                        rollbackFailure);
+                }
             }
         }
 
@@ -131,7 +140,7 @@ namespace PrayerClarity
                 PulpitPresentation.Hide(label, __instance);
                 if (_runtimeErrorLogged) return;
                 _runtimeErrorLogged = true;
-                _log?.LogError("PrayerClarity forecast failed; vanilla pulpit UI remains available. " + ex);
+                _log?.LogError("PC_RUNTIME_FALLBACK edition=vanilla feature=pulpit action=vanilla-ui " + ex);
             }
         }
 
