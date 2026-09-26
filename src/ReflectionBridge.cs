@@ -53,7 +53,7 @@ namespace PrayerClarity
                     }
                 }
 
-                if (_owners.Count > savepoint)
+                if (failure == null && _owners.Count > savepoint)
                     _owners.RemoveRange(savepoint, _owners.Count - savepoint);
 
                 return failure == null;

@@ -128,6 +128,9 @@ namespace PrayerClarity
                     Logger.LogError(
                         "PC_ROLLBACK_FAILED edition=rebalanced feature=" + feature + " " +
                         rollbackFailure);
+                    throw new InvalidOperationException(
+                        "Optional feature rollback failed: " + feature,
+                        rollbackFailure);
                 }
             }
         }
