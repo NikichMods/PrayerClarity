@@ -1,36 +1,34 @@
 {
   "schema_version": 1,
-  "candidate_branch": "candidate/rebalanced-0.2.50",
-  "baseline_sha": "8e95d45a4b501c2852428eb8d4d37883be93b7c4",
+  "candidate_branch": "candidate/rebalanced-0.2.51",
+  "baseline_sha": "da770d4e3d2131ece502f6379bca520cb2819d2a",
   "changes": [
     {
-      "id": "technology-prayer-header-native-span",
-      "observable_property": "Prayer Technology titles and section headers are visibly centered in both mouse and gamepad tooltips, while mechanics content remains left-aligned and the outer tooltip width remains unchanged.",
-      "canonical_owner": "TechUnlock.GetTooltip creates the row data; BubbleWidgetText.Draw applies each row's text alignment; WidgetsBubbleGUI owns final child-widget placement and sizes/positions the tooltip from child geometry.",
-      "final_writer_or_commit_point": "WidgetsBubbleGUI.UpdateSizeAndWidgetsPositions is the stock layout commit point. Runtime evidence from 0.2.49 plus host inspection shows that mouse Technology tooltips use a Left-aligned container, so a narrow centered UILabel remains positioned at the left edge. The correction must therefore widen only marked centered header widgets to the already-existing native maximum child width immediately before stock UpdateSize/Reposition.",
+      "id": "technology-prayer-semantic-heading-roles",
+      "observable_property": "Prayer Technology uses one semantic alignment policy in Vanilla/Rebalanced and mouse/gamepad: Title, Base Result and On Success are visibly centered; mechanics/body rows remain left-aligned.",
+      "canonical_owner": "TechUnlock.GetTooltip owns the stock Technology row order. For prayer Craft unlocks it always emits the title as the first BubbleWidgetTextData row, followed by a blank separator. SecondarySurfacePresentation owns PrayerClarity section composition and can assign semantic roles when rows are created or structurally identified, instead of rediscovering those roles from localized text.",
+      "final_writer_or_commit_point": "TechnologyTooltipContentWidth at WidgetsBubbleGUI.UpdateSizeAndWidgetsPositions remains the accepted final layout commit point that expands only marked centered Technology headings to the already-existing native maximum child width. 0.2.50 runtime proves this final-writer path works for Base Result and On Success. The remaining failure is title-role identification before that commit point.",
       "blast_radius": [
-        "Top prayer Technology title row",
-        "Prayer Technology Base Result header",
-        "Prayer Technology On Success header",
-        "Mouse and gamepad Technology prayer tooltips in Vanilla and Rebalanced"
+        "Prayer Technology top title role",
+        "Prayer Technology Base Result section-header role",
+        "Prayer Technology On Success section-header role",
+        "Shared Vanilla/Rebalanced Technology composition for mouse and gamepad"
       ],
       "preserved_invariants": [
-        "Header text alignment remains Center at the BubbleWidgetTextData/UILabel level",
+        "The accepted 0.2.50 native-span layout mechanism is not broadened beyond marked heading roles",
         "Base Result and On Success mechanics content remains Left",
-        "Lore/description and crafting-source rows remain untouched",
-        "Native outer tooltip width is not increased beyond the pre-adjustment maximum child width",
-        "Technology viewport clamp and gamepad carousel/navigation remain unchanged",
+        "Prayer lore/description and crafting-source rows remain stock-owned and unchanged",
+        "Technology tooltip outer width, viewport clamp and carousel/navigation remain unchanged",
         "Prayer-item, pulpit and Temporary Effects presentation remain unchanged",
         "Non-prayer Technology tooltips remain untouched",
-        "No prayer mechanics, values or localization strings change"
+        "No prayer mechanics, balance values or localization strings change"
       ],
-      "acceptance_evidence": "CI/build/localization validation plus a focused runtime check. With mouse, a prayer Technology must show Create Prayer..., Base Result and On Success visibly centered across the parchment while body rows remain left-aligned. Gamepad must retain the same centered-header result. Compare parchment width/placement with 0.2.49: no new widening. One Rebalanced mouse+gamepad check and one quick Vanilla mouse check are sufficient.",
+      "acceptance_evidence": "Production diff must replace localized text-matching for Technology heading roles with structural/creation-time role assignment. CI/build/localization validation must pass. Focused runtime acceptance: with mouse, the top Create: Prayer... title must now center like Base Result and On Success; gamepad must remain centered; one prayer-item control check confirms no regression. One quick Vanilla mouse check is sufficient for the shared sibling path.",
       "evidence_refs": [
-        "0.2.49 runtime evidence on 2026-09-27: gamepad Technology headers are centered, but mouse Technology headers remain visibly left-aligned; prayer-item headers are centered.",
-        "Stock Tooltip.Show writes BubbleWidgetDataContainer.alignment from the concrete Tooltip component before TooltipBubbleGUI.Show.",
-        "Stock WidgetsBubbleGUI.Redraw uses container alignment to choose SimpleUITable Top vs TopLeft placement; WidgetsBubbleGUI.Reposition additionally forces child label widget pivots Left when container alignment is Left.",
-        "Stock WidgetsBubbleGUI.UpdateSize computes outer width from the maximum current child-widget width.",
-        "0.2.47 accepted item-tooltip result already validates the native-span technique: expanding a marked child only to the existing maximum width can change internal alignment without increasing parchment width."
+        "0.2.50 runtime evidence on 2026-09-27: Base Result and On Success are visibly centered on mouse, but the top Create: Prayer... title remains left-aligned; all gamepad headings are correct.",
+        "Stock 1.407 TechUnlock.GetTooltip source: first operation after GetData is AddData(BubbleWidgetTextData(data.name,...Left...)), immediately followed by BubbleWidgetBlankSeparatorData.",
+        "0.2.50 source currently identifies all three headings by exact localized text equality; Base Result and On Success are PrayerClarity-owned known strings, while the stock title is host-generated.",
+        "No later stock title-specific alignment writer exists between TechUnlock.GetTooltip postfix and BubbleWidgetText.Draw; all text rows share the same renderer. The observed one-row failure therefore localizes the remaining defect to semantic title identification rather than the accepted native-span final writer."
       ],
       "state": "READY"
     }
