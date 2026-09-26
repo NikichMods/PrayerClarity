@@ -54,27 +54,30 @@
     },
     {
       "id": "static-projection-atomic-rollback",
-      "observable_property": "Rebalanced once-per-load static definition projection is all-or-nothing: if any projection step throws, exact pre-projection scalar/list references and contents are restored before the load is marked projection-failed.",
-      "canonical_owner": "RebalancedStaticProjection owns the once-per-load mutation of prayer CraftDefinition fields/outputs, Combat BuffDefinition expression/tick data, legacy Combat aliases, and retired Protection Technology/craft visibility.",
-      "final_writer_or_commit_point": "RebalancedStaticProjection.FillCraftsListPostfix is the projection transaction boundary; all static definition mutations for that load occur synchronously inside it before gameplay consumes the projected definitions.",
+      "observable_property": "Rebalanced once-per-load static definition projection is all-or-nothing. Before projection-dependent runtime behavior is allowed, all affected definitions are captured and projected successfully; on any failure exact pre-projection state is restored, Rebalanced runtime consumers remain disabled for that load, and Rebalanced-only presentation semantics stop advertising unavailable mechanics.",
+      "canonical_owner": "RebalancedStaticProjection owns the once-per-load definition transaction. A small Rebalanced runtime readiness state is the canonical admission signal consumed by projection-dependent mechanic hooks and Rebalanced-only presentation providers.",
+      "final_writer_or_commit_point": "RebalancedStaticProjection.FillCraftsListPostfix is the transaction/activation boundary: successful completion commits projected definitions and marks Rebalanced runtime ready; failure restores the snapshot and marks Rebalanced runtime disabled before later gameplay consumers can apply custom mechanics.",
       "blast_radius": [
         "Rebalanced prayer CraftDefinition projections",
         "Combat buff expression projection",
         "legacy Combat alias projection",
         "Protection retirement projection",
-        "failure behavior on structurally incompatible game data"
+        "projection-dependent Rebalanced runtime mechanic hooks",
+        "Rebalanced-only semantic/presentation providers after projection failure"
       ],
       "preserved_invariants": [
-        "successful 1.407 projected values remain byte-for-behavior identical",
+        "successful 1.407 projected values and runtime mechanics remain behavior-identical",
         "optional missing DLC prayer definitions remain optional",
         "Roots definition validation remains pre-mutation",
         "no persistent snapshot or save data is introduced",
-        "rollback restores the exact state observed immediately before projection, including changes made by other mods before this seam"
+        "rollback restores the exact state observed immediately before projection, including changes made by other mods before this seam",
+        "runtime hooks remain installed but inert while projection is pending/disabled rather than attempting guessed fallback mechanics"
       ],
-      "acceptance_evidence": "Source review must enumerate every field/list mutated by ApplyOnce and prove it is captured before the first mutation and restored on failure. CI build must pass. Verified 1.407 runtime smoke must show successful projection and accepted mechanics remain available; no deliberate destructive fault injection is required in the user's save.",
+      "acceptance_evidence": "Source review must enumerate every field/list mutated by ApplyOnce and prove it is captured before the first mutation and restored on failure. Every projection-dependent Rebalanced hook/provider must be gated on the same readiness state. CI build must pass. Verified 1.407 runtime smoke must show projection reaches ready and accepted mechanics/presentation remain available; no deliberate destructive fault injection is required in the user's save.",
       "evidence_refs": [
         "Architecture audit found current ApplyOnce mutates sequentially and sets _projectionFailed after an exception without restoring earlier mutations.",
-        "Current POST_AUDIT_VERDICT documents FillCraftsList as the accepted once-per-load projection seam."
+        "Current POST_AUDIT_VERDICT documents FillCraftsList as the accepted once-per-load projection seam.",
+        "Audit follow-up: rolling back static definitions alone would still leave Rebalanced runtime hooks active against stock definitions, so failure containment must gate consumers as well as restore data."
       ],
       "state": "READY"
     },
