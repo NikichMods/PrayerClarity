@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "candidate_branch": "candidate/rebalanced-0.2.48",
+  "baseline_sha": "cd0d751b80b58c4a4ea93548822a6f37f4f5935a",
+  "changes": [
+    {
+      "id": "combo-donation-scaling-100-250-500",
+      "observable_property": "PrayerClarity: Rebalanced Combo Prayer donation bonus scales by quality as +100% / +250% / +500% of the ordinary base-donation pool on sermon success, while its Faith bonus remains +100% / +150% / +200%.",
+      "canonical_owner": "RebalancedRuleSet entry b_faith_money owns the edition-specific Requirements, FaithBonusRates and MoneyBonusRates for Combo Prayer.",
+      "final_writer_or_commit_point": "RebalancedStaticProjection.ApplyStockOwnedFields writes MoneyBonusRates directly into the existing CraftDefinition.k_money field for each Combo tier. Stock PrayLogics.CalculatePray then consumes k_money for the success-only donation bonus. PrayerForecast.BuildTierDetails and the shared tooltip/pulpit renderers read the same effective CraftDefinition.k_money value, so gameplay and presentation share one owner.",
+      "blast_radius": [
+        "Rebalanced Combo Prayer Bronze/Silver/Gold success-only donation bonus",
+        "Rebalanced Combo Prayer percentage values shown in Technology, prayer-item and pulpit presentation"
+      ],
+      "preserved_invariants": [
+        "Combo Faith bonus remains +100% / +150% / +200%",
+        "Combo Church Quality requirements remain 40 / 60 / 80",
+        "Combo Hard Book + 7 Faith production gate remains unchanged",
+        "Prayer for Donations remains +20 / +50 / +100 silver-equivalent",
+        "Base donation formula, failed-sermon base donations and stock PrayLogics calculation remain unchanged",
+        "No fixed Combo Faith/money output is reintroduced",
+        "PrayerClarity: Vanilla remains mechanically and numerically unchanged",
+        "No Technology, item-tooltip, pulpit or controller layout/alignment mechanism changes in this candidate"
+      ],
+      "acceptance_evidence": "Production diff must be limited to the three Combo MoneyBonusRates plus candidate/build identity and documentation. Shared CI/localization validation must pass. Static inspection must confirm the effective craft path writes 1.0 / 2.5 / 5.0 to k_money. A focused in-game visual check of Combo Prayer in Technology, one prayer item and the pulpit should show 100% / 250% / 500% donation bonuses; no sermon execution is required because the unchanged native k_money calculation path is already accepted.",
+      "evidence_refs": [
+        "docs/PRAYER_MECHANICS.md: stock 1.407 success-only k_money formula and base-donation formula.",
+        "docs/PRAYER_REBALANCE_OPTIONS.md: stable 0.2.47 Combo owner/requirements and specialist/generalist role.",
+        "docs/PRAYER_POWER_BUDGET.md: current Combo donation-side scaling question and crossover analysis.",
+        "src/RebalancedRuleSet.cs and src/RebalancedStaticProjection.cs on baseline cd0d751b80b58c4a4ea93548822a6f37f4f5935a.",
+        "User product decision on 2026-09-27: Combo donation bonuses = +100% / +250% / +500%."
+      ],
+      "state": "READY"
+    }
+  ]
+}
