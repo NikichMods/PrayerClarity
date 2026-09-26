@@ -152,7 +152,7 @@ Sources:
 
 ## Prayer-role overlay against player needs
 
-Current accepted Rebalanced 0.2.16 roster is the mechanical baseline.
+This role overlay was originally evaluated against the accepted Rebalanced 0.2.16 roster and is retained as historical design input. The current mechanical roster is canonical in `PRAYER_REBALANCE_OPTIONS.md`.
 
 | Prayer | Intended/accepted role | Need window | Current fit | Research verdict |
 | --- | --- | --- | --- | --- |
