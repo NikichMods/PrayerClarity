@@ -4,7 +4,7 @@
     <LangVersion>7.3</LangVersion>
     <AssemblyName>PrayerClarity.Rebalanced</AssemblyName>
     <RootNamespace>PrayerClarity</RootNamespace>
-    <Version>0.2.47</Version>
+    <Version>0.2.51</Version>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <Optimize>true</Optimize>
     <DebugType>none</DebugType>

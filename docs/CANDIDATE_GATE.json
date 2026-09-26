@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "candidate_branch": "candidate/rebalanced-0.2.51",
+  "baseline_sha": "da770d4e3d2131ece502f6379bca520cb2819d2a",
+  "changes": [
+    {
+      "id": "technology-prayer-semantic-heading-roles",
+      "observable_property": "Prayer Technology uses one semantic alignment policy in Vanilla/Rebalanced and mouse/gamepad: Title, Base Result and On Success are visibly centered; mechanics/body rows remain left-aligned.",
+      "canonical_owner": "TechUnlock.GetTooltip owns the stock Technology row order. For prayer Craft unlocks it always emits the title as the first BubbleWidgetTextData row, followed by a blank separator. SecondarySurfacePresentation owns PrayerClarity section composition and can assign semantic roles when rows are created or structurally identified. A prefix on the same TechUnlock.GetTooltip call records the pre-call data-list count; stock then appends the current unlock title at exactly that index before any other row, so the current title can be identified structurally without localized text matching.",
+      "final_writer_or_commit_point": "TechnologyTooltipContentWidth at WidgetsBubbleGUI.UpdateSizeAndWidgetsPositions remains the accepted final layout commit point that expands only marked centered Technology headings to the already-existing native maximum child width. 0.2.50 runtime proves this final-writer path works for Base Result and On Success. The remaining failure is title-role identification before that commit point.",
+      "blast_radius": [
+        "Prayer Technology top title role",
+        "Prayer Technology Base Result section-header role",
+        "Prayer Technology On Success section-header role",
+        "Shared Vanilla/Rebalanced Technology composition for mouse and gamepad"
+      ],
+      "preserved_invariants": [
+        "The accepted 0.2.50 native-span layout mechanism is not broadened beyond marked heading roles",
+        "Base Result and On Success mechanics content remains Left",
+        "Prayer lore/description and crafting-source rows remain stock-owned and unchanged",
+        "Technology tooltip outer width, viewport clamp and carousel/navigation remain unchanged",
+        "Prayer-item, pulpit and Temporary Effects presentation remain unchanged",
+        "Non-prayer Technology tooltips remain untouched",
+        "No prayer mechanics, balance values or localization strings change"
+      ],
+      "acceptance_evidence": "Production diff must replace localized text-matching for Technology heading roles with structural/creation-time role assignment: prefix state identifies the current stock title index; PrayerClarity-created/reused Base Result and On Success headers are marked when composed. CI/build/localization validation must pass. Focused runtime acceptance: with mouse, the top Create: Prayer... title must now center like Base Result and On Success; gamepad must remain centered; one prayer-item control check confirms no regression. One quick Vanilla mouse check is sufficient for the shared sibling path.",
+      "evidence_refs": [
+        "0.2.50 runtime evidence on 2026-09-27: Base Result and On Success are visibly centered on mouse, but the top Create: Prayer... title remains left-aligned; all gamepad headings are correct.",
+        "Stock 1.407 TechUnlock.GetTooltip source: first operation after GetData is AddData(BubbleWidgetTextData(data.name,...Left...)), immediately followed by BubbleWidgetBlankSeparatorData.",
+        "0.2.50 source currently identifies all three headings by exact localized text equality; Base Result and On Success are PrayerClarity-owned known strings, while the stock title is host-generated.",
+        "No later stock title-specific alignment writer exists between TechUnlock.GetTooltip postfix and BubbleWidgetText.Draw; all text rows share the same renderer. The observed one-row failure therefore localizes the remaining defect to semantic title identification rather than the accepted native-span final writer."
+      ],
+      "state": "READY"
+    }
+  ]
+}

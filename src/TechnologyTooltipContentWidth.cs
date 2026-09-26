@@ -17,11 +17,14 @@ namespace PrayerClarity
 
         private sealed class WideLayoutMarker { }
         private sealed class PrayerItemLayoutMarker { }
+        private sealed class PrayerTechnologyHeaderLayoutMarker { }
 
         private static readonly ConditionalWeakTable<object, WideLayoutMarker> WideLayoutData =
             new ConditionalWeakTable<object, WideLayoutMarker>();
         private static readonly ConditionalWeakTable<object, PrayerItemLayoutMarker> PrayerItemLayoutData =
             new ConditionalWeakTable<object, PrayerItemLayoutMarker>();
+        private static readonly ConditionalWeakTable<object, PrayerTechnologyHeaderLayoutMarker> PrayerTechnologyHeaderLayoutData =
+            new ConditionalWeakTable<object, PrayerTechnologyHeaderLayoutMarker>();
 
         private static ManualLogSource _log;
         private static bool _errorLogged;
@@ -39,6 +42,13 @@ namespace PrayerClarity
             if (data == null) return;
             PrayerItemLayoutData.Remove(data);
             PrayerItemLayoutData.Add(data, new PrayerItemLayoutMarker());
+        }
+
+        internal static void PreferPrayerTechnologyHeaderLayout(object data)
+        {
+            if (data == null) return;
+            PrayerTechnologyHeaderLayoutData.Remove(data);
+            PrayerTechnologyHeaderLayoutData.Add(data, new PrayerTechnologyHeaderLayoutMarker());
         }
 
         internal static void Install(string harmonyId, ManualLogSource log)
@@ -75,10 +85,10 @@ namespace PrayerClarity
                 harmonyId + ".prayeritemcontentalignment",
                 typeof(TechnologyTooltipContentWidth),
                 updateSizeAndWidgetsPositions,
-                nameof(PrayerItemContentAlignmentPrefix));
+                nameof(TooltipContentAlignmentPrefix));
         }
 
-        private static void PrayerItemContentAlignmentPrefix(object __instance)
+        private static void TooltipContentAlignmentPrefix(object __instance)
         {
             try
             {
@@ -88,70 +98,93 @@ namespace PrayerClarity
                     R.Get(__instance, "bubble_widgets") as System.Collections.IEnumerable;
                 if (rows == null) return;
 
-                List<object> leftPrayerRows = new List<object>();
+                List<object> leftPrayerItemRows = new List<object>();
+                List<object> centeredPrayerTechnologyHeaders = new List<object>();
                 int nativeMaxWidth = 0;
 
                 foreach (object row in rows)
                 {
                     if (row == null) continue;
+
                     object widget = R.Get(row, "ui_widget");
                     int width = R.Int(R.Get(widget, "width"));
                     if (width > nativeMaxWidth)
                         nativeMaxWidth = width;
 
                     object data = R.Get(row, "data");
-                    PrayerItemLayoutMarker marker;
-                    if (data == null || !PrayerItemLayoutData.TryGetValue(data, out marker))
-                        continue;
+                    if (data == null) continue;
 
-                    object alignment = R.Get(data, "alignment");
-                    if (alignment == null ||
-                        !string.Equals(alignment.ToString(), "Left", StringComparison.Ordinal))
-                        continue;
-
-                    leftPrayerRows.Add(row);
-                }
-
-                if (nativeMaxWidth <= 0 || leftPrayerRows.Count == 0)
-                    return;
-
-                foreach (object row in leftPrayerRows)
-                {
-                    object data = R.Get(row, "data");
-                    object label = R.Get(row, "_label") ?? R.Get(row, "ui_widget");
-                    if (data == null || label == null) continue;
-
-                    string fullText = R.Get(data, "text") as string;
-                    if (string.IsNullOrEmpty(fullText)) continue;
-
-                    object overflow = R.Get(label, "overflowMethod");
-                    if (overflow != null)
-                        R.Set(label, "overflowMethod", Enum.Parse(overflow.GetType(), "ResizeHeight"));
-
-                    // The table has already drawn every native child, so nativeMaxWidth
-                    // is exactly the width the stock bubble would choose from those
-                    // children. Widen only the PrayerClarity-owned Left content rows to
-                    // that existing span; this changes their internal text alignment
-                    // without increasing the parchment width.
-                    R.Set(label, "width", nativeMaxWidth);
-                    R.Set(label, "text", fullText);
-
-                    string processed = R.Get(label, "processedText") as string ?? string.Empty;
-                    string repaired = KeepAmountAndInlineSymbolTogether(fullText, processed);
-                    if (!string.Equals(repaired, fullText, StringComparison.Ordinal))
+                    PrayerItemLayoutMarker itemMarker;
+                    if (PrayerItemLayoutData.TryGetValue(data, out itemMarker))
                     {
-                        R.Set(label, "text", repaired);
-                        R.Get(label, "processedText");
+                        object alignment = R.Get(data, "alignment");
+                        if (alignment != null &&
+                            string.Equals(alignment.ToString(), "Left", StringComparison.Ordinal))
+                            leftPrayerItemRows.Add(row);
+                    }
+
+                    PrayerTechnologyHeaderLayoutMarker technologyHeaderMarker;
+                    if (PrayerTechnologyHeaderLayoutData.TryGetValue(data, out technologyHeaderMarker))
+                    {
+                        object alignment = R.Get(data, "alignment");
+                        if (alignment != null &&
+                            string.Equals(alignment.ToString(), "Center", StringComparison.Ordinal))
+                            centeredPrayerTechnologyHeaders.Add(row);
                     }
                 }
+
+                if (nativeMaxWidth <= 0)
+                    return;
+
+                foreach (object row in leftPrayerItemRows)
+                    ApplyNativeSpan(row, nativeMaxWidth, true);
+
+                foreach (object row in centeredPrayerTechnologyHeaders)
+                    ApplyNativeSpan(row, nativeMaxWidth, false);
             }
             catch (Exception ex)
             {
                 if (_prayerItemAlignmentErrorLogged) return;
                 _prayerItemAlignmentErrorLogged = true;
                 _log?.LogError(
-                    "PrayerClarity prayer-item left-content alignment failed; " +
+                    "PrayerClarity tooltip native-span alignment failed; " +
                     "the native tooltip remains usable. " + ex);
+            }
+        }
+
+        private static void ApplyNativeSpan(
+            object row,
+            int nativeMaxWidth,
+            bool repairAmountSymbolWrapping)
+        {
+            if (row == null || nativeMaxWidth <= 0) return;
+
+            object data = R.Get(row, "data");
+            object label = R.Get(row, "_label") ?? R.Get(row, "ui_widget");
+            if (data == null || label == null) return;
+
+            string fullText = R.Get(data, "text") as string;
+            if (string.IsNullOrEmpty(fullText)) return;
+
+            object overflow = R.Get(label, "overflowMethod");
+            if (overflow != null)
+                R.Set(label, "overflowMethod", Enum.Parse(overflow.GetType(), "ResizeHeight"));
+
+            // The stock table has already drawn every child, so nativeMaxWidth is
+            // exactly the width the unmodified bubble would choose from its current
+            // children. Expanding a selected child only to this existing span changes
+            // internal text alignment without increasing the parchment width.
+            R.Set(label, "width", nativeMaxWidth);
+            R.Set(label, "text", fullText);
+
+            string processed = R.Get(label, "processedText") as string ?? string.Empty;
+            if (!repairAmountSymbolWrapping) return;
+
+            string repaired = KeepAmountAndInlineSymbolTogether(fullText, processed);
+            if (!string.Equals(repaired, fullText, StringComparison.Ordinal))
+            {
+                R.Set(label, "text", repaired);
+                R.Get(label, "processedText");
             }
         }
 
