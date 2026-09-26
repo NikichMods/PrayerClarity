@@ -21,7 +21,14 @@
 - Rebalanced 0.2.51 also carries the separately runtime-accepted 0.2.48 Combo balance result: Faith **+100 / +150 / +200%**, donations **+100 / +250 / +500%**.
 - Stable-source merge: PR #41, merge commit `eb9955974da0c0da865a79a06d18fd07ddb7de6f`. This merge preserved later documentation history while bringing the exact accepted runtime source into `main`.
 - Vanilla helper behavior is expected: the Rebalanced Neutral Test Console and Repose State Switcher declare a hard dependency on the Rebalanced plugin, so they do not load under Vanilla alone; F2/F3 therefore being unavailable in a Vanilla-only test session is **not a Vanilla defect**.
-- Stable publication must reuse the exact accepted CI DLL bytes; no rebuild is permitted.
+- Stable publication workflow run: `36276114744`; result: **success**. It downloaded the exact accepted CI artifact and performed no rebuild.
+- Stable releases:
+  - Rebalanced: `rebalanced-v0.2.51`, canonical asset `PrayerClarity.Rebalanced.dll`;
+  - Vanilla: `v1.0.57`, canonical asset `PrayerClarity.dll`.
+- Publication verification re-downloaded both release assets:
+  - Rebalanced SHA-256 = `083168ec6cd76fd55366ca10426e212a30a3bc2c7ca61a9e9de0dc6f656c8ccd`;
+  - Vanilla SHA-256 = `3ff5f830a3ce20d1bf789e5f9ff0d3ac11cf9511d4457660b56c1f286dc31195`.
+- Both release tags resolve to exact accepted source `13c85c824bd2932b1175200368d212e03bbae79f`.
 - No further in-game test is required unless the accepted implementation changes.
 
 ## 2026-09-27 — Rebalanced 0.2.51 / Vanilla 1.0.57 semantic Technology heading-role candidate
