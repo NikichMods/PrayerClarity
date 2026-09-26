@@ -78,6 +78,7 @@ namespace PrayerClarity
         private static void DropBodyCallbackPrefix(object __instance)
         {
             _pendingMode = PendingMode.None;
+            if (!RebalancedRuntimeState.IsReady) return;
 
             try
             {
@@ -104,6 +105,11 @@ namespace PrayerClarity
             ref ScopedBodyCatalogState __state)
         {
             __state = null;
+            if (!RebalancedRuntimeState.IsReady)
+            {
+                _pendingMode = PendingMode.None;
+                return;
+            }
 
             PendingMode mode = _pendingMode;
             _pendingMode = PendingMode.None;

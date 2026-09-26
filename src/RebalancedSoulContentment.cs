@@ -59,6 +59,7 @@ namespace PrayerClarity
 
         private static void CheckNeededAttachedScriptPostfix(object __instance)
         {
+            if (!RebalancedRuntimeState.IsReady) return;
             try
             {
                 object definition = R.Get(__instance, "obj_def");
@@ -80,6 +81,7 @@ namespace PrayerClarity
 
         private static bool UpdateDurabilityPrefix(object __instance)
         {
+            if (!RebalancedRuntimeState.IsReady) return true;
             try
             {
                 object definition = ReadMember(__instance, _itemDefinitionMember);

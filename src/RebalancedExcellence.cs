@@ -21,6 +21,7 @@ namespace PrayerClarity
 
         private static void GetBuffValuePostfix(string buff_id, ref float __result)
         {
+            if (!RebalancedRuntimeState.IsReady) return;
             if (!string.Equals(buff_id, "buff_star", StringComparison.Ordinal) || __result <= 0f) return;
 
             try

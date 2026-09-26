@@ -65,6 +65,7 @@ namespace PrayerClarity
         private static void CalculatePrayPrefix(ref string __0, ref ScopedConversionState __state)
         {
             __state = null;
+            if (!RebalancedRuntimeState.IsReady) return;
             try
             {
                 object craft = GetSelectedPrayerCraft();

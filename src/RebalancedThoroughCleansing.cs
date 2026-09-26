@@ -55,6 +55,7 @@ namespace PrayerClarity
         private static void HealPrefix(ref ScopedState __state)
         {
             __state = null;
+            if (!RebalancedRuntimeState.IsReady) return;
             try
             {
                 float stockActive = RebalancedTierState.GetPlayerParam(StockSinShardParam, 0f);
