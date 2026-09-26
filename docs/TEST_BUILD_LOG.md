@@ -1,5 +1,34 @@
 # Test / Research Build Log
 
+## 2026-09-27 — Rebalanced 0.2.51 / Vanilla 1.0.57 semantic Technology heading-role candidate
+
+- Baseline: Rebalanced 0.2.50 source `da770d4e3d2131ece502f6379bca520cb2819d2a`, itself based on accepted Rebalanced 0.2.48.
+- 0.2.50 runtime result: **partial success, superseded before acceptance**.
+  - mouse Technology: `Base Result` and `On Success` became visibly centered;
+  - mouse Technology: the top `Create: Prayer...` title remained visibly left-aligned;
+  - gamepad Technology and prayer-item alignment remained correct.
+- Root cause: 0.2.50's final native-span writer is working. The remaining defect is earlier: the top title was identified by exact localized text equality, while Base Result and On Success are PrayerClarity-owned known section rows. The stock title is host-generated and should not be rediscovered by text.
+- Stock structural contract: every `TechUnlock.GetTooltip` call appends the current unlock title as the **first** row for that call, immediately before its blank separator.
+- 0.2.51 replaces text matching with semantic role assignment:
+  - prefix state records the pre-call tooltip row count;
+  - the stock title appended at exactly that index is marked as Technology `Title`;
+  - Base Result and On Success are marked as `SectionHeader` when PrayerClarity composes/reuses them;
+  - the already-proved 0.2.50 native-span final writer remains unchanged.
+- Candidate branch: `candidate/rebalanced-0.2.51`.
+- Gate-only commits: `802070809d1cb9d4cf5901c10d32d97af49a8276`, refined before production as `e9ab8c2fa197dc802846b590ec3945292bf1b1c6`.
+- Exact candidate source SHA: `13c85c824bd2932b1175200368d212e03bbae79f`.
+- CI run: `36275212482`; result: **success**.
+- Artifact ID: `10917221616`.
+- Artifact ZIP digest: `sha256:066f935e119e46a0b9705d6e35bb95ef729079a8aee6eb6f0186f3330c89b9c0`.
+- Rebalanced 0.2.51 DLL SHA-256: `083168ec6cd76fd55366ca10426e212a30a3bc2c7ca61a9e9de0dc6f656c8ccd`.
+- Shared sibling Vanilla 1.0.57 DLL SHA-256: `3ff5f830a3ce20d1bf789e5f9ff0d3ac11cf9511d4457660b56c1f286dc31195`.
+- Focused runtime acceptance:
+  1. Rebalanced mouse Technology: top title + Base Result + On Success all visibly centered;
+  2. Rebalanced gamepad Technology: centered result remains unchanged;
+  3. quick prayer-item control: accepted header/body alignment unchanged;
+  4. quick Vanilla mouse Technology: same title/header hierarchy.
+- No Combo, Repose, sermon, payout or mechanics replay is required.
+
 ## 2026-09-27 — Rebalanced 0.2.50 / Vanilla 1.0.56 Technology native-span header candidate
 
 - Baseline: superseded Rebalanced 0.2.49 source `8e95d45a4b501c2852428eb8d4d37883be93b7c4`, itself based on accepted Rebalanced 0.2.48.
