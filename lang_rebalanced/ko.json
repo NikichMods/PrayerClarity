@@ -1,13 +1,10 @@
 {
   "rebalanced.tech.plant_intro": "식물의 성장을 빠르게 합니다.",
   "rebalanced.tech.sins_intro": "각 고해소에서 고해가 더 자주 일어납니다.",
-  "rebalanced.tech.repose_intro": "당나귀가 더 좋은 품질의 시체를 가져올 수 있습니다.",
+  "rebalanced.tech.repose_intro": "당나귀가 더 높은 품질의 시체를 가져올 수 있게 됩니다.",
   "rebalanced.tech.combat_intro": "전투에서 묘지기를 강화합니다.",
   "rebalanced.active.plant": "식물 성장 시간: -{0:0}% · 모든 출처를 합친 식물 성장 시간 감소는 최대 {1:0}%",
   "rebalanced.active.sins": "고해 확률: {0:0}%",
-  "rebalanced.active.repose.bronze": "당나귀가 품질이 한 단계 더 좋은 시체를 가져올 수 있습니다",
-  "rebalanced.active.repose.silver": "절반의 경우 최고 품질의 시체가 보장됩니다",
-  "rebalanced.active.repose.gold": "당나귀가 최고 품질의 시체를 반드시 가져옵니다",
   "rebalanced.active.combat": "피해 +{0:0.##} · 방어 +{1:0.##} · HP 재생 {2:0.##}/초",
   "rebalanced.active.gratitude": "영혼의 상태는 시간이 지나도 악화되지 않습니다. 시체 안에 있거나 추출된 뒤에도 적용됩니다. 영혼을 해방하면 (gratitude_points)을 +{0:0}% 더 얻습니다.",
   "rebalanced.tech.plant_tier": "식물 성장 시간: -{0:0}%",
@@ -23,5 +20,13 @@
   "rebalanced.tech.sin_shard_lore": "영혼은 철저히 정화하는 편이 낫다는 몇 마디.",
   "rebalanced.tech.gratitude_effect": "영혼의 상태는 시간이 지나도 악화되지 않습니다. 시체 안에 있을 때도, 추출된 뒤에도 마찬가지입니다.\n영혼 해방으로 얻는 (gratitude_points): +{0:0}%",
   "rebalanced.active.sins_detailed": "각 고해소의 일일 고해 확률: {0:0}%",
-  "rebalanced.repose.endpoint_bronze_hint": "(은·금 등급 기도는 여전히 가장 좋은 시체를 받을 확률의 안정성을 높입니다.)"
+  "rebalanced.repose.endpoint_bronze_hint": "((s1) 더 이상 효과가 없습니다.\n(s2) 당나귀가 이미 가져올 수 있는 시체 중 최상의 시체를 받을 확률이 높아집니다.\n(s3) 당나귀가 이미 가져올 수 있는 시체 중 최상의 시체를 보장합니다.)",
+  "rebalanced.repose.tier.bronze": "최상의 시체는 보장되지 않음",
+  "rebalanced.repose.tier.silver": "당나귀가 가져올 수 있는 최상의 시체를 받을 확률이 높아집니다.",
+  "rebalanced.repose.tier.gold": "당나귀가 가져올 수 있는 최상의 시체가 보장됩니다.",
+  "rebalanced.repose.active.silver": "당나귀가 가져올 수 있는 최상의 시체를 받을 확률이 더 높습니다.",
+  "rebalanced.repose.active.gold": "당나귀가 가져올 수 있는 최상의 시체가 보장됩니다.",
+  "rebalanced.repose.forecast.bronze": "당나귀가 더 높은 품질의 시체를 가져올 수 있게 되지만, 최상의 시체가 보장되지는 않습니다.",
+  "rebalanced.repose.terminal.silver": "당나귀가 이미 가져올 수 있는 시체 중 최상의 시체를 받을 확률이 높아집니다.",
+  "rebalanced.repose.terminal.gold": "당나귀가 이미 가져올 수 있는 시체 중 최상의 시체를 보장합니다."
 }

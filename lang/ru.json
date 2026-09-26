@@ -20,11 +20,11 @@
   "tech.effect.imagination_intro": "Повышает качество письма.",
   "tech.effect.excellence_intro": "Повышает качество изделий.",
   "tech.souls_base_faith": "Вера зависит от качества церкви и Благодарности душ.",
-  "repose.endpoint": "Максимально возможный уровень качества тел уже достигнут — эта молитва больше не может открыть более качественные тела.",
+  "repose.endpoint": "Получить тела ещё более высокого качества уже нельзя — даже молитва тут не поможет.",
   "buff.souls_repose": "(faith) зависит от качества церкви и (gratitude_points).",
   "active.sword": "+{0:0.##} к урону",
   "active.shield": "+{0:0.##} к броне",
-  "active.skull": "Осёл может привозить более качественные тела. (up) (skull) (rskull)",
+  "active.skull": "Осёл может привозить тела более высокого качества. (up) (skull) (rskull)",
   "active.pen": "Бонус к качеству письма: +{0:0.##}",
   "active.star": "Бонус к качеству изделий: +{0:0.##}",
   "active.plant_inactive": "Известная проблема: молитва не ускоряет рост растений",
@@ -37,5 +37,6 @@
   "active.timer_days_compact": "{0:0.0}",
   "tech.on_success_header": "При успехе:",
   "forecast.current_success_chance": "Текущий шанс успеха: {0}%",
-  "item.sermon_success": "Успех проповеди"
+  "item.sermon_success": "Успех проповеди",
+  "repose.forecast": "Осёл сможет привозить тела более высокого качества. (up) (skull) (rskull)"
 }

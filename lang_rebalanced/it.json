@@ -1,13 +1,10 @@
 {
   "rebalanced.tech.plant_intro": "Accelera la crescita delle piante.",
   "rebalanced.tech.sins_intro": "Le confessioni avvengono più spesso in ogni confessionale.",
-  "rebalanced.tech.repose_intro": "L’asino può portare corpi di qualità migliore.",
+  "rebalanced.tech.repose_intro": "L’asino potrà portare corpi di qualità superiore.",
   "rebalanced.tech.combat_intro": "Rafforza il Custode in combattimento.",
   "rebalanced.active.plant": "Tempo di crescita delle piante: -{0:0}% · Riduzione totale del tempo di crescita da tutte le fonti: non oltre {1:0}%",
   "rebalanced.active.sins": "Probabilità di confessione: {0:0}%",
-  "rebalanced.active.repose.bronze": "L’asino può portare un corpo di un livello di qualità migliore",
-  "rebalanced.active.repose.silver": "Nella metà dei casi è garantito il corpo migliore",
-  "rebalanced.active.repose.gold": "L’asino porta sicuramente il corpo migliore",
   "rebalanced.active.combat": "Danni +{0:0.##} · Armatura +{1:0.##} · Rigenerazione {2:0.##} PV/s",
   "rebalanced.active.gratitude": "La condizione delle anime non peggiora nel tempo, né nel corpo né dopo l'estrazione. Liberare le anime fornisce +{0:0}% (gratitude_points).",
   "rebalanced.tech.plant_tier": "Tempo di crescita delle piante: -{0:0}%",
@@ -23,5 +20,13 @@
   "rebalanced.tech.sin_shard_lore": "Qualche parola sul perché sia meglio purificare le anime a fondo.",
   "rebalanced.tech.gratitude_effect": "La condizione delle anime non peggiora con il tempo — né nel corpo né dopo l'estrazione.\n(gratitude_points) ottenuti liberando le anime: +{0:0}%",
   "rebalanced.active.sins_detailed": "Probabilità giornaliera di confessione in ogni confessionale: {0:0}%",
-  "rebalanced.repose.endpoint_bronze_hint": "(Le preghiere d'argento e d'oro aumentano ancora l'affidabilità nell'ottenere il miglior corpo disponibile.)"
+  "rebalanced.repose.endpoint_bronze_hint": "((s1) non ha più effetto.\n(s2) aumenterà la probabilità di ottenere il migliore tra i corpi che l’asino può già portare.\n(s3) garantirà il migliore tra i corpi che l’asino può già portare.)",
+  "rebalanced.repose.tier.bronze": "Nessuna garanzia di ottenere il migliore",
+  "rebalanced.repose.tier.silver": "Aumenterà la probabilità di ottenere il miglior corpo che l’asino può portare.",
+  "rebalanced.repose.tier.gold": "Il miglior corpo che l’asino può portare sarà garantito.",
+  "rebalanced.repose.active.silver": "La probabilità di ottenere il miglior corpo che l’asino può portare è più alta.",
+  "rebalanced.repose.active.gold": "Il miglior corpo che l’asino può portare è garantito.",
+  "rebalanced.repose.forecast.bronze": "L’asino potrà portare corpi di qualità superiore, ma ottenere il migliore non è garantito.",
+  "rebalanced.repose.terminal.silver": "Aumenterà la probabilità di ottenere il migliore tra i corpi che l’asino può già portare.",
+  "rebalanced.repose.terminal.gold": "Garantirà il migliore tra i corpi che l’asino può già portare."
 }

@@ -20,11 +20,11 @@
   "tech.effect.imagination_intro": "Verbessert die Schreibqualität.",
   "tech.effect.excellence_intro": "Verbessert die Herstellungsqualität.",
   "tech.souls_base_faith": "Glaube hängt von Kirchenqualität und Seelendankbarkeit ab.",
-  "repose.endpoint": "Die höchstmögliche Leichenqualität ist bereits erreicht — dieses Gebet kann keine hochwertigeren Leichen mehr freischalten.",
+  "repose.endpoint": "Körper von noch höherer Qualität sind nicht mehr zu bekommen — selbst ein Gebet kann dabei nicht helfen.",
   "buff.souls_repose": "(faith) hängt von Kirchenqualität und (gratitude_points) ab.",
   "active.sword": "+{0:0.##} Schaden",
   "active.shield": "+{0:0.##} Rüstung",
-  "active.skull": "Der Esel kann einen Körper um eine Qualitätsstufe besser bringen (up) (skull) (rskull)",
+  "active.skull": "Der Esel kann Körper von höherer Qualität bringen. (up) (skull) (rskull)",
   "active.pen": "Bonus auf Schreibqualität: +{0:0.##}",
   "active.star": "Bonus auf Herstellungsqualität: +{0:0.##}",
   "active.plant_inactive": "Bekanntes Problem: Dieses Gebet beschleunigt das Pflanzenwachstum nicht",
@@ -37,5 +37,6 @@
   "active.timer_days_compact": "{0:0.0}",
   "tech.on_success_header": "Bei Erfolg:",
   "forecast.current_success_chance": "Aktuelle Erfolgschance: {0} %",
-  "item.sermon_success": "Predigterfolg"
+  "item.sermon_success": "Predigterfolg",
+  "repose.forecast": "Der Esel wird Körper von höherer Qualität bringen können. (up) (skull) (rskull)"
 }

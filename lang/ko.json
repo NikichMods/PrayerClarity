@@ -20,11 +20,11 @@
   "tech.effect.imagination_intro": "글쓰기 품질을 높입니다.",
   "tech.effect.excellence_intro": "제작 품질을 높입니다.",
   "tech.souls_base_faith": "신앙은 교회 품질과 영혼 감사도에 따라 달라집니다.",
-  "repose.endpoint": "이미 얻을 수 있는 시체의 최고 품질에 도달했습니다. 이 기도로 더 높은 품질의 시체를 해금할 수 없습니다.",
+  "repose.endpoint": "이제 더 높은 품질의 시체는 얻을 수 없습니다. 기도도 여기서는 도움이 되지 않습니다.",
   "buff.souls_repose": "(faith)은 교회 품질과 (gratitude_points)에 따라 달라집니다.",
   "active.sword": "피해 +{0:0.##}",
   "active.shield": "방어력 +{0:0.##}",
-  "active.skull": "당나귀가 품질이 한 단계 더 좋은 시체를 가져올 수 있음 (up) (skull) (rskull)",
+  "active.skull": "당나귀가 더 높은 품질의 시체를 가져올 수 있습니다. (up) (skull) (rskull)",
   "active.pen": "글쓰기 품질 보너스: +{0:0.##}",
   "active.star": "제작 품질 보너스: +{0:0.##}",
   "active.plant_inactive": "알려진 문제: 이 기도는 식물 성장을 빠르게 하지 않습니다",
@@ -37,5 +37,6 @@
   "active.timer_days_compact": "{0:0.0}",
   "tech.on_success_header": "성공 시:",
   "forecast.current_success_chance": "현재 성공 확률: {0}%",
-  "item.sermon_success": "설교 성공"
+  "item.sermon_success": "설교 성공",
+  "repose.forecast": "당나귀가 더 높은 품질의 시체를 가져올 수 있게 됩니다. (up) (skull) (rskull)"
 }

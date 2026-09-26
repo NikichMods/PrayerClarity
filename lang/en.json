@@ -20,11 +20,11 @@
   "tech.effect.imagination_intro": "Improves writing quality.",
   "tech.effect.excellence_intro": "Improves crafted-item quality.",
   "tech.souls_base_faith": "Faith depends on Church Quality and Soul Gratitude.",
-  "repose.endpoint": "Maximum available body quality has already been reached — this prayer cannot unlock higher-quality bodies.",
+  "repose.endpoint": "There are no higher-quality bodies left to obtain — even prayer cannot help here.",
   "buff.souls_repose": "(faith) depends on Church Quality and (gratitude_points).",
   "active.sword": "+{0:0.##} damage",
   "active.shield": "+{0:0.##} armor",
-  "active.skull": "The Donkey may bring a body one quality tier better (up) (skull) (rskull)",
+  "active.skull": "The Donkey can bring higher-quality bodies. (up) (skull) (rskull)",
   "active.pen": "Writing quality bonus: +{0:0.##}",
   "active.star": "Craft quality bonus: +{0:0.##}",
   "active.plant_inactive": "Known issue: this prayer does not speed up plant growth",
@@ -37,5 +37,6 @@
   "active.timer_days_compact": "{0:0.0}",
   "tech.on_success_header": "On success:",
   "forecast.current_success_chance": "Current success chance: {0}%",
-  "item.sermon_success": "Sermon success"
+  "item.sermon_success": "Sermon success",
+  "repose.forecast": "The Donkey will be able to bring higher-quality bodies. (up) (skull) (rskull)"
 }

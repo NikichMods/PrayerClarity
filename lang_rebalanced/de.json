@@ -1,13 +1,10 @@
 {
   "rebalanced.tech.plant_intro": "Beschleunigt das Pflanzenwachstum.",
   "rebalanced.tech.sins_intro": "In jedem Beichtstuhl finden Beichten häufiger statt.",
-  "rebalanced.tech.repose_intro": "Der Esel kann hochwertigere Körper bringen.",
+  "rebalanced.tech.repose_intro": "Der Esel wird Körper von höherer Qualität bringen können.",
   "rebalanced.tech.combat_intro": "Stärkt den Hüter im Kampf.",
   "rebalanced.active.plant": "Pflanzenwachstumszeit: -{0:0}% · Gesamte Wachstumszeitreduktion aus allen Quellen: höchstens {1:0}%",
   "rebalanced.active.sins": "Beichtchance: {0:0}%",
-  "rebalanced.active.repose.bronze": "Der Esel kann einen Körper um eine Qualitätsstufe besser bringen",
-  "rebalanced.active.repose.silver": "In der Hälfte der Fälle ist der beste Körper garantiert",
-  "rebalanced.active.repose.gold": "Der Esel bringt garantiert den besten Körper",
   "rebalanced.active.combat": "Schaden +{0:0.##} · Rüstung +{1:0.##} · Regeneration {2:0.##} LP/s",
   "rebalanced.active.gratitude": "Der Zustand von Seelen verschlechtert sich mit der Zeit nicht - weder im Körper noch nach der Extraktion. Das Freilassen von Seelen gewährt +{0:0}% (gratitude_points).",
   "rebalanced.tech.plant_tier": "Pflanzenwachstumszeit: -{0:0}%",
@@ -23,5 +20,13 @@
   "rebalanced.tech.sin_shard_lore": "Ein paar Worte darüber, warum Seelen gründlich gereinigt werden sollten.",
   "rebalanced.tech.gratitude_effect": "Der Zustand von Seelen verschlechtert sich mit der Zeit nicht — weder im Körper noch nach der Extraktion.\n(gratitude_points) für das Freilassen von Seelen: +{0:0}%",
   "rebalanced.active.sins_detailed": "Tägliche Beichtchance in jedem Beichtstuhl: {0:0} %",
-  "rebalanced.repose.endpoint_bronze_hint": "(Silber- und Goldgebete erhöhen weiterhin die Zuverlässigkeit, mit der du den besten verfügbaren Leichnam erhältst.)"
+  "rebalanced.repose.endpoint_bronze_hint": "((s1) hat keinen Effekt mehr.\n(s2) erhöht die Chance auf den besten unter den Körpern, die der Esel bereits bringen kann.\n(s3) garantiert den besten unter den Körpern, die der Esel bereits bringen kann.)",
+  "rebalanced.repose.tier.bronze": "Keine Garantie auf den besten Körper",
+  "rebalanced.repose.tier.silver": "Die Chance auf den besten Körper, den der Esel bringen kann, steigt.",
+  "rebalanced.repose.tier.gold": "Der beste Körper, den der Esel bringen kann, ist garantiert.",
+  "rebalanced.repose.active.silver": "Die Chance auf den besten Körper, den der Esel bringen kann, ist höher.",
+  "rebalanced.repose.active.gold": "Der beste Körper, den der Esel bringen kann, ist garantiert.",
+  "rebalanced.repose.forecast.bronze": "Der Esel wird Körper von höherer Qualität bringen können, aber der beste Körper ist nicht garantiert.",
+  "rebalanced.repose.terminal.silver": "Erhöht die Chance auf den besten unter den Körpern, die der Esel bereits bringen kann.",
+  "rebalanced.repose.terminal.gold": "Garantiert den besten unter den Körpern, die der Esel bereits bringen kann."
 }

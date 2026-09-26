@@ -1,13 +1,10 @@
 {
   "rebalanced.tech.plant_intro": "Speeds up plant growth.",
   "rebalanced.tech.sins_intro": "Confessions happen more often in each confessional.",
-  "rebalanced.tech.repose_intro": "The Donkey may bring better-quality bodies.",
+  "rebalanced.tech.repose_intro": "The Donkey will be able to bring higher-quality bodies.",
   "rebalanced.tech.combat_intro": "Strengthens the Keeper in combat.",
   "rebalanced.active.plant": "Plant growth time: -{0:0}% · Total plant growth-time reduction from all sources: no more than {1:0}%",
   "rebalanced.active.sins": "Confession chance: {0:0}%",
-  "rebalanced.active.repose.bronze": "The Donkey may bring a body one quality tier better",
-  "rebalanced.active.repose.silver": "In half of cases, the best body is guaranteed",
-  "rebalanced.active.repose.gold": "The Donkey is guaranteed to bring the best body",
   "rebalanced.active.combat": "Damage +{0:0.##} · Armor +{1:0.##} · Regeneration {2:0.##} HP/s",
   "rebalanced.active.gratitude": "Soul condition does not deteriorate over time - whether still in the body or already extracted. Releasing souls grants +{0:0}% (gratitude_points).",
   "rebalanced.tech.plant_tier": "Plant growth time: -{0:0}%",
@@ -23,5 +20,13 @@
   "rebalanced.tech.sin_shard_lore": "A few words about why souls are best cleansed thoroughly.",
   "rebalanced.tech.gratitude_effect": "Soul condition does not deteriorate over time — neither in the body nor after extraction.\n(gratitude_points) from releasing souls: +{0:0}%",
   "rebalanced.active.sins_detailed": "Daily confession chance in each confessional: {0:0}%",
-  "rebalanced.repose.endpoint_bronze_hint": "(Silver and Gold prayers still improve the reliability of receiving the best available body.)"
+  "rebalanced.repose.endpoint_bronze_hint": "((s1) no longer has an effect.\n(s2) will increase the chance of getting the best among the bodies the Donkey can already bring.\n(s3) will guarantee the best among the bodies the Donkey can already bring.)",
+  "rebalanced.repose.tier.bronze": "No guarantee of getting the best",
+  "rebalanced.repose.tier.silver": "The chance of getting the best body the Donkey can bring will increase.",
+  "rebalanced.repose.tier.gold": "The best body the Donkey can bring will be guaranteed.",
+  "rebalanced.repose.active.silver": "The chance of getting the best body the Donkey can bring is higher.",
+  "rebalanced.repose.active.gold": "The best body the Donkey can bring is guaranteed.",
+  "rebalanced.repose.forecast.bronze": "The Donkey will be able to bring higher-quality bodies, but getting the best body is not guaranteed.",
+  "rebalanced.repose.terminal.silver": "Will increase the chance of getting the best among the bodies the Donkey can already bring.",
+  "rebalanced.repose.terminal.gold": "Will guarantee the best among the bodies the Donkey can already bring."
 }

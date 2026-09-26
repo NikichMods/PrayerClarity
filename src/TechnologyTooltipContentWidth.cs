@@ -18,8 +18,6 @@ namespace PrayerClarity
         private sealed class WideLayoutMarker { }
         private sealed class PrayerItemLayoutMarker { }
 
-        private const int PrayerItemContentWidth = 200;
-
         private static readonly ConditionalWeakTable<object, WideLayoutMarker> WideLayoutData =
             new ConditionalWeakTable<object, WideLayoutMarker>();
         private static readonly ConditionalWeakTable<object, PrayerItemLayoutMarker> PrayerItemLayoutData =
@@ -27,6 +25,7 @@ namespace PrayerClarity
 
         private static ManualLogSource _log;
         private static bool _errorLogged;
+        private static bool _prayerItemAlignmentErrorLogged;
 
         internal static void PreferWideLayout(object data)
         {
@@ -62,6 +61,98 @@ namespace PrayerClarity
                 typeof(TechnologyTooltipContentWidth),
                 draw,
                 nameof(BubbleWidgetTextDrawPostfix));
+
+            Type widgetsBubbleGui = R.GameType("WidgetsBubbleGUI");
+            MethodInfo updateSizeAndWidgetsPositions = R.Method(
+                widgetsBubbleGui,
+                "UpdateSizeAndWidgetsPositions",
+                false,
+                0);
+            if (updateSizeAndWidgetsPositions == null)
+                throw new MissingMethodException("WidgetsBubbleGUI.UpdateSizeAndWidgetsPositions()");
+
+            R.PatchPrefix(
+                harmonyId + ".prayeritemcontentalignment",
+                typeof(TechnologyTooltipContentWidth),
+                updateSizeAndWidgetsPositions,
+                nameof(PrayerItemContentAlignmentPrefix));
+        }
+
+        private static void PrayerItemContentAlignmentPrefix(object __instance)
+        {
+            try
+            {
+                if (__instance == null) return;
+
+                System.Collections.IEnumerable rows =
+                    R.Get(__instance, "bubble_widgets") as System.Collections.IEnumerable;
+                if (rows == null) return;
+
+                List<object> leftPrayerRows = new List<object>();
+                int nativeMaxWidth = 0;
+
+                foreach (object row in rows)
+                {
+                    if (row == null) continue;
+                    object widget = R.Get(row, "ui_widget");
+                    int width = R.Int(R.Get(widget, "width"));
+                    if (width > nativeMaxWidth)
+                        nativeMaxWidth = width;
+
+                    object data = R.Get(row, "data");
+                    PrayerItemLayoutMarker marker;
+                    if (data == null || !PrayerItemLayoutData.TryGetValue(data, out marker))
+                        continue;
+
+                    object alignment = R.Get(data, "alignment");
+                    if (alignment == null ||
+                        !string.Equals(alignment.ToString(), "Left", StringComparison.Ordinal))
+                        continue;
+
+                    leftPrayerRows.Add(row);
+                }
+
+                if (nativeMaxWidth <= 0 || leftPrayerRows.Count == 0)
+                    return;
+
+                foreach (object row in leftPrayerRows)
+                {
+                    object data = R.Get(row, "data");
+                    object label = R.Get(row, "_label") ?? R.Get(row, "ui_widget");
+                    if (data == null || label == null) continue;
+
+                    string fullText = R.Get(data, "text") as string;
+                    if (string.IsNullOrEmpty(fullText)) continue;
+
+                    object overflow = R.Get(label, "overflowMethod");
+                    if (overflow != null)
+                        R.Set(label, "overflowMethod", Enum.Parse(overflow.GetType(), "ResizeHeight"));
+
+                    // The table has already drawn every native child, so nativeMaxWidth
+                    // is exactly the width the stock bubble would choose from those
+                    // children. Widen only the PrayerClarity-owned Left content rows to
+                    // that existing span; this changes their internal text alignment
+                    // without increasing the parchment width.
+                    R.Set(label, "width", nativeMaxWidth);
+                    R.Set(label, "text", fullText);
+
+                    string processed = R.Get(label, "processedText") as string ?? string.Empty;
+                    string repaired = KeepAmountAndInlineSymbolTogether(fullText, processed);
+                    if (!string.Equals(repaired, fullText, StringComparison.Ordinal))
+                    {
+                        R.Set(label, "text", repaired);
+                        R.Get(label, "processedText");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                if (_prayerItemAlignmentErrorLogged) return;
+                _prayerItemAlignmentErrorLogged = true;
+                _log?.LogError(
+                    "PrayerClarity prayer-item left-content alignment failed; " +
+                    "the native tooltip remains usable. " + ex);
+            }
         }
 
         private static void BubbleWidgetTextDrawPostfix(object __instance, object __0)
@@ -81,16 +172,9 @@ namespace PrayerClarity
                 PrayerItemLayoutMarker itemMarker;
                 if (PrayerItemLayoutData.TryGetValue(__0, out itemMarker))
                 {
-                    // Prayer item mechanics rows deliberately share one fixed content
-                    // column. This gives the left-aligned values a stable visual edge
-                    // while ResizeHeight wraps long prose instead of letting one line
-                    // stretch the whole parchment.
-                    object overflow = R.Get(label, "overflowMethod");
-                    if (overflow != null)
-                        R.Set(label, "overflowMethod", Enum.Parse(overflow.GetType(), "ResizeHeight"));
-                    R.Set(label, "width", PrayerItemContentWidth);
-                    R.Set(label, "height", 20);
-                    R.Set(label, "text", fullText);
+                    // Prayer-item mechanics follow the game's standard item-tooltip
+                    // geometry. PrayerClarity does not write width/height/overflow here.
+                    // Keep only the separately accepted final-wrap semantic repair below.
                     string processed = R.Get(label, "processedText") as string ?? string.Empty;
 
                     // NGUI can wrap between a numeric amount and the following inline

@@ -1,19 +1,21 @@
 # PrayerClarity: Rebalanced — stable roster specification
 
-Status: **canonical accepted Rebalanced ruleset for PrayerClarity: Rebalanced 0.2.38**.
+Status: **canonical accepted Rebalanced ruleset for PrayerClarity: Rebalanced 0.2.47**.
 
 Stock Graveyard Keeper 1.407 mechanics remain documented independently in `PRAYER_MECHANICS.md`. Values below are intentional Balance/Rework design unless explicitly identified as a verified repair.
 
 ## Current stable runtime identity
 
-- Rebalanced version: **0.2.38**
-- frozen accepted ref: `accepted/rebalanced-0.2.38`
-- exact accepted runtime/source SHA: `6f5ef168810945135cee57082cbf90d31776e46b`
+- Rebalanced version: **0.2.47**
+- frozen accepted ref: `accepted/rebalanced-0.2.47`
+- exact accepted runtime/source SHA: `6b3aa5399c8913d368f2b09bab963326db17e7f3`
 - canonical DLL: `PrayerClarity.Rebalanced.dll`
-- accepted DLL SHA-256: `e547f7bb76e0ef512dc669ea30543dada5a2aeb8044b1c7ffcbe7fecf17303e5`
+- accepted DLL SHA-256: `2482a159c3108a7868123d7c2cac7a8a620fe537952fee0cda6024c6ea5c7c96`
 - supported game: **Graveyard Keeper 1.407**
 
 The sibling Vanilla public stable remains mechanically stock and is documented separately.
+
+Rebalanced 0.2.39–0.2.47 refined presentation only; the accepted roster and gameplay values below are unchanged from 0.2.38.
 
 ## Product rules
 

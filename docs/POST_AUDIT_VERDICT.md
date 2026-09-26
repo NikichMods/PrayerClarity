@@ -18,12 +18,11 @@ This document is a **closure record**, not a new redesign proposal. It records w
 
 ### PrayerClarity: Rebalanced
 
-- accepted version: **0.2.16**
-- accepted ref: `accepted/rebalanced-0.2.16`
-- exact runtime source: `d44bf75227f6efc1c4f09fb5cd3c4eaf3b9ee010`
-- DLL SHA-256: `2ac89af8f517905fb859dbf496e9f16c098f9e75425b8ed03617927b27f75591`
-- release: `rebalanced-v0.2.16`
-- stable promotion merge: `7c90691f84bfba8be500ed3d60a53432bbe65e40`
+- accepted/released version: **0.2.47**
+- accepted ref: `accepted/rebalanced-0.2.47`
+- exact runtime source: `6b3aa5399c8913d368f2b09bab963326db17e7f3`
+- DLL SHA-256: `2482a159c3108a7868123d7c2cac7a8a620fe537952fee0cda6024c6ea5c7c96`
+- release: `rebalanced-v0.2.47`
 
 The architecture verdict was established on 0.2.3. Rebalanced 0.2.4 subsequently changed only the Repentance/Repose tier durations through the already accepted once-per-load `CraftDefinition.dur_parameter` projection. Rebalanced 0.2.10 retains those gameplay/save-lifecycle seams; its q60 Gold Repose change is another static `CraftDefinition.needs_quality` projection, while the shared Clarity refinements are event-driven UI/crafting-description hooks with no new persistent state, polling, or gameplay lifecycle owner. Therefore the **A — architecture/save-lifecycle clean** verdict carries forward unchanged.
 
@@ -294,3 +293,14 @@ The accepted 0.2.17+ mechanics changes and 0.2.24–0.2.38 presentation work pre
 - Roots keeps the accepted 95% mechanical cap; 0.2.38 changes only which active-effect tiers explain that cap.
 
 No new persistent gameplay owner, background loop, duplicated host simulation, save serializer, or broad runtime scan was introduced. The existing **A — architecture/save-lifecycle clean; no production action required** verdict carries forward to Rebalanced 0.2.38.
+
+
+### 2026-09-26 Rebalanced 0.2.47 addendum
+
+Rebalanced 0.2.39–0.2.47 changes presentation only; the accepted gameplay seams, persisted tier-state rules, native mechanics ownership and balance roster remain unchanged from the previously audited Rebalanced line.
+
+The new prayer-item alignment refinement remains synchronous UI work. `ItemDefinition.GetTooltipData` is still the event-driven item-tooltip entry seam; the 0.2.47 correction runs at the stock `WidgetsBubbleGUI.UpdateSizeAndWidgetsPositions` layout commit point and changes only the width of PrayerClarity-marked left-aligned content children to an already-existing native maximum child width. It introduces no save state, background polling, gameplay owner, formula replacement, persistent geometry state or broad runtime scan.
+
+Repose terminal-aware wording and Temporary Effects presentation consume the existing verified semantic state; no corpse-generation, Donkey progression, RNG or prayer-effect mechanic was changed.
+
+The architecture verdict therefore remains **A — architecture/save-lifecycle clean; no production action required** for Rebalanced 0.2.47.

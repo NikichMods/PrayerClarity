@@ -20,11 +20,11 @@
   "tech.effect.imagination_intro": "Zwiększa jakość pisania.",
   "tech.effect.excellence_intro": "Zwiększa jakość wytwarzania.",
   "tech.souls_base_faith": "Wiara zależy od jakości kościoła i Wdzięczności dusz.",
-  "repose.endpoint": "Maksymalna dostępna jakość zwłok została już osiągnięta — ta modlitwa nie może odblokować zwłok wyższej jakości.",
+  "repose.endpoint": "Nie można już zdobyć ciał jeszcze wyższej jakości — nawet modlitwa tu nie pomoże.",
   "buff.souls_repose": "(faith) zależy od jakości kościoła i (gratitude_points).",
   "active.sword": "+{0:0.##} obrażeń",
   "active.shield": "+{0:0.##} pancerza",
-  "active.skull": "Osioł może przywieźć ciało o jeden poziom jakości lepsze (up) (skull) (rskull)",
+  "active.skull": "Osioł może przywozić ciała wyższej jakości. (up) (skull) (rskull)",
   "active.pen": "Premia do jakości pisania: +{0:0.##}",
   "active.star": "Premia do jakości wytwarzania: +{0:0.##}",
   "active.plant_inactive": "Znany problem: ta modlitwa nie przyspiesza wzrostu roślin",
@@ -37,5 +37,6 @@
   "active.timer_days_compact": "{0:0.0}",
   "tech.on_success_header": "Przy sukcesie:",
   "forecast.current_success_chance": "Aktualna szansa powodzenia: {0}%",
-  "item.sermon_success": "Powodzenie kazania"
+  "item.sermon_success": "Powodzenie kazania",
+  "repose.forecast": "Osioł będzie mógł przywozić ciała wyższej jakości. (up) (skull) (rskull)"
 }

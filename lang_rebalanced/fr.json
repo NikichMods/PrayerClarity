@@ -1,13 +1,10 @@
 {
   "rebalanced.tech.plant_intro": "Accélère la croissance des plantes.",
   "rebalanced.tech.sins_intro": "Les confessions sont plus fréquentes dans chaque confessionnal.",
-  "rebalanced.tech.repose_intro": "L’âne peut apporter des corps de meilleure qualité.",
+  "rebalanced.tech.repose_intro": "L’âne pourra apporter des corps de meilleure qualité.",
   "rebalanced.tech.combat_intro": "Renforce le Gardien au combat.",
   "rebalanced.active.plant": "Temps de croissance des plantes : -{0:0} % · Réduction totale du temps de croissance, toutes sources confondues : max. {1:0} %",
   "rebalanced.active.sins": "Chance de confession : {0:0} %",
-  "rebalanced.active.repose.bronze": "L’âne peut apporter un corps d’un niveau de qualité supérieur",
-  "rebalanced.active.repose.silver": "Dans la moitié des cas, le meilleur corps est garanti",
-  "rebalanced.active.repose.gold": "L’âne apporte à coup sûr le meilleur corps",
   "rebalanced.active.combat": "Dégâts +{0:0.##} · Armure +{1:0.##} · Régénération {2:0.##} PV/s",
   "rebalanced.active.gratitude": "L'état des âmes ne se dégrade pas avec le temps, ni dans le corps ni après extraction. Libérer des âmes accorde +{0:0}% (gratitude_points).",
   "rebalanced.tech.plant_tier": "Temps de croissance des plantes : -{0:0} %",
@@ -23,5 +20,13 @@
   "rebalanced.tech.sin_shard_lore": "Quelques mots sur l’intérêt de purifier les âmes avec soin.",
   "rebalanced.tech.gratitude_effect": "L’état des âmes ne se dégrade pas avec le temps — ni dans le corps, ni après extraction.\n(gratitude_points) obtenus en libérant des âmes : +{0:0}%",
   "rebalanced.active.sins_detailed": "Chance quotidienne de confession dans chaque confessionnal : {0:0} %",
-  "rebalanced.repose.endpoint_bronze_hint": "(Les prières d'argent et d'or augmentent encore les chances d'obtenir le meilleur corps disponible.)"
+  "rebalanced.repose.endpoint_bronze_hint": "((s1) n’a plus d’effet.\n(s2) augmentera les chances d’obtenir le meilleur parmi les corps que l’âne peut déjà apporter.\n(s3) garantira le meilleur parmi les corps que l’âne peut déjà apporter.)",
+  "rebalanced.repose.tier.bronze": "Aucune garantie d’obtenir le meilleur",
+  "rebalanced.repose.tier.silver": "Les chances d’obtenir le meilleur corps que l’âne puisse apporter augmenteront.",
+  "rebalanced.repose.tier.gold": "Le meilleur corps que l’âne puisse apporter sera garanti.",
+  "rebalanced.repose.active.silver": "Les chances d’obtenir le meilleur corps que l’âne puisse apporter sont plus élevées.",
+  "rebalanced.repose.active.gold": "Le meilleur corps que l’âne puisse apporter est garanti.",
+  "rebalanced.repose.forecast.bronze": "L’âne pourra apporter des corps de meilleure qualité, mais obtenir le meilleur corps n’est pas garanti.",
+  "rebalanced.repose.terminal.silver": "Augmentera les chances d’obtenir le meilleur parmi les corps que l’âne peut déjà apporter.",
+  "rebalanced.repose.terminal.gold": "Garantira le meilleur parmi les corps que l’âne peut déjà apporter."
 }

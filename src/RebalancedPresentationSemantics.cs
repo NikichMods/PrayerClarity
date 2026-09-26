@@ -82,6 +82,8 @@ namespace PrayerClarity
             RebalancedPrayerRule rule;
             int tier;
             if (!RebalancedRuleSet.TryParseCraftId(craftId, out rule, out tier)) return false;
+            if (rule.ReposeModes != null)
+                return TryBuildReposeForecastEffect(rule, tier, out text, out semanticKey);
             return TryBuildRuleEffect(rule, tier, out text, out semanticKey);
         }
 
@@ -110,7 +112,7 @@ namespace PrayerClarity
                     return tier > 0 && RebalancedRuleSet.TryGet("b_sins", out rule) && TryBuildRuleEffect(rule, tier, out text, out semanticKey);
                 case "buff_skull":
                     tier = RebalancedTierState.GetCapturedTier(RebalancedTierState.ReposeTierParam);
-                    return tier > 0 && RebalancedRuleSet.TryGet("b_skull", out rule) && TryBuildRuleEffect(rule, tier, out text, out semanticKey);
+                    return tier > 0 && RebalancedRuleSet.TryGet("b_skull", out rule) && TryBuildReposeActiveEffect(rule, tier, out text, out semanticKey);
                 case "buff_sword":
                     tier = RebalancedTierState.GetCapturedTier(RebalancedTierState.CombatTierParam);
                     return tier > 0 && RebalancedRuleSet.TryGet("b_sword", out rule) && TryBuildRuleEffect(rule, tier, out text, out semanticKey);
@@ -154,21 +156,20 @@ namespace PrayerClarity
 
             if (rule.ReposeModes != null)
             {
-                // The in-world concept is identical in both editions; only the
-                // tier-specific reliability is rebalanced. Reuse the shared base
-                // localization so sibling editions cannot drift in wording.
-                sharedText = Localization.F("active.skull");
+                // Technology is the comparison surface: state the shared future
+                // outcome once, then show only the quality-dependent delta.
+                sharedText = Localization.F("repose.forecast");
                 ReposeQualityMode mode = rule.TierValue(rule.ReposeModes, tier, ReposeQualityMode.Stock);
                 switch (mode)
                 {
                     case ReposeQualityMode.Stock:
-                        tierText = Localization.F("rebalanced.active.repose.bronze");
+                        tierText = Localization.F("rebalanced.repose.tier.bronze");
                         return true;
                     case ReposeQualityMode.HalfwayToBest:
-                        tierText = Localization.F("rebalanced.active.repose.silver");
+                        tierText = Localization.F("rebalanced.repose.tier.silver");
                         return true;
                     case ReposeQualityMode.Best:
-                        tierText = Localization.F("rebalanced.active.repose.gold");
+                        tierText = Localization.F("rebalanced.repose.tier.gold");
                         return true;
                 }
             }
@@ -230,6 +231,98 @@ namespace PrayerClarity
             return false;
         }
 
+        private static bool TryBuildReposeForecastEffect(
+            RebalancedPrayerRule rule,
+            int tier,
+            out string text,
+            out string semanticKey)
+        {
+            text = Localization.F("repose.forecast");
+            semanticKey = null;
+
+            ReposeQualityMode mode = rule.TierValue(rule.ReposeModes, tier, ReposeQualityMode.Stock);
+            switch (mode)
+            {
+                case ReposeQualityMode.Stock:
+                    text = Localization.F("rebalanced.repose.forecast.bronze") + " " +
+                           TechnologyTooltipTextStyle.CorpseQualityCue();
+                    semanticKey = "rebalanced:repose=stock";
+                    return true;
+                case ReposeQualityMode.HalfwayToBest:
+                    text += "\n" + Localization.F("rebalanced.repose.tier.silver");
+                    semanticKey = "rebalanced:repose=halfway";
+                    return true;
+                case ReposeQualityMode.Best:
+                    text += "\n" + Localization.F("rebalanced.repose.tier.gold");
+                    semanticKey = "rebalanced:repose=best";
+                    return true;
+                default:
+                    text = null;
+                    return false;
+            }
+        }
+
+        private static bool TryBuildReposeActiveEffect(
+            RebalancedPrayerRule rule,
+            int tier,
+            out string text,
+            out string semanticKey)
+        {
+            text = null;
+            semanticKey = null;
+
+            ReposeQualityMode mode = rule.TierValue(rule.ReposeModes, tier, ReposeQualityMode.Stock);
+            bool stockAddsHigherTier = CorpseTierSemantics.StockReposeAddsHigherOrdinaryTier();
+            bool reliabilityStillChangesDistribution =
+                CorpseTierSemantics.BestTierNarrowingChangesDistribution();
+
+            if (!stockAddsHigherTier)
+            {
+                switch (mode)
+                {
+                    case ReposeQualityMode.Stock:
+                        text = Localization.F("repose.endpoint");
+                        semanticKey = "rebalanced:repose=stock";
+                        return true;
+                    case ReposeQualityMode.HalfwayToBest:
+                        text = reliabilityStillChangesDistribution
+                            ? Localization.F("rebalanced.repose.active.silver") + " " +
+                              TechnologyTooltipTextStyle.CorpseQualityCue()
+                            : Localization.F("repose.endpoint");
+                        semanticKey = "rebalanced:repose=halfway";
+                        return true;
+                    case ReposeQualityMode.Best:
+                        text = reliabilityStillChangesDistribution
+                            ? Localization.F("rebalanced.repose.active.gold") + " " +
+                              TechnologyTooltipTextStyle.CorpseQualityCue()
+                            : Localization.F("repose.endpoint");
+                        semanticKey = "rebalanced:repose=best";
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+
+            text = Localization.F("active.skull");
+            switch (mode)
+            {
+                case ReposeQualityMode.Stock:
+                    semanticKey = "rebalanced:repose=stock";
+                    return true;
+                case ReposeQualityMode.HalfwayToBest:
+                    text += "\n" + Localization.F("rebalanced.repose.active.silver");
+                    semanticKey = "rebalanced:repose=halfway";
+                    return true;
+                case ReposeQualityMode.Best:
+                    text += "\n" + Localization.F("rebalanced.repose.active.gold");
+                    semanticKey = "rebalanced:repose=best";
+                    return true;
+                default:
+                    text = null;
+                    return false;
+            }
+        }
+
         private static bool TryBuildRuleEffect(RebalancedPrayerRule rule, int tier, out string text, out string semanticKey)
         {
             text = null;
@@ -256,29 +349,7 @@ namespace PrayerClarity
             }
 
             if (rule.ReposeModes != null)
-            {
-                ReposeQualityMode mode = rule.TierValue(rule.ReposeModes, tier, ReposeQualityMode.Stock);
-                switch (mode)
-                {
-                    case ReposeQualityMode.Stock:
-                        text = Localization.F("rebalanced.active.repose.bronze");
-                        semanticKey = "rebalanced:repose=stock";
-                        break;
-                    case ReposeQualityMode.HalfwayToBest:
-                        text = Localization.F("rebalanced.active.repose.silver");
-                        semanticKey = "rebalanced:repose=halfway";
-                        break;
-                    case ReposeQualityMode.Best:
-                        text = Localization.F("rebalanced.active.repose.gold");
-                        semanticKey = "rebalanced:repose=best";
-                        break;
-                    default:
-                        return false;
-                }
-
-                text += " " + TechnologyTooltipTextStyle.CorpseQualityCue();
-                return true;
-            }
+                return TryBuildReposeForecastEffect(rule, tier, out text, out semanticKey);
 
             if (rule.SoulGratitudeFaithCaps != null &&
                 string.Equals(rule.PrayerId, "b_souls", StringComparison.Ordinal))

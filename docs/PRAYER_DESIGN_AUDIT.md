@@ -1,15 +1,15 @@
 # Prayer Design Audit — Graveyard Keeper 1.407
 
-Status: **current prayer-by-prayer design source of truth**, reconciled 2026-09-26 with PrayerClarity: Vanilla 1.0.33 and stable PrayerClarity: Rebalanced 0.2.38.
+Status: **current prayer-by-prayer design source of truth**, reconciled 2026-09-26 with PrayerClarity: Vanilla 1.0.33 and stable PrayerClarity: Rebalanced 0.2.47.
 
 Stock mechanics remain canonical in `PRAYER_MECHANICS.md`. Exact current Rebalanced values are canonical in `PRAYER_REBALANCE_OPTIONS.md`. Historical alternatives and earlier coefficient experiments are retained in `PRAYER_POWER_BUDGET.md` and Git history as analysis only.
 
 ## Current accepted baselines
 
 - **PrayerClarity: Vanilla 1.0.33** — `accepted/vanilla-1.0.33`, exact source `93b66e747ffe1685003afb894b24f14416edb8c0`, release `v1.0.33`.
-- **PrayerClarity: Rebalanced 0.2.38** — `accepted/rebalanced-0.2.38`, exact runtime source `6f5ef168810945135cee57082cbf90d31776e46b`, release `rebalanced-v0.2.38`.
+- **PrayerClarity: Rebalanced 0.2.47** — `accepted/rebalanced-0.2.47`, exact runtime source `6b3aa5399c8913d368f2b09bab963326db17e7f3`, release `rebalanced-v0.2.47`.
 
-The Rebalanced roster values were established in 0.2.0. Releases 0.2.2 and 0.2.3 changed runtime safety/ownership, 0.2.4 made the accepted Repentance/Repose duration adjustment to 30/42/54 minutes, and 0.2.10 raises ordinary Repose Gold's guaranteed-success gate from q50 to q60 while preserving its accepted effect. The accepted Roots aggregate safety cap remains in force.
+The Rebalanced roster values were established in 0.2.0. Releases 0.2.2 and 0.2.3 changed runtime safety/ownership, 0.2.4 made the accepted Repentance/Repose duration adjustment to 30/42/54 minutes, 0.2.10 raised ordinary Repose Gold from q50 to q60, and 0.2.16 finalized the current q95 premium Gold gate while preserving the accepted effect. The accepted Roots aggregate safety cap remains in force. Rebalanced 0.2.39–0.2.47 changed presentation only and did not alter the accepted roster or balance values.
 
 ## Audit rules
 

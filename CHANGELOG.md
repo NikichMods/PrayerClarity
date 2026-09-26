@@ -1,5 +1,14 @@
 # Changelog
 
+## PrayerClarity: Rebalanced 0.2.47
+
+- Promotes the runtime-accepted post-0.2.38 presentation work as the new Rebalanced stable line without changing the accepted prayer balance or mechanics.
+- Repose now uses one consistent player-facing model across Technology, prayer items, the pulpit and Character -> Temporary Effects; terminal progression states no longer imply that a higher ordinary body-quality tier is still available.
+- Bronze/Silver/Gold Repose reliability is stated explicitly, and the terminal Bronze comparison uses separate native quality-star lines for quick scanning.
+- Prayer-item tooltips return to the game's standard native width. The 100%-success requirement is centered, while Base Result and On Success content share a clean visible left edge without widening the parchment.
+- Preserves the accepted amount + inline-resource wrap repair and all previously accepted 0.2.38 mechanics, requirements, durations, payouts, RNG and balance values.
+- Stable publication reuses the exact runtime-tested 0.2.47 DLL without rebuilding.
+
 ## PrayerClarity: Rebalanced 0.2.38
 
 - Promotes the runtime-accepted post-0.2.23 presentation and Better Save Soul work as the new Rebalanced stable line.
