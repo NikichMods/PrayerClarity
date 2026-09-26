@@ -1,15 +1,15 @@
 # Prayer Design Audit — Graveyard Keeper 1.407
 
-Status: **current prayer-by-prayer design source of truth**, reconciled 2026-09-26 with PrayerClarity: Vanilla 1.0.33 and stable PrayerClarity: Rebalanced 0.2.47.
+Status: **current prayer-by-prayer design source of truth**, reconciled 2026-09-27 with PrayerClarity: Vanilla 1.0.57 and stable PrayerClarity: Rebalanced 0.2.51.
 
 Stock mechanics remain canonical in `PRAYER_MECHANICS.md`. Exact current Rebalanced values are canonical in `PRAYER_REBALANCE_OPTIONS.md`. Historical alternatives and earlier coefficient experiments are retained in `PRAYER_POWER_BUDGET.md` and Git history as analysis only.
 
 ## Current accepted baselines
 
-- **PrayerClarity: Vanilla 1.0.33** — `accepted/vanilla-1.0.33`, exact source `93b66e747ffe1685003afb894b24f14416edb8c0`, release `v1.0.33`.
-- **PrayerClarity: Rebalanced 0.2.47** — `accepted/rebalanced-0.2.47`, exact runtime source `6b3aa5399c8913d368f2b09bab963326db17e7f3`, release `rebalanced-v0.2.47`.
+- **PrayerClarity: Vanilla 1.0.57** — `accepted/vanilla-1.0.57`, exact source `13c85c824bd2932b1175200368d212e03bbae79f`, release `v1.0.57`.
+- **PrayerClarity: Rebalanced 0.2.51** — `accepted/rebalanced-0.2.51`, exact runtime source `13c85c824bd2932b1175200368d212e03bbae79f`, release `rebalanced-v0.2.51`.
 
-The Rebalanced roster values were established in 0.2.0. Releases 0.2.2 and 0.2.3 changed runtime safety/ownership, 0.2.4 made the accepted Repentance/Repose duration adjustment to 30/42/54 minutes, 0.2.10 raised ordinary Repose Gold from q50 to q60, and 0.2.16 finalized the current q95 premium Gold gate while preserving the accepted effect. The accepted Roots aggregate safety cap remains in force. Rebalanced 0.2.39–0.2.47 changed presentation only and did not alter the accepted roster or balance values.
+The Rebalanced roster values were established in 0.2.0. Releases 0.2.2 and 0.2.3 changed runtime safety/ownership, 0.2.4 made the accepted Repentance/Repose duration adjustment to 30/42/54 minutes, 0.2.10 raised ordinary Repose Gold from q50 to q60, and 0.2.16 finalized the q95 premium Gold gate while preserving the accepted effect. The accepted Roots aggregate safety cap remains in force. Rebalanced 0.2.39–0.2.47 changed presentation only; 0.2.48 changed only Combo donations to +100/+250/+500%; 0.2.49–0.2.51 changed shared Technology presentation only.
 
 ## Audit rules
 
@@ -32,7 +32,7 @@ The Rebalanced roster values were established in 0.2.0. Releases 0.2.2 and 0.2.3
 | Ordinary | **No change** | Stock starter baseline, q10. |
 | Faith | **Accepted specialist rework** | q20/40/60; flat success-only **+5/+10/+20 Faith**; no prayer-owned donation bonus. |
 | Donations | **Accepted specialist rework** | q20/40/60; flat success-only **+20/+50/+100 silver-equivalent**; no prayer-owned Faith bonus. |
-| Combo | **Accepted generalist rework** | q40/60/80; stable 0.2.47 success-only Faith **+100/+150/+200%**, donations **+100/+200/+300%**; no prayer-owned flat Faith/money. |
+| Combo | **Accepted generalist rework** | q40/60/80; stable 0.2.51 success-only Faith **+100/+150/+200%**, donations **+100/+250/+500%**; no prayer-owned flat Faith/money. |
 | Prosperity | **No balance change** | Stock q10/20/30 and 1/2/3 Commercial Blessings. |
 | Shoots & Roots | **Accepted repair + scaling** | q10/30/50; nominal growth time **-20/-30/-40%**, 36/72/108 min; current runtime also enforces the accepted 95% combined reduction safety cap. |
 | Repentance | **Accepted rework** | q20/40/60; daily confession probability **50/75/100%**; duration **30/42/54 min**. |
@@ -48,7 +48,7 @@ The Rebalanced roster values were established in 0.2.0. Releases 0.2.2 and 0.2.3
 
 Faith and Donations are flat specialists: Faith gives +5/+10/+20 Faith, Donations gives +20/+50/+100 silver-equivalent, and both guarantee at q20/q40/q60.
 
-Combo is a percentage generalist: stable 0.2.47 gives Faith +100/+150/+200% and donations +100/+200/+300%, guaranteed at q40/q60/q80.
+Combo is a percentage generalist: stable 0.2.51 gives Faith +100/+150/+200% and donations +100/+250/+500%, guaranteed at q40/q60/q80.
 
 This creates the intended progression:
 
@@ -58,17 +58,21 @@ The specialists retain early value because their prayer-owned reward does not de
 
 Do not restore the obsolete +200/+300/+400% specialist ladder or q25/40/70 requirements from the early audit. Those values are historical only.
 
-Runtime-accepted Rebalanced 0.2.48 development baseline: keep Faith at +100/+150/+200% and use Combo donations **+100/+250/+500%**. Public stable remains 0.2.47 until separate promotion.
+The 0.2.48 runtime-accepted Combo donation ladder **+100/+250/+500%** was promoted unchanged into stable Rebalanced 0.2.51; Faith remains +100/+150/+200%.
 
 ## BSS Soul's Repose
 
-Verified base Faith is:
+The accepted Rebalanced Soul's Repose behavior no longer uses the old Soul-Gratitude-dependent stock base-Faith formula.
 
-`Base Faith = (Church Quality + current Soul Gratitude) * 0.1 * EloquenceFactor`
+Current accepted behavior:
 
-Current Soul Gratitude means the amount held at sermon time, not lifetime healed souls and not capacity.
+1. use the ordinary tier-matched sermon event for the normal Church-Quality-derived base Faith;
+2. on sermon success, convert current stored Soul Gratitude to bonus Faith at **1:1**;
+3. conversion cap is **30 / 60 / 90** for Bronze / Silver / Gold;
+4. spend only the amount actually converted;
+5. Church Quality requirements are **q30 / q60 / q90**.
 
-The accepted q30/60/120 ladder gates a +50/+100/+150% prayer-owned Faith bonus. Gold q120 is intentionally aspirational late-game power. This prayer remains state-dependent rather than being normalized to the ordinary Faith specialist.
+This remains state-dependent because the success-only bonus is bounded by the Soul Gratitude available at sermon time.
 
 ## Repentance
 
@@ -112,7 +116,7 @@ A prayer should be reopened when new evidence shows that this role is not actual
 
 ## Current architecture consequence
 
-Current stable 0.2.38 keeps Graveyard Keeper authoritative where practical:
+Stable 0.2.51 keeps Graveyard Keeper authoritative where practical:
 
 - Roots leaves stock growth formulas intact and projects only the native input, with the accepted 95% aggregate cap;
 - Repentance leaves the stock daily reset/RNG/loop intact and projects only the effective `confession_probability` read while the native buff is live;
@@ -125,14 +129,15 @@ Current stable 0.2.38 keeps Graveyard Keeper authoritative where practical:
 
 ## Current status
 
-The stable balance/architecture baseline is **Rebalanced 0.2.38**. The accepted 0.2.17+ Better Save Soul/resource changes and the presentation/runtime refinements through 0.2.38 are now canonical; there is no blanket rebalance or architecture task pending.
+The stable balance/architecture baseline is **Rebalanced 0.2.51**. The accepted Better Save Soul/resource changes, Repose reliability model, 0.2.48 Combo donation ladder, and presentation/runtime refinements through 0.2.51 are canonical; there is no blanket rebalance or architecture task pending.
 
-Known non-blocking evidence gaps remain:
-
-- terminal Repose endpoint wording/presentation has not been observed on the user's terminal-progression save state;
-- the physical 3 Silver / 3 Gold Story drop from a real successful premium Imagination sermon has not yet been visually observed, although it uses the verified native sermon-drop path.
+The former non-blocking evidence gaps are closed:
+- terminal Repose wording/presentation was observed and accepted across the relevant pulpit/item/Temporary Effects states;
+- real successful Silver and Gold Imagination sermons delivered **3 Silver Stories** and **3 Gold Stories** respectively.
 
 Future changes should start from a concrete gameplay/UX finding and create a new explicit proposal rather than reviving superseded historical values.
+
+The dated sections below are retained as chronological design/evidence history. When a historical value conflicts with the current matrix above or with `PRAYER_REBALANCE_OPTIONS.md`, the current canonical roster wins.
 
 
 ## 2026-09-20 specialist-purity audit
