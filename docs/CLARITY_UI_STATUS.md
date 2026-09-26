@@ -15,7 +15,7 @@ The user runtime-tested the 1.0.9 candidate on 2026-09-17 and explicitly accepte
 
 This accepted baseline is information-only: it contains **no Vanilla Fixes and no Balance/Rework mechanics**.
 
-Historical note: at the time of this milestone, the latest public release was v1.0.1. The current stable Vanilla release is **PrayerClarity: Vanilla 1.0.31**; current release identity is recorded in `README.md`, `CHANGELOG.md`, `DESIGN_NOTES.md`, and `TEST_BUILD_LOG.md`.
+Historical note: at the time of this milestone, the latest public release was v1.0.1. The current stable Vanilla release is **PrayerClarity: Vanilla 1.0.33**; the current stable Rebalanced release is **PrayerClarity: Rebalanced 0.2.47**. Current release identity is recorded in `README.md`, `CHANGELOG.md`, `DESIGN_NOTES.md`, and `TEST_BUILD_LOG.md`.
 
 ## Accepted pulpit presentation
 
