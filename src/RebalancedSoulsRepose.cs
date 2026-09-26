@@ -17,6 +17,7 @@ namespace PrayerClarity
         private static ManualLogSource _log;
         private static Type _prayLogicsType;
         private static ConstructorInfo _itemConstructor;
+        private static PropertyInfo _gratitudePointsProperty;
         private static bool _runtimeErrorLogged;
 
         internal static void Install(string harmonyId, ManualLogSource log)
@@ -24,8 +25,10 @@ namespace PrayerClarity
             _log = log;
             _prayLogicsType = R.GameType("PrayLogics");
             Type itemType = R.GameType("Item");
+            Type worldGameObject = R.GameType("WorldGameObject");
             if (_prayLogicsType == null) throw new MissingMemberException("PrayLogics");
             if (itemType == null) throw new MissingMemberException("Item");
+            if (worldGameObject == null) throw new MissingMemberException("WorldGameObject");
 
             MethodInfo calculate = R.Method(
                 _prayLogicsType,
@@ -37,6 +40,13 @@ namespace PrayerClarity
 
             _itemConstructor = itemType.GetConstructor(new[] { typeof(string), typeof(int) });
             if (_itemConstructor == null) throw new MissingMethodException("Item(string,int)");
+
+            _gratitudePointsProperty = worldGameObject.GetProperty("gratitude_points", R.Inst);
+            if (_gratitudePointsProperty == null ||
+                !_gratitudePointsProperty.CanRead ||
+                !_gratitudePointsProperty.CanWrite ||
+                _gratitudePointsProperty.PropertyType != typeof(float))
+                throw new MissingMemberException("WorldGameObject.gratitude_points readable/writable float property");
 
             R.PatchHooks(
                 harmonyId + ".soulsrepose.convert",
@@ -117,8 +127,11 @@ namespace PrayerClarity
                 object player = mainGame == null ? null : R.Get(mainGame, "player");
                 if (player == null) throw new InvalidOperationException("MainGame.player unavailable after successful sermon.");
 
-                float current = R.Float(R.Get(player, "gratitude_points"));
-                R.Set(player, "gratitude_points", Math.Max(0f, current - __state.Conversion));
+                float current = Convert.ToSingle(_gratitudePointsProperty.GetValue(player, null));
+                _gratitudePointsProperty.SetValue(
+                    player,
+                    Math.Max(0f, current - __state.Conversion),
+                    null);
             }
             catch (Exception ex)
             {
