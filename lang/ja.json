@@ -20,11 +20,11 @@
   "tech.effect.imagination_intro": "執筆品質を高めます。",
   "tech.effect.excellence_intro": "製作品質を高めます。",
   "tech.souls_base_faith": "信仰は教会の質と魂の感謝度に左右されます。",
-  "repose.endpoint": "入手可能な死体の品質はすでに上限に達しています。この祈りで、これ以上高品質な死体は解放されません。",
+  "repose.endpoint": "これ以上高品質な死体はもう手に入りません。祈りでもどうにもできません。",
   "buff.souls_repose": "(faith)は教会の質と(gratitude_points)に左右されます。",
   "active.sword": "ダメージ +{0:0.##}",
   "active.shield": "防御 +{0:0.##}",
-  "active.skull": "ロバが品質が1段階高い死体を運んでくることがある (up) (skull) (rskull)",
+  "active.skull": "ロバがより高品質な死体を運んでくることがあります。 (up) (skull) (rskull)",
   "active.pen": "執筆品質ボーナス：+{0:0.##}",
   "active.star": "製作品質ボーナス：+{0:0.##}",
   "active.plant_inactive": "既知の問題：この祈りでは植物の成長が速くなりません",
@@ -37,5 +37,6 @@
   "active.timer_days_compact": "{0:0.0}",
   "tech.on_success_header": "成功時：",
   "forecast.current_success_chance": "現在の成功率：{0}%",
-  "item.sermon_success": "説教の成功"
+  "item.sermon_success": "説教の成功",
+  "repose.forecast": "ロバがより高品質な死体を運んでくるようになります。 (up) (skull) (rskull)"
 }

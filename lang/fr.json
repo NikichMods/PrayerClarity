@@ -20,11 +20,11 @@
   "tech.effect.imagination_intro": "Améliore la qualité d’écriture.",
   "tech.effect.excellence_intro": "Améliore la qualité de fabrication.",
   "tech.souls_base_faith": "La Foi dépend de la qualité de l’église et de la Gratitude des âmes.",
-  "repose.endpoint": "La qualité maximale disponible des corps est déjà atteinte — cette prière ne peut pas débloquer de corps de meilleure qualité.",
+  "repose.endpoint": "Il n’est plus possible d’obtenir des corps de qualité encore supérieure — même une prière n’y changera rien.",
   "buff.souls_repose": "La (faith) dépend de la qualité de l’église et de (gratitude_points).",
   "active.sword": "+{0:0.##} dégâts",
   "active.shield": "+{0:0.##} armure",
-  "active.skull": "L’âne peut apporter un corps d’un niveau de qualité supérieur (up) (skull) (rskull)",
+  "active.skull": "L’âne peut apporter des corps de meilleure qualité. (up) (skull) (rskull)",
   "active.pen": "Bonus de qualité d’écriture : +{0:0.##}",
   "active.star": "Bonus de qualité de fabrication : +{0:0.##}",
   "active.plant_inactive": "Problème connu : cette prière n’accélère pas la croissance des plantes",
@@ -37,5 +37,6 @@
   "active.timer_days_compact": "{0:0.0}",
   "tech.on_success_header": "En cas de succès :",
   "forecast.current_success_chance": "Chance de réussite actuelle : {0} %",
-  "item.sermon_success": "Réussite du sermon"
+  "item.sermon_success": "Réussite du sermon",
+  "repose.forecast": "L’âne pourra apporter des corps de meilleure qualité. (up) (skull) (rskull)"
 }

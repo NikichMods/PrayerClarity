@@ -1,13 +1,10 @@
 {
   "rebalanced.tech.plant_intro": "植物の成長を速めます。",
   "rebalanced.tech.sins_intro": "各告解室で告解がより頻繁に行われます。",
-  "rebalanced.tech.repose_intro": "ロバがより高品質な死体を運んでくることがあります。",
+  "rebalanced.tech.repose_intro": "ロバがより高品質な死体を運んでくるようになります。",
   "rebalanced.tech.combat_intro": "戦闘時の墓守を強化します。",
   "rebalanced.active.plant": "植物の成長時間：-{0:0}% · すべての要因を合わせた成長時間短縮は最大{1:0}%",
   "rebalanced.active.sins": "告解発生率：{0:0}%",
-  "rebalanced.active.repose.bronze": "ロバが品質が1段階高い死体を運んでくることがある",
-  "rebalanced.active.repose.silver": "半分の場合で最高品質の死体が保証される",
-  "rebalanced.active.repose.gold": "ロバは最高品質の死体を必ず運んでくる",
   "rebalanced.active.combat": "ダメージ +{0:0.##} · 防御 +{1:0.##} · HP再生 {2:0.##}/秒",
   "rebalanced.active.gratitude": "魂の状態は時間経過で悪化しません。死体の中でも、抽出後でも有効です。魂を解放すると(gratitude_points)が+{0:0}%増えます。",
   "rebalanced.tech.plant_tier": "植物の成長時間：-{0:0}%",
@@ -23,5 +20,13 @@
   "rebalanced.tech.sin_shard_lore": "魂は念入りに浄化したほうがよい、という話を少しばかり。",
   "rebalanced.tech.gratitude_effect": "魂の状態は時間が経っても悪化しません。死体の中でも、抽出後でも同じです。\n魂の解放で得られる(gratitude_points)：+{0:0}%",
   "rebalanced.active.sins_detailed": "各告解室で1日に告解が発生する確率：{0:0}%",
-  "rebalanced.repose.endpoint_bronze_hint": "（銀と金の祈りは、入手可能な最高の死体を得られる確実性をさらに高めます。）"
+  "rebalanced.repose.endpoint_bronze_hint": "（(s1) はもう効果がありません。\n(s2) ロバがすでに運んでこられる死体の中から最高の死体を得る確率が上がります。\n(s3) ロバがすでに運んでこられる死体の中から最高の死体が保証されます。）",
+  "rebalanced.repose.tier.bronze": "最高の死体は保証されない",
+  "rebalanced.repose.tier.silver": "ロバが運んでこられる最高の死体を得る確率が上がります。",
+  "rebalanced.repose.tier.gold": "ロバが運んでこられる最高の死体が保証されます。",
+  "rebalanced.repose.active.silver": "ロバが運んでこられる最高の死体を得る確率が高くなっています。",
+  "rebalanced.repose.active.gold": "ロバが運んでこられる最高の死体が保証されています。",
+  "rebalanced.repose.forecast.bronze": "ロバがより高品質な死体を運んでくるようになりますが、最高の死体が保証されるわけではありません。",
+  "rebalanced.repose.terminal.silver": "ロバがすでに運んでこられる死体の中から最高の死体を得る確率が上がります。",
+  "rebalanced.repose.terminal.gold": "ロバがすでに運んでこられる死体の中から最高の死体が保証されます。"
 }

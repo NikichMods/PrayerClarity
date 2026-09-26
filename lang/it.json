@@ -20,11 +20,11 @@
   "tech.effect.imagination_intro": "Migliora la qualità di scrittura.",
   "tech.effect.excellence_intro": "Migliora la qualità di creazione.",
   "tech.souls_base_faith": "La Fede dipende dalla qualità della chiesa e dalla Gratitudine delle anime.",
-  "repose.endpoint": "La qualità massima disponibile dei corpi è già stata raggiunta — questa preghiera non può sbloccare corpi di qualità superiore.",
+  "repose.endpoint": "Non è più possibile ottenere corpi di qualità ancora superiore — nemmeno una preghiera può aiutare.",
   "buff.souls_repose": "La (faith) dipende dalla qualità della chiesa e da (gratitude_points).",
   "active.sword": "+{0:0.##} danni",
   "active.shield": "+{0:0.##} armatura",
-  "active.skull": "L’asino può portare un corpo di un livello di qualità migliore (up) (skull) (rskull)",
+  "active.skull": "L’asino può portare corpi di qualità superiore. (up) (skull) (rskull)",
   "active.pen": "Bonus alla qualità di scrittura: +{0:0.##}",
   "active.star": "Bonus alla qualità di creazione: +{0:0.##}",
   "active.plant_inactive": "Problema noto: questa preghiera non accelera la crescita delle piante",
@@ -37,5 +37,6 @@
   "active.timer_days_compact": "{0:0.0}",
   "tech.on_success_header": "In caso di successo:",
   "forecast.current_success_chance": "Probabilità di successo attuale: {0}%",
-  "item.sermon_success": "Successo del sermone"
+  "item.sermon_success": "Successo del sermone",
+  "repose.forecast": "L’asino potrà portare corpi di qualità superiore. (up) (skull) (rskull)"
 }

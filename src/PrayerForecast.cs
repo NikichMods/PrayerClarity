@@ -223,7 +223,9 @@ namespace PrayerClarity
                 case "buff_shield":
                     return NumberedActiveResEffect("active.shield", res, "add_armor");
                 case "buff_skull":
-                    return NumberedActiveResEffect("active.skull", res, "body_max");
+                    return CorpseTierSemantics.StockReposeAddsHigherOrdinaryTier()
+                        ? NumberedActiveResEffect("active.skull", res, "body_max")
+                        : Localization.F("repose.endpoint");
                 case "buff_pen":
                     return Localization.F("active.pen", R.Float(R.Get(buff, "craft_q")));
                 case "buff_star":
@@ -415,7 +417,7 @@ namespace PrayerClarity
                 case "buff_skull":
                 {
                     float value = res == null ? 0f : R.GameResGet(res, "body_max");
-                    text = NumberedActiveResEffect("active.skull", res, "body_max");
+                    text = NumberedActiveResEffect("repose.forecast", res, "body_max");
                     semanticKey += ":body_max=" + value.ToString("R", CultureInfo.InvariantCulture);
                     break;
                 }

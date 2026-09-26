@@ -117,7 +117,7 @@ namespace PrayerClarity
             if (!string.IsNullOrEmpty(sections.Requirement))
             {
                 list.Insert(insertIndex++, CreateTextData("\n" + Localization.F("item.sermon_success"), 3, "Center", false));
-                list.Insert(insertIndex++, CreateTextData(sections.Requirement, 4, "Left", true));
+                list.Insert(insertIndex++, CreateTextData(sections.Requirement, 4, "Center", true));
             }
 
             if (!string.IsNullOrEmpty(sections.SuccessBonuses))

@@ -20,11 +20,11 @@
   "tech.effect.imagination_intro": "Mejora la calidad de escritura.",
   "tech.effect.excellence_intro": "Mejora la calidad de fabricación.",
   "tech.souls_base_faith": "La Fe depende de la calidad de la iglesia y la Gratitud de las almas.",
-  "repose.endpoint": "Ya has alcanzado la máxima calidad de cadáver disponible: esta oración no puede desbloquear cadáveres de mayor calidad.",
+  "repose.endpoint": "Ya no es posible obtener cuerpos de una calidad aún mayor: ni siquiera una oración puede ayudar.",
   "buff.souls_repose": "La (faith) depende de la calidad de la iglesia y de (gratitude_points).",
   "active.sword": "+{0:0.##} de daño",
   "active.shield": "+{0:0.##} de armadura",
-  "active.skull": "El burro puede traer un cuerpo un nivel de calidad mejor (up) (skull) (rskull)",
+  "active.skull": "El burro puede traer cuerpos de mayor calidad. (up) (skull) (rskull)",
   "active.pen": "Bonificación a la calidad de escritura: +{0:0.##}",
   "active.star": "Bonificación a la calidad de fabricación: +{0:0.##}",
   "active.plant_inactive": "Problema conocido: esta oración no acelera el crecimiento de las plantas",
@@ -37,5 +37,6 @@
   "active.timer_days_compact": "{0:0.0}",
   "tech.on_success_header": "Con éxito:",
   "forecast.current_success_chance": "Probabilidad de éxito actual: {0} %",
-  "item.sermon_success": "Éxito del sermón"
+  "item.sermon_success": "Éxito del sermón",
+  "repose.forecast": "El burro podrá traer cuerpos de mayor calidad. (up) (skull) (rskull)"
 }

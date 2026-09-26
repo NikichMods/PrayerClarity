@@ -20,11 +20,11 @@
   "tech.effect.imagination_intro": "提高书写品质。",
   "tech.effect.excellence_intro": "提高制作质量。",
   "tech.souls_base_faith": "信仰取决于教堂品质和灵魂感恩值。",
-  "repose.endpoint": "已达到可获得的最高尸体品质——这篇祷告无法再解锁更高品质的尸体。",
+  "repose.endpoint": "已经无法获得品质更高的尸体了——即使祷告也无能为力。",
   "buff.souls_repose": "(faith)取决于教堂品质和(gratitude_points)。",
   "active.sword": "伤害 +{0:0.##}",
   "active.shield": "护甲 +{0:0.##}",
-  "active.skull": "驴子可能带来品质高一级的尸体 (up) (skull) (rskull)",
+  "active.skull": "驴子可以带来品质更高的尸体。 (up) (skull) (rskull)",
   "active.pen": "书写品质加成：+{0:0.##}",
   "active.star": "制作质量加成：+{0:0.##}",
   "active.plant_inactive": "已知问题：此祈祷不会加快植物生长",
@@ -37,5 +37,6 @@
   "active.timer_days_compact": "{0:0.0}",
   "tech.on_success_header": "成功时：",
   "forecast.current_success_chance": "当前成功率：{0}%",
-  "item.sermon_success": "布道成功"
+  "item.sermon_success": "布道成功",
+  "repose.forecast": "驴子将能带来品质更高的尸体。 (up) (skull) (rskull)"
 }

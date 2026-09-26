@@ -1,13 +1,10 @@
 {
   "rebalanced.tech.plant_intro": "Acelera o crescimento das plantas.",
   "rebalanced.tech.sins_intro": "As confissões acontecem com mais frequência em cada confessionário.",
-  "rebalanced.tech.repose_intro": "O burro pode trazer corpos de melhor qualidade.",
+  "rebalanced.tech.repose_intro": "O burro poderá trazer corpos de qualidade superior.",
   "rebalanced.tech.combat_intro": "Fortalece o Guardião em combate.",
   "rebalanced.active.plant": "Tempo de crescimento das plantas: -{0:0}% · Redução total do tempo de crescimento de todas as fontes: no máximo {1:0}%",
   "rebalanced.active.sins": "Chance de confissão: {0:0}%",
-  "rebalanced.active.repose.bronze": "O burro pode trazer um corpo um nível de qualidade melhor",
-  "rebalanced.active.repose.silver": "Em metade dos casos, o melhor corpo é garantido",
-  "rebalanced.active.repose.gold": "O burro traz garantidamente o melhor corpo",
   "rebalanced.active.combat": "Dano +{0:0.##} · Armadura +{1:0.##} · Regeneração {2:0.##} PV/s",
   "rebalanced.active.gratitude": "A condição das almas não piora com o tempo, nem no corpo nem depois da extração. Libertar almas concede +{0:0}% (gratitude_points).",
   "rebalanced.tech.plant_tier": "Tempo de crescimento das plantas: -{0:0}%",
@@ -23,5 +20,13 @@
   "rebalanced.tech.sin_shard_lore": "Algumas palavras sobre por que é melhor purificar as almas com cuidado.",
   "rebalanced.tech.gratitude_effect": "A condição das almas não piora com o tempo — nem no corpo, nem depois da extração.\n(gratitude_points) ao libertar almas: +{0:0}%",
   "rebalanced.active.sins_detailed": "Chance diária de confissão em cada confessionário: {0:0}%",
-  "rebalanced.repose.endpoint_bronze_hint": "(As orações de prata e ouro ainda aumentam a confiabilidade de receber o melhor corpo disponível.)"
+  "rebalanced.repose.endpoint_bronze_hint": "((s1) não tem mais efeito.\n(s2) aumentará a chance de receber o melhor entre os corpos que o burro já pode trazer.\n(s3) garantirá o melhor entre os corpos que o burro já pode trazer.)",
+  "rebalanced.repose.tier.bronze": "Sem garantia de receber o melhor",
+  "rebalanced.repose.tier.silver": "A chance de receber o melhor corpo que o burro pode trazer aumentará.",
+  "rebalanced.repose.tier.gold": "O melhor corpo que o burro pode trazer será garantido.",
+  "rebalanced.repose.active.silver": "A chance de receber o melhor corpo que o burro pode trazer é maior.",
+  "rebalanced.repose.active.gold": "O melhor corpo que o burro pode trazer é garantido.",
+  "rebalanced.repose.forecast.bronze": "O burro poderá trazer corpos de qualidade superior, mas receber o melhor corpo não é garantido.",
+  "rebalanced.repose.terminal.silver": "Aumentará a chance de receber o melhor entre os corpos que o burro já pode trazer.",
+  "rebalanced.repose.terminal.gold": "Garantirá o melhor entre os corpos que o burro já pode trazer."
 }

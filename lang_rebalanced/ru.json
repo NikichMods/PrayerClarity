@@ -1,13 +1,10 @@
 {
   "rebalanced.tech.plant_intro": "Ускоряет рост растений.",
   "rebalanced.tech.sins_intro": "В каждой исповедальне чаще проходят исповеди.",
-  "rebalanced.tech.repose_intro": "Осёл может привозить более качественные тела.",
+  "rebalanced.tech.repose_intro": "Осёл сможет привозить тела более высокого качества.",
   "rebalanced.tech.combat_intro": "Усиливает Хранителя в бою.",
   "rebalanced.active.plant": "Время роста растений: -{0:0}% · Суммарное снижение времени роста из всех источников — не более {1:0}%",
   "rebalanced.active.sins": "Шанс исповеди: {0:0}%",
-  "rebalanced.active.repose.bronze": "Осёл может привезти тело на уровень качественнее",
-  "rebalanced.active.repose.silver": "В половине случаев лучшее тело гарантировано",
-  "rebalanced.active.repose.gold": "Осёл гарантированно привозит лучшее тело",
   "rebalanced.active.combat": "Урон +{0:0.##} · Броня +{1:0.##} · Регенерация {2:0.##} ОЗ/с",
   "rebalanced.active.gratitude": "Состояние душ не ухудшается со временем — ни в теле, ни после извлечения. За освобождение душ вы получаете на {0:0}% больше (gratitude_points).",
   "rebalanced.tech.plant_tier": "Время роста растений: -{0:0}%",
@@ -23,5 +20,13 @@
   "rebalanced.tech.sin_shard_lore": "Несколько слов о том, что душу лучше очищать тщательно.",
   "rebalanced.tech.gratitude_effect": "Состояние душ со временем не ухудшается — ни в теле, ни после извлечения.\n(gratitude_points) за освобождение душ: +{0:0}%",
   "rebalanced.active.sins_detailed": "Ежедневный шанс исповеди в каждой исповедальне: {0:0}%",
-  "rebalanced.repose.endpoint_bronze_hint": "(Серебряная и золотая молитвы всё ещё повышают надёжность получения лучшего доступного тела.)"
+  "rebalanced.repose.endpoint_bronze_hint": "((s1) больше не даёт эффекта.\n(s2) повысит шанс получить лучшее из тех тел, что Осёл уже может привезти.\n(s3) гарантирует лучшее из тех тел, что Осёл уже может привезти.)",
+  "rebalanced.repose.tier.bronze": "Без гарантии получить лучшее",
+  "rebalanced.repose.tier.silver": "Шанс получить лучшее из возможных тел повысится.",
+  "rebalanced.repose.tier.gold": "Лучшее из возможных тел будет гарантировано.",
+  "rebalanced.repose.active.silver": "Шанс получить лучшее из возможных тел выше.",
+  "rebalanced.repose.active.gold": "Лучшее из возможных тел гарантировано.",
+  "rebalanced.repose.forecast.bronze": "Осёл сможет привозить тела более высокого качества, но получение лучшего тела не гарантировано.",
+  "rebalanced.repose.terminal.silver": "Повысит шанс получить лучшее из тех тел, что Осёл уже может привезти.",
+  "rebalanced.repose.terminal.gold": "Гарантирует лучшее из тех тел, что Осёл уже может привезти."
 }
