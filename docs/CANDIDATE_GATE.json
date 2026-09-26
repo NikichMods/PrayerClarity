@@ -129,6 +129,29 @@
         "NEXUS_SUPPORT_WORKFLOW treats the complete BepInEx LogOutput.log as the canonical support artifact."
       ],
       "state": "READY"
+    },
+    {
+      "id": "souls-repose-deduction-contract",
+      "observable_property": "Soul's Repose is not allowed to activate its success-only Soul Gratitude -> Faith conversion unless the exact writable WorldGameObject.gratitude_points contract used for the post-success deduction is available.",
+      "canonical_owner": "WorldGameObject.gratitude_points is the verified clamped Soul Gratitude property; PrayLogics.CalculatePray remains the native success/result owner and PrayerClarity subtracts only the accepted conversion after a successful result.",
+      "final_writer_or_commit_point": "RebalancedSoulsRepose.Install is the preflight admission point for the exact property contract. The CalculatePray postfix remains the one success-only deduction point and uses the preflighted property directly.",
+      "blast_radius": [
+        "Rebalanced Better Save Soul Soul's Repose conversion",
+        "Rebalanced startup compatibility on unverified host builds"
+      ],
+      "preserved_invariants": [
+        "no Soul Gratitude is spent on failed sermons",
+        "stock PrayLogics still owns success roll and Faith result construction",
+        "conversion remains capped to the selected tier and pre-calculation available Gratitude",
+        "temporary Faith output is still restored in a finalizer",
+        "verified 1.407 behavior and arithmetic remain unchanged"
+      ],
+      "acceptance_evidence": "CI compilation and source inspection must prove Install requires a readable/writable float gratitude_points property and the success postfix uses that exact cached property. Existing accepted 1.407 Soul's Repose runtime arithmetic need not be repeated solely for this structural preflight; the candidate startup smoke confirms the contract resolves on the supported build.",
+      "evidence_refs": [
+        "docs/BSS_REBALANCE_IMPLEMENTATION_RESEARCH.md: WorldGameObject.gratitude_points is the verified clamped resource property and the accepted design spends it only after native success.",
+        "Engineering audit identified the narrow residual failure mode where native Faith could already be calculated if the later property write itself were unavailable."
+      ],
+      "state": "READY"
     }
   ]
 }
