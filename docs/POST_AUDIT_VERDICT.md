@@ -10,20 +10,21 @@ This document is a **closure record**, not a new redesign proposal. It records w
 
 ### PrayerClarity: Vanilla
 
-- accepted/released version: **1.0.33**
-- accepted ref: `accepted/vanilla-1.0.33`
-- exact source: `93b66e747ffe1685003afb894b24f14416edb8c0`
-- DLL SHA-256: `30b23f9ed62148f3fd08e0c34ae54f165da0e639a041d1e9d7c4abe74268da8a`
-- release: `v1.0.33`
+- accepted/released version: **1.0.57**
+- accepted ref: `accepted/vanilla-1.0.57`
+- exact source: `13c85c824bd2932b1175200368d212e03bbae79f`
+- DLL SHA-256: `3ff5f830a3ce20d1bf789e5f9ff0d3ac11cf9511d4457660b56c1f286dc31195`
+- release: `v1.0.57`
 
 ### PrayerClarity: Rebalanced
 
-- accepted/released version: **0.2.47**
-- accepted ref: `accepted/rebalanced-0.2.47`
-- exact runtime source: `6b3aa5399c8913d368f2b09bab963326db17e7f3`
-- DLL SHA-256: `2482a159c3108a7868123d7c2cac7a8a620fe537952fee0cda6024c6ea5c7c96`
-- release: `rebalanced-v0.2.47`
-- stable promotion merge: `29e300b2d11bc6936e19ed8d9522caceecccbca2`
+- accepted/released version: **0.2.51**
+- accepted ref: `accepted/rebalanced-0.2.51`
+- exact runtime source: `13c85c824bd2932b1175200368d212e03bbae79f`
+- DLL SHA-256: `083168ec6cd76fd55366ca10426e212a30a3bc2c7ca61a9e9de0dc6f656c8ccd`
+- release: `rebalanced-v0.2.51`
+- stable source merge: `eb9955974da0c0da865a79a06d18fd07ddb7de6f` (PR #41)
+- stable publication/docs merge: `394c6220ebb16d486a2c8ccadeb5c4cf1c954f02` (PR #42)
 
 The architecture verdict was established on 0.2.3. Rebalanced 0.2.4 subsequently changed only the Repentance/Repose tier durations through the already accepted once-per-load `CraftDefinition.dur_parameter` projection. Rebalanced 0.2.10 retains those gameplay/save-lifecycle seams; its q60 Gold Repose change is another static `CraftDefinition.needs_quality` projection, while the shared Clarity refinements are event-driven UI/crafting-description hooks with no new persistent state, polling, or gameplay lifecycle owner. Therefore the **A — architecture/save-lifecycle clean** verdict carries forward unchanged.
 
@@ -177,17 +178,15 @@ Do **not** reopen these merely because the patch name looks broad or because a t
 
 Reopen only when current source changes, a concrete runtime conflict appears, the supported game binary changes, or new direct evidence invalidates an existing assumption.
 
-## Repose remaining evidence
+## Repose evidence closure
 
-The ordinary Repose gameplay path is not blocked.
+The ordinary Repose gameplay path remains closed and accepted.
 
-The only known unresolved Repose item is the **terminal Donkey-progression endpoint wording/presentation** on a save that has reached the final ordinary corpse tier. This is presentation-only and non-blocking. Do not require the user to progress a save solely to close it.
+The former terminal Donkey-progression presentation gap was later exercised and accepted. Repose now has consistent accepted presentation across Technology, prayer items, ordinary/terminal pulpit states and Character -> Temporary Effects. No remaining Repose runtime evidence gap is active.
 
 ## Vanilla verdict
 
-Vanilla 1.0.33 remains a Clarity/UI-only accepted release. No gameplay architecture action is indicated.
-
-The same terminal Repose endpoint presentation case remains optional/non-blocking.
+Vanilla 1.0.57 remains a Clarity/UI-only accepted release. No gameplay architecture action is indicated.
 
 ## Production instrumentation
 
@@ -305,3 +304,14 @@ The new prayer-item alignment refinement remains synchronous UI work. `ItemDefin
 Repose terminal-aware wording and Temporary Effects presentation consume the existing verified semantic state; no corpse-generation, Donkey progression, RNG or prayer-effect mechanic was changed.
 
 The architecture verdict therefore remains **A — architecture/save-lifecycle clean; no production action required** for Rebalanced 0.2.47.
+
+
+### 2026-09-27 Rebalanced 0.2.51 / Vanilla 1.0.57 addendum
+
+The 0.2.48 gameplay delta changes only Combo Prayer's stock-owned donation multipliers from **+100/+200/+300%** to **+100/+250/+500%** through the already accepted once-per-load `CraftDefinition.k_money` projection. Stock `PrayLogics.CalculatePray` remains the final calculation owner. No new save state, timer, RNG path, formula replacement or lifecycle hook was introduced.
+
+The 0.2.49–0.2.51 work is shared presentation only. The accepted 0.2.51 Technology alignment model identifies semantic heading roles while the existing final `WidgetsBubbleGUI.UpdateSizeAndWidgetsPositions` seam expands only marked centered headings to the already-existing native maximum child span. It adds no persistent geometry state, polling, broad scan or gameplay behavior.
+
+Vanilla 1.0.57 receives only the shared Clarity presentation changes and preserves stock Graveyard Keeper 1.407 prayer mechanics and balance.
+
+The architecture verdict therefore remains **A — no architecture/save-lifecycle action required** for both stable editions.
