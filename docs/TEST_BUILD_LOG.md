@@ -1,5 +1,26 @@
 # Test / Research Build Log
 
+## 2026-09-26 — Rebalanced 0.2.47 accepted stable
+
+- User runtime acceptance: **2026-09-26** — all requested 0.2.47 visual changes worked as expected and no problems were observed.
+- Frozen accepted ref: `accepted/rebalanced-0.2.47`.
+- Exact accepted runtime/source SHA: `6b3aa5399c8913d368f2b09bab963326db17e7f3`.
+- CI run: `36266833620`; result: **success**.
+- Artifact ID: `10913543057`.
+- Artifact: `PrayerClarity-rebalanced-0.2.47-ci-6b3aa5399c8913d368f2b09bab963326db17e7f3`.
+- Artifact ZIP digest: `sha256:5c07d5b4922467cf239a20f87e64c5ea8036e036dd8e84e6b72386d9645bedb1`.
+- Accepted Rebalanced DLL SHA-256: `2482a159c3108a7868123d7c2cac7a8a620fe537952fee0cda6024c6ea5c7c96`.
+- Accepted presentation closure:
+  1. prayer-item parchment uses the game's standard native width;
+  2. the 100%-success requirement content is centered and remains coherent when it wraps;
+  3. Base Result and On Success content share a visible left edge while their section headers remain centered;
+  4. Repose wording/presentation is consistent across Technology, item, ordinary pulpit, terminal pulpit and Temporary Effects;
+  5. terminal Repose states no longer imply that another ordinary body-quality tier can still be unlocked when the natural ceiling has been reached.
+- Prayer mechanics, balance, requirements, durations, payouts, corpse-generation behavior and RNG remain unchanged from the accepted Rebalanced ruleset.
+- Public sibling Vanilla remains **1.0.33**. The 1.0.53 sibling binary produced by the shared candidate workflow is not promoted by this Rebalanced release.
+- Stable release/tag: `rebalanced-v0.2.47`; canonical asset: `PrayerClarity.Rebalanced.dll`, published from the exact accepted candidate bytes without rebuilding.
+- No further in-game test is required unless the accepted implementation changes.
+
 ## 2026-09-26 — Rebalanced 0.2.47 / Vanilla 1.0.53 native-span left content candidate
 
 - Stable runtimes remain Rebalanced 0.2.38 / `accepted/rebalanced-0.2.38` and Vanilla 1.0.33 / `accepted/vanilla-1.0.33`.
