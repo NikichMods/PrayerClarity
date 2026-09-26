@@ -1,34 +1,36 @@
 {
   "schema_version": 1,
-  "candidate_branch": "candidate/rebalanced-0.2.49",
-  "baseline_sha": "42b284986f768b6dd1e1760f7d80c8e5763765b2",
+  "candidate_branch": "candidate/rebalanced-0.2.50",
+  "baseline_sha": "8e95d45a4b501c2852428eb8d4d37883be93b7c4",
   "changes": [
     {
-      "id": "technology-prayer-heading-alignment",
-      "observable_property": "Prayer Technology tooltips use the same visual alignment hierarchy in Vanilla and Rebalanced, with mouse and gamepad: the top prayer title plus the Base Result and On Success section headers are centered, while the corresponding mechanics content remains left-aligned.",
-      "canonical_owner": "TechUnlock.GetTooltip(Tooltip) creates the stock Technology tooltip data used by both mouse child tooltips and TechTreeGUIItem gamepad tooltips. SecondarySurfacePresentation.TechUnlockTooltipPostfix is the existing PrayerClarity enrichment point that replaces/inserts the prayer sections and can normalize only prayer-owned/header rows in that same data list.",
-      "final_writer_or_commit_point": "BubbleWidgetText.Draw later applies each BubbleWidgetTextData.alignment to the UILabel. TechnologyPrayerCarousel rebuilds the selected gamepad prayer tooltip by calling the same TechUnlock.GetTooltip method, so data-level alignment is shared by mouse and controller without a second lifecycle.",
+      "id": "technology-prayer-header-native-span",
+      "observable_property": "Prayer Technology titles and section headers are visibly centered in both mouse and gamepad tooltips, while mechanics content remains left-aligned and the outer tooltip width remains unchanged.",
+      "canonical_owner": "TechUnlock.GetTooltip creates the row data; BubbleWidgetText.Draw applies each row's text alignment; WidgetsBubbleGUI owns final child-widget placement and sizes/positions the tooltip from child geometry.",
+      "final_writer_or_commit_point": "WidgetsBubbleGUI.UpdateSizeAndWidgetsPositions is the stock layout commit point. Runtime evidence from 0.2.49 plus host inspection shows that mouse Technology tooltips use a Left-aligned container, so a narrow centered UILabel remains positioned at the left edge. The correction must therefore widen only marked centered header widgets to the already-existing native maximum child width immediately before stock UpdateSize/Reposition.",
       "blast_radius": [
-        "Prayer-bearing Technology tooltip title/header alignment in PrayerClarity: Vanilla",
-        "Prayer-bearing Technology tooltip title/header alignment in PrayerClarity: Rebalanced",
-        "Mouse Technology prayer tooltips",
-        "Gamepad Technology prayer tooltips including the prayer carousel"
+        "Top prayer Technology title row",
+        "Prayer Technology Base Result header",
+        "Prayer Technology On Success header",
+        "Mouse and gamepad Technology prayer tooltips in Vanilla and Rebalanced"
       ],
       "preserved_invariants": [
-        "Base Result and On Success mechanics content remains left-aligned",
-        "Prayer lore/description alignment remains stock-owned and unchanged",
-        "Crafting-source rows remain stock-owned and unchanged",
-        "Technology width/viewport-clamp behavior remains unchanged",
-        "Prayer-item, pulpit and Temporary Effects alignment remains unchanged",
+        "Header text alignment remains Center at the BubbleWidgetTextData/UILabel level",
+        "Base Result and On Success mechanics content remains Left",
+        "Lore/description and crafting-source rows remain untouched",
+        "Native outer tooltip width is not increased beyond the pre-adjustment maximum child width",
+        "Technology viewport clamp and gamepad carousel/navigation remain unchanged",
+        "Prayer-item, pulpit and Temporary Effects presentation remain unchanged",
         "Non-prayer Technology tooltips remain untouched",
-        "No prayer mechanics, values, localization strings or gamepad navigation behavior change"
+        "No prayer mechanics, values or localization strings change"
       ],
-      "acceptance_evidence": "Production diff must be limited to shared Technology presentation alignment plus candidate/build identity. CI/localization/build must pass. In-game visual acceptance should check one prayer Technology with mouse and the same/another prayer Technology with gamepad: top title, Base Result and On Success centered; mechanics rows left-aligned; tooltip width and viewport placement unchanged. One Vanilla sibling visual check is sufficient to prove the same shared source path if Rebalanced is also checked.",
+      "acceptance_evidence": "CI/build/localization validation plus a focused runtime check. With mouse, a prayer Technology must show Create Prayer..., Base Result and On Success visibly centered across the parchment while body rows remain left-aligned. Gamepad must retain the same centered-header result. Compare parchment width/placement with 0.2.49: no new widening. One Rebalanced mouse+gamepad check and one quick Vanilla mouse check are sufficient.",
       "evidence_refs": [
-        "Stock 1.407 TechUnlock.GetTooltip creates the prayer title and stock prayer rows as BubbleWidgetTextData with Left alignment.",
-        "Stock TechTreeGUIItem.InitGamepadTooltip calls TechUnlock.GetTooltip for visible unlocks; PrayerClarity TechnologyPrayerCarousel also rebuilds the selected tooltip through TechUnlock.GetTooltip.",
-        "BubbleWidgetText.Draw applies BubbleWidgetTextData.alignment directly to the UILabel.",
-        "User screenshot/request on 2026-09-27: Create Prayer..., Base Result and On Success should be centered and alignment principles should match across Vanilla/Rebalanced and mouse/gamepad."
+        "0.2.49 runtime evidence on 2026-09-27: gamepad Technology headers are centered, but mouse Technology headers remain visibly left-aligned; prayer-item headers are centered.",
+        "Stock Tooltip.Show writes BubbleWidgetDataContainer.alignment from the concrete Tooltip component before TooltipBubbleGUI.Show.",
+        "Stock WidgetsBubbleGUI.Redraw uses container alignment to choose SimpleUITable Top vs TopLeft placement; WidgetsBubbleGUI.Reposition additionally forces child label widget pivots Left when container alignment is Left.",
+        "Stock WidgetsBubbleGUI.UpdateSize computes outer width from the maximum current child-widget width.",
+        "0.2.47 accepted item-tooltip result already validates the native-span technique: expanding a marked child only to the existing maximum width can change internal alignment without increasing parchment width."
       ],
       "state": "READY"
     }
