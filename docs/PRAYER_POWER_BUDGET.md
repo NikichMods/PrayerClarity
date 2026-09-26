@@ -300,7 +300,7 @@ With Cardinal active and the accepted Gold Donations +30 silver, the Gold pure-m
 
 ## 2026-09-27 Combo donation scaling — selected 0.2.48 candidate
 
-Status: **product-approved balance candidate; production build 0.2.48 pending focused visual acceptance**.
+Status: **runtime-accepted Rebalanced 0.2.48 balance result**.
 
 Current stable 0.2.47 resource-family values are:
 
@@ -344,7 +344,7 @@ This is intentionally not a smooth numeric ladder for its own sake. It normalize
 - Combo still pays the higher q40/60/80 gate and Hard Book +7 Faith recipe;
 - Combo additionally provides its unchanged Faith percentage, so it remains a generalist rather than a second money specialist.
 
-This supersedes the earlier 100/200/300 follow-up hypothesis for the 0.2.48 candidate. Stable 0.2.47 remains 100/200/300 until the candidate is accepted and promoted.
+This supersedes the earlier 100/200/300 follow-up hypothesis. Rebalanced 0.2.48 is runtime-accepted with 100/250/500; public stable remains 0.2.47 until separate promotion.
 
 ## 2026-09-23 Premium Gold q95 success-gate research
 
