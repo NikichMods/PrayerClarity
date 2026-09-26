@@ -256,9 +256,9 @@ No further in-game retest is required for these accepted 0.2.47 properties unles
 - **Legacy Protective Prayer (`b_shield`) lore stays historical.** Rebalanced retires Protection crafting/Technology while retaining already-existing `b_shield` items as Combat aliases. Their item tooltip deliberately keeps stock `b_shield_d` lore rather than being normalized to Combat Prayer lore.
 
 Known evidence gaps that are **not** active UX backlog:
-- terminal ordinary Repose progression remains mechanically closed; only wording may be refined as above.
+- none remain for the accepted Repose presentation/mechanics path.
 
 Accepted runtime closure, 2026-09-26:
 - real successful Silver and Gold Imagination sermons physically delivered **3 Silver Stories** and **3 Gold Stories** respectively, closing the former native-drop evidence gap.
 
-No further in-game retest is required for the accepted 0.2.38 properties unless their implementation is changed.
+No further in-game retest is required for the accepted 0.2.47 properties unless their implementation is changed.
