@@ -1,5 +1,31 @@
 # Test / Research Build Log
 
+## 2026-09-27 — Rebalanced 0.2.50 / Vanilla 1.0.56 Technology native-span header candidate
+
+- Baseline: superseded Rebalanced 0.2.49 source `8e95d45a4b501c2852428eb8d4d37883be93b7c4`, itself based on accepted Rebalanced 0.2.48.
+- Candidate branch: `candidate/rebalanced-0.2.50`.
+- Gate-only commit: `669cb51cf4a5cae67d9ea3a9f0ae5fbe96b174b3`.
+- Exact candidate source SHA: `da770d4e3d2131ece502f6379bca520cb2819d2a`.
+- CI run: `36273185335`; result: **success**.
+- Artifact ID: `10916372909`.
+- Artifact: `PrayerClarity-rebalanced-0.2.50-ci-da770d4e3d2131ece502f6379bca520cb2819d2a`.
+- Artifact ZIP digest: `sha256:805659b46aeb3e3b8f4afe484b265dcfad127af34cfb2db80991d51270ceffef`.
+- Rebalanced 0.2.50 DLL SHA-256: `59fcc8b922dd0841745189d86edc60450f6eea064cca139d4ab5ad1a5c1d0afe`.
+- Shared sibling Vanilla 1.0.56 DLL SHA-256: `2aa6f9361fcd2d2c0218bd3d195192ee347239d00d6634ca9af931e9fc6ca7e4`.
+- 0.2.50 keeps the 0.2.49 row-level Center alignment and adds the missing final-layout correction:
+  - mark only the top prayer title, Base Result header and On Success header;
+  - at stock `WidgetsBubbleGUI.UpdateSizeAndWidgetsPositions`, measure the already-existing native maximum child width;
+  - widen only those centered header labels to that same width;
+  - stock UpdateSize/Reposition then finishes normally.
+- The correction cannot increase the parchment width beyond the width already selected by the native children. Mechanics/body content, lore, crafting-source rows, viewport clamp, carousel navigation and all prayer mechanics remain unchanged.
+- The existing prayer-item native-span path is preserved through the same layout prefix; its behavior is logically unchanged, but one quick prayer-item control check is included because the shared helper was refactored.
+- Focused runtime acceptance:
+  1. Rebalanced mouse Technology: title / Base Result / On Success visibly centered; body rows left-aligned;
+  2. Rebalanced gamepad Technology: same result retained;
+  3. quick prayer-item control: previously accepted header/body alignment unchanged;
+  4. quick Vanilla 1.0.56 mouse Technology check: same centered-header hierarchy.
+- No Combo, Repose, sermon, payout or other mechanics replay is required.
+
 ## 2026-09-27 — Rebalanced 0.2.49 Technology alignment partial failure
 
 - Exact tested candidate: Rebalanced **0.2.49**, source `8e95d45a4b501c2852428eb8d4d37883be93b7c4`.
