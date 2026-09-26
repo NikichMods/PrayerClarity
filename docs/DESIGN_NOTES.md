@@ -231,7 +231,7 @@ No new balance round is required unless implementation evidence contradicts an a
 
 ## Current engineering state
 
-The current **public stable and accepted Rebalanced baseline** is **0.2.47**, frozen at `accepted/rebalanced-0.2.47` / `6b3aa5399c8913d368f2b09bab963326db17e7f3`. The exact accepted DLL SHA-256 is `2482a159c3108a7868123d7c2cac7a8a620fe537952fee0cda6024c6ea5c7c96`.
+The current **public stable Rebalanced release** is **0.2.47**. The current **accepted Rebalanced development/runtime baseline** is **0.2.48**, frozen at `accepted/rebalanced-0.2.48` / `42b284986f768b6dd1e1760f7d80c8e5763765b2`, with DLL SHA-256 `38d51a9647d67b1b14f70a9045b8bbf493dae4b434251284bbab22c2bf1f10e3`.
 
 0.2.47 carries forward the closed gameplay/save-lifecycle architecture from `POST_AUDIT_VERDICT.md` (**A — no architecture action**) and preserves the accepted Rebalanced roster/balance from 0.2.38. The 0.2.39–0.2.47 line is presentation/clarity work only.
 
@@ -247,9 +247,9 @@ The Repose and prayer-item presentation work through 0.2.47 is **closed and runt
 
 No further in-game retest is required for these accepted 0.2.47 properties unless their implementation changes.
 
-### Current balance candidate
+### Current accepted development balance
 
-- **Combo Prayer donation-side scaling — Rebalanced 0.2.48 pending focused visual acceptance.** Product decision: Faith remains **+100 / +150 / +200%** while donations become **+100 / +250 / +500%**. With the accepted Donations specialist (+20 / +50 / +100 silver), this places the same-quality pure-money crossover at roughly **GQ 500 with Cardinal** or **GQ 667 without Cardinal** for all three qualities. The goal is a consistent specialist-to-generalist crossover rather than a late Gold Combo whose money side remains weaker for disproportionately long. No other prayer balance value is reopened by this candidate.
+- **Combo Prayer donation-side scaling — runtime-accepted in Rebalanced 0.2.48.** Faith remains **+100 / +150 / +200%** while donations are **+100 / +250 / +500%**. With the accepted Donations specialist (+20 / +50 / +100 silver), the same-quality pure-money crossover is roughly **GQ 500 with Cardinal** or **GQ 667 without Cardinal** for all three qualities. No other prayer balance value changed. Public stable remains 0.2.47 until separate promotion.
 
 **Closed product decision:**
 
