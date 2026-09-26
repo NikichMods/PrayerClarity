@@ -12,18 +12,18 @@ Keeps Graveyard Keeper's stock prayer mechanics and balance intact while improvi
 
 [Download PrayerClarity: Vanilla 1.0.33](https://github.com/NikichMods/PrayerClarity/releases/tag/v1.0.33)
 
-### PrayerClarity: Rebalanced — 0.2.38
+### PrayerClarity: Rebalanced — 0.2.47
 
 Uses the same Clarity presentation layer, but intentionally rebalances and repairs the prayer roster so different prayers and qualities create more meaningful choices. Runtime-sensitive prayer effects are implemented through narrow Graveyard Keeper-native seams where verified.
 
-[Download PrayerClarity: Rebalanced 0.2.38](https://github.com/NikichMods/PrayerClarity/releases/tag/rebalanced-v0.2.38)
+[Download PrayerClarity: Rebalanced 0.2.47](https://github.com/NikichMods/PrayerClarity/releases/tag/rebalanced-v0.2.47)
 
 **Install one edition, not both.**
 
 ## Current stable differences
 
 - **Vanilla 1.0.33:** keeps stock 1.407 prayer mechanics/balance and includes the accepted Clarity presentation plus the generalized gamepad prayer-Technology carousel.
-- **Rebalanced 0.2.38:** includes the same Clarity layer plus the accepted full-roster rebalance, later Better Save Soul rework, robust localized pulpit layout/font handling, Gold-only Roots 95% cap wording, native 1-gold display for Gold Donations at the pulpit, and the accepted Repose reliability note presentation.
+- **Rebalanced 0.2.47:** includes the same Clarity layer plus the accepted full-roster rebalance and Better Save Soul rework. Repose wording is synchronized across Technology, prayer items, the pulpit and Temporary Effects, including terminal progression states. Prayer-item tooltips use the game's native width, with centered success requirements and left-aligned result content.
 
 ## Shared clarity features
 
