@@ -272,6 +272,7 @@ namespace PrayerClarity
             if (!SetHarmonyMember(postfix, harmonyMethodType, "after", new[] { afterOwner }))
                 throw new MissingMemberException("HarmonyMethod.after");
 
+            R.TrackPatchOwner(patchOwner);
             object harmony = Activator.CreateInstance(harmonyType, new object[] { patchOwner });
             MethodInfo patch = harmonyType.GetMethods(R.Inst)
                 .FirstOrDefault(m =>

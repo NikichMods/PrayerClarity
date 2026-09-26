@@ -451,6 +451,7 @@ namespace PrayerClarity
             if (!ordered)
                 throw new MissingMemberException("HarmonyMethod.after is unavailable; viewport clamp ordering cannot be guaranteed.");
 
+            R.TrackPatchOwner(harmonyId);
             object harmony = Activator.CreateInstance(harmonyType, new object[] { harmonyId });
             MethodInfo patch = harmonyType.GetMethods(R.Inst)
                 .FirstOrDefault(m => m.Name == "Patch" && m.GetParameters().Length >= 5 && typeof(MethodBase).IsAssignableFrom(m.GetParameters()[0].ParameterType));

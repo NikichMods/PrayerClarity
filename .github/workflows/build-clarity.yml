@@ -34,6 +34,14 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
+      - name: Resolve project version
+        id: version
+        shell: bash
+        run: |
+          set -euo pipefail
+          version="$(dotnet msbuild PrayerClarity.csproj -nologo -getProperty:Version | tr -d '\r' | tail -n 1)"
+          test -n "$version"
+          echo "value=$version" >> "$GITHUB_OUTPUT"
       - name: Validate localization contracts
         run: python scripts/validate_localization.py lang
       - name: Restore
@@ -55,9 +63,10 @@ jobs:
           done
 
           mkdir -p dist/package/BepInEx/plugins/PrayerClarity
-          handoff='PrayerClarity-1.0.57-ci.dll'
+          version='${{ steps.version.outputs.value }}'
+          handoff="PrayerClarity-${version}-ci.dll"
           canonical='PrayerClarity.dll'
-          nexus='PrayerClarity-1.0.57-Nexus.zip'
+          nexus="PrayerClarity-${version}-Nexus.zip"
 
           cp "$dll" "dist/$handoff"
           cp "$dll" "dist/$canonical"
@@ -70,7 +79,7 @@ jobs:
           test "$dll_hash" = "$canonical_hash"
 
           {
-            echo "Version: 1.0.57"
+            echo "Version: $version"
             echo "Source SHA: $GITHUB_SHA"
             echo "Handoff DLL: $handoff"
             echo "Canonical DLL: $canonical"
@@ -85,12 +94,12 @@ jobs:
           echo "canonical=$canonical" >> "$GITHUB_OUTPUT"
           echo "nexus=$nexus" >> "$GITHUB_OUTPUT"
           echo "sha256=$dll_hash" >> "$GITHUB_OUTPUT"
-          echo "PrayerClarity 1.0.57 DLL SHA-256: $dll_hash"
-          echo "PrayerClarity 1.0.57 Nexus ZIP SHA-256: $nexus_hash"
+          echo "PrayerClarity $version DLL SHA-256: $dll_hash"
+          echo "PrayerClarity $version Nexus ZIP SHA-256: $nexus_hash"
       - name: Upload candidate and release-package evidence
         uses: actions/upload-artifact@v4
         with:
-          name: PrayerClarity-1.0.57-ci-${{ github.sha }}
+          name: PrayerClarity-${{ steps.version.outputs.value }}-ci-${{ github.sha }}
           path: |
             dist/${{ steps.artifact.outputs.handoff }}
             dist/${{ steps.artifact.outputs.canonical }}

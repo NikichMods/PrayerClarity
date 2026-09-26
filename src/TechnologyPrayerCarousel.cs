@@ -403,6 +403,7 @@ namespace PrayerClarity
             if (harmonyType == null || harmonyMethodType == null)
                 throw new InvalidOperationException("Harmony is unavailable.");
 
+            R.TrackPatchOwner(_harmonyId);
             object harmony = Activator.CreateInstance(harmonyType, new object[] { _harmonyId });
             object prefix = CreateHarmonyMethod(harmonyMethodType, prefixName);
             object postfix = CreateHarmonyMethod(harmonyMethodType, postfixName);
