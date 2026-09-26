@@ -15,7 +15,7 @@ The user runtime-tested the 1.0.9 candidate on 2026-09-17 and explicitly accepte
 
 This accepted baseline is information-only: it contains **no Vanilla Fixes and no Balance/Rework mechanics**.
 
-Historical note: at the time of this milestone, the latest public release was v1.0.1. The current stable Vanilla release is **PrayerClarity: Vanilla 1.0.33**; the current stable Rebalanced release is **PrayerClarity: Rebalanced 0.2.47**. Current release identity is recorded in `README.md`, `CHANGELOG.md`, `DESIGN_NOTES.md`, and `TEST_BUILD_LOG.md`.
+Historical note: at the time of this milestone, the latest public release was v1.0.1. The current stable Vanilla release is **PrayerClarity: Vanilla 1.0.57**; the current stable Rebalanced release is **PrayerClarity: Rebalanced 0.2.51**. Current release identity is recorded in `README.md`, `CHANGELOG.md`, `DESIGN_NOTES.md`, and `TEST_BUILD_LOG.md`.
 
 ## Accepted pulpit presentation
 
@@ -117,9 +117,9 @@ The accepted Clarity layer remains narrow and UI-lifecycle driven:
 
 `candidate/1.0.9` and `accepted/clarity-1.0.9` point to the exact accepted runtime/source SHA `4b86b972baeef19aa656a9e414891405006cf67f`.
 
-That state was accepted at the time and later superseded by subsequent Clarity releases. Current stable runtime identity is Vanilla 1.0.31 / Rebalanced 0.2.10 from shared accepted source `30b036f16dc6a7964f7ef72e2e3ececa5951c812`.
+That state was accepted at the time and later superseded by subsequent Clarity releases. The shared Vanilla 1.0.31 / Rebalanced 0.2.10 state at `30b036f16dc6a7964f7ef72e2e3ececa5951c812` is historical; the current stable identities are Vanilla 1.0.57 and Rebalanced 0.2.51.
 
-The last public release remains `v1.0.1`; publishing 1.0.9 is a separate release step and is not implied by mainline acceptance.
+At the time of this 1.0.9 milestone, the last public release was `v1.0.1`; the milestone record is retained only as historical acceptance evidence.
 
 ## Scope boundary
 
