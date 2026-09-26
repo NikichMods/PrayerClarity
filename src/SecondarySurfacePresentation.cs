@@ -250,6 +250,7 @@ namespace PrayerClarity
 
                 NormalizeRebalancedBssLoreRows(__0, crafts, preferWideLayout);
                 PromoteAccumulatedBssWideLayout(__0, crafts);
+                NormalizePrayerTechnologyAlignment(__instance, __0);
                 TechnologyTooltipViewportClamp.MarkTechnologyTooltip(__0);
             }
             catch (Exception ex)
@@ -257,6 +258,47 @@ namespace PrayerClarity
                 if (_techErrorLogged) return;
                 _techErrorLogged = true;
                 _log?.LogError("PrayerClarity technology-tooltip presentation failed; vanilla technology tooltip remains available. " + ex);
+            }
+        }
+
+        private static void NormalizePrayerTechnologyAlignment(
+            object techUnlock,
+            object tooltip)
+        {
+            if (techUnlock == null || tooltip == null) return;
+
+            object data = R.Get(tooltip, "data");
+            IList list = data == null ? null : R.Get(data, "data_list") as IList;
+            if (list == null || list.Count == 0) return;
+
+            if (_bubbleTextType == null) _bubbleTextType = R.GameType("BubbleWidgetTextData");
+            if (_bubbleTextType == null) return;
+
+            string title = null;
+            MethodInfo getData = R.Method(techUnlock.GetType(), "GetData", false, 0);
+            if (getData != null)
+            {
+                object unlockData = getData.Invoke(techUnlock, null);
+                title = unlockData == null ? null : R.Get(unlockData, "name") as string;
+            }
+
+            string baseHeader = Localization.F("tech.base_result");
+            string successHeader = TechnologySuccessHeader();
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                object row = list[i];
+                if (row == null || !_bubbleTextType.IsInstanceOfType(row)) continue;
+
+                string text = R.Get(row, "text") as string;
+                if (!string.Equals(text, title, StringComparison.Ordinal) &&
+                    !string.Equals(text, baseHeader, StringComparison.Ordinal) &&
+                    !string.Equals(text, successHeader, StringComparison.Ordinal))
+                    continue;
+
+                object alignment = R.Get(row, "alignment");
+                if (alignment != null)
+                    R.Set(row, "alignment", Enum.Parse(alignment.GetType(), "Center"));
             }
         }
 
@@ -836,7 +878,7 @@ namespace PrayerClarity
 
             ParameterInfo[] parameters = _bubbleTextConstructor.GetParameters();
             object style = Enum.ToObject(parameters[1].ParameterType, styleValue);
-            object alignment = Enum.ToObject(parameters[2].ParameterType, 1);
+            object alignment = Enum.Parse(parameters[2].ParameterType, "Left");
             object data = _bubbleTextConstructor.Invoke(new object[] { text, style, alignment, maxWidth });
             if (preferWideLayout && maxWidth == TechnologyTooltipMaxWidth)
                 TechnologyTooltipContentWidth.PreferWideLayout(data);
