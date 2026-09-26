@@ -231,7 +231,7 @@ Only after that visual/runtime check should this hypothesis replace the accepted
 
 ## 2026-09-27 — prayer Technology alignment unification candidate
 
-Status: **Rebalanced 0.2.49 / Vanilla sibling 1.0.55 pending focused runtime acceptance**.
+Status: **0.2.49 superseded after runtime failure; 0.2.50 correction pending**.
 
 ### UX rule
 
@@ -264,3 +264,24 @@ Therefore the least-complex adequate implementation is to normalize only the thr
 - Vanilla sibling DLL SHA-256: `c6c3437538598e112fc941477a2c1a6bbbf823637313d2ef30d70ecf9d6f41b9`.
 
 No Technology width/viewport policy, navigation behavior, mechanics or localization strings are changed by this candidate.
+
+
+### 0.2.49 runtime correction to the ownership model
+
+Runtime disproved one part of the original candidate model: sharing `TechUnlock.GetTooltip` does **not** imply that row-level `BubbleWidgetTextData.alignment` alone determines the visible horizontal position.
+
+On the stock bubble path, `Tooltip.Show` supplies a container alignment to `WidgetsBubbleGUI`. A Left container uses a TopLeft table placement and later gives label widgets a Left pivot. Consequently, a short child row with centered UILabel text remains visually at the left edge if the child widget itself is only text-wide.
+
+Observed 0.2.49 result matches this exactly:
+
+- mouse Technology prayer headers: still visibly left;
+- gamepad Technology prayer headers: centered.
+
+The corrected least-powerful mechanism is therefore:
+
+1. retain row alignment = Center for the three prayer Technology headings;
+2. at `WidgetsBubbleGUI.UpdateSizeAndWidgetsPositions`, first measure the already-existing native maximum child width;
+3. expand only the marked centered heading children to that same span;
+4. let stock UpdateSize/Reposition finish.
+
+Because the correction never exceeds the width the native bubble already had, it does not introduce another custom Technology width policy. Body/lore/crafting rows remain untouched.
