@@ -299,6 +299,8 @@ namespace PrayerClarity
                 object alignment = R.Get(row, "alignment");
                 if (alignment != null)
                     R.Set(row, "alignment", Enum.Parse(alignment.GetType(), "Center"));
+
+                TechnologyTooltipContentWidth.PreferPrayerTechnologyHeaderLayout(row);
             }
         }
 
