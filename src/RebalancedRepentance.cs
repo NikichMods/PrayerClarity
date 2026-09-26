@@ -36,6 +36,7 @@ namespace PrayerClarity
         private static void InvokePostfix(string param, ref float __result)
         {
             if (!string.Equals(param, ConfessionProbabilityParam, StringComparison.Ordinal)) return;
+            if (!RebalancedRuntimeState.IsReady) return;
 
             try
             {

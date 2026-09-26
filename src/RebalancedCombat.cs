@@ -85,6 +85,7 @@ namespace PrayerClarity
         private static void GetDamagePrefix(object __instance, ref ScopedParamState __state)
         {
             __state = null;
+            if (!RebalancedRuntimeState.IsReady) return;
             try
             {
                 int tier;
@@ -116,6 +117,7 @@ namespace PrayerClarity
         private static void DecHpPrefix(object __instance, ref ScopedParamState __state)
         {
             __state = null;
+            if (!RebalancedRuntimeState.IsReady) return;
             try
             {
                 object wgo = R.Get(__instance, "wgo");

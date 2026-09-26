@@ -21,8 +21,8 @@ namespace PrayerClarity
             string vanillaLore,
             out string lore)
         {
-            if (!RebalancedRuntimeState.IsReady) return false;
             lore = vanillaLore;
+            if (!RebalancedRuntimeState.IsReady) return false;
 
             RebalancedPrayerRule rule;
             int tier;
@@ -49,8 +49,8 @@ namespace PrayerClarity
             string currentEventId,
             out string effectiveEventId)
         {
-            if (!RebalancedRuntimeState.IsReady) return false;
             effectiveEventId = currentEventId;
+            if (!RebalancedRuntimeState.IsReady) return false;
             string mapped;
             if (!RebalancedRuleSet.TryGetEffectivePrayEventId(craftId, out mapped))
                 return false;
@@ -61,9 +61,9 @@ namespace PrayerClarity
 
         private static bool TryGetSoulConversion(string craftId, out int cap, out int conversion)
         {
-            if (!RebalancedRuntimeState.IsReady) return false;
             cap = 0;
             conversion = 0;
+            if (!RebalancedRuntimeState.IsReady) return false;
 
             RebalancedPrayerRule rule;
             int tier;
@@ -79,9 +79,9 @@ namespace PrayerClarity
 
         internal static bool TryBuildTierEffect(string craftId, string buffId, out string text, out string semanticKey)
         {
-            if (!RebalancedRuntimeState.IsReady) return false;
             text = null;
             semanticKey = null;
+            if (!RebalancedRuntimeState.IsReady) return false;
 
             RebalancedPrayerRule rule;
             int tier;
@@ -93,8 +93,8 @@ namespace PrayerClarity
 
         internal static bool TryBuildActiveEffect(string buffId, out string text)
         {
-            if (!RebalancedRuntimeState.IsReady) return false;
             text = null;
+            if (!RebalancedRuntimeState.IsReady) return false;
             string semanticKey;
             RebalancedPrayerRule rule;
             int tier;
@@ -136,9 +136,9 @@ namespace PrayerClarity
 
         internal static bool TryBuildTechnologyEffect(string craftId, out string sharedText, out string tierText)
         {
-            if (!RebalancedRuntimeState.IsReady) return false;
             sharedText = null;
             tierText = null;
+            if (!RebalancedRuntimeState.IsReady) return false;
 
             RebalancedPrayerRule rule;
             int tier;

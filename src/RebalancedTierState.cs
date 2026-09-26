@@ -51,6 +51,7 @@ namespace PrayerClarity
         {
             try
             {
+                if (!RebalancedRuntimeState.IsReady) return;
                 if (__instance == null || !Convert.ToBoolean(R.Get(__instance, "_pray_buff_success"))) return;
 
                 object craft = R.Get(__instance, "_pray_craft");

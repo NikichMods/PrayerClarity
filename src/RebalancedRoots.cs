@@ -193,6 +193,7 @@ namespace PrayerClarity
         private static void DoActionPrefix(object __instance, ref ScopedPlantParamState __state)
         {
             __state = null;
+            if (!RebalancedRuntimeState.IsReady) return;
             try
             {
                 object craft = R.Get(__instance, "current_craft");
