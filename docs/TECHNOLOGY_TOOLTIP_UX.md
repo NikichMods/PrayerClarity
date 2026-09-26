@@ -285,3 +285,14 @@ The corrected least-powerful mechanism is therefore:
 4. let stock UpdateSize/Reposition finish.
 
 Because the correction never exceeds the width the native bubble already had, it does not introduce another custom Technology width policy. Body/lore/crafting rows remain untouched.
+
+
+### 0.2.50 candidate identity
+
+- branch: `candidate/rebalanced-0.2.50`;
+- exact source: `da770d4e3d2131ece502f6379bca520cb2819d2a`;
+- CI run: `36273185335` — success;
+- Rebalanced DLL SHA-256: `59fcc8b922dd0841745189d86edc60450f6eea064cca139d4ab5ad1a5c1d0afe`;
+- Vanilla sibling DLL SHA-256: `2aa6f9361fcd2d2c0218bd3d195192ee347239d00d6634ca9af931e9fc6ca7e4`.
+
+Runtime acceptance is pending only for the visible mouse/gamepad header-centering result and a quick control that the previously accepted prayer-item alignment remains unchanged after the shared native-span helper refactor.
