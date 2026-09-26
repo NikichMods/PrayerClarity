@@ -1,21 +1,21 @@
 # PrayerClarity: Rebalanced — stable roster specification
 
-Status: **canonical accepted Rebalanced ruleset for PrayerClarity: Rebalanced 0.2.47**.
+Status: **canonical accepted Rebalanced ruleset for PrayerClarity: Rebalanced 0.2.51**.
 
 Stock Graveyard Keeper 1.407 mechanics remain documented independently in `PRAYER_MECHANICS.md`. Values below are intentional Balance/Rework design unless explicitly identified as a verified repair.
 
 ## Current stable runtime identity
 
-- Rebalanced version: **0.2.47**
-- frozen accepted ref: `accepted/rebalanced-0.2.47`
-- exact accepted runtime/source SHA: `6b3aa5399c8913d368f2b09bab963326db17e7f3`
+- Rebalanced version: **0.2.51**
+- frozen accepted ref: `accepted/rebalanced-0.2.51`
+- exact accepted runtime/source SHA: `13c85c824bd2932b1175200368d212e03bbae79f`
 - canonical DLL: `PrayerClarity.Rebalanced.dll`
-- accepted DLL SHA-256: `2482a159c3108a7868123d7c2cac7a8a620fe537952fee0cda6024c6ea5c7c96`
+- accepted DLL SHA-256: `083168ec6cd76fd55366ca10426e212a30a3bc2c7ca61a9e9de0dc6f656c8ccd`
 - supported game: **Graveyard Keeper 1.407**
 
 The sibling Vanilla public stable remains mechanically stock and is documented separately.
 
-Rebalanced 0.2.39–0.2.47 refined presentation only; the accepted roster and gameplay values below are unchanged from 0.2.38.
+Rebalanced 0.2.39–0.2.47 refined presentation, 0.2.48 changed only Combo Prayer donation scaling, and 0.2.49–0.2.51 refined shared Technology presentation. The table below is the current stable 0.2.51 roster.
 
 ## Product rules
 
@@ -33,7 +33,7 @@ Rebalanced 0.2.39–0.2.47 refined presentation only; the accepted roster and ga
 | Ordinary `b_empty` | **10** | Stock starter baseline. |
 | Faith `b_faith` | **20 / 40 / 60** | Success-only flat **+5 / +10 / +20 Faith**. No prayer-owned donation bonus. |
 | Donations `b_money` | **20 / 40 / 60** | Success-only flat **+20 / +50 / +100 silver-equivalent**. No prayer-owned Faith bonus. Gold is naturally formatted by the game as **+1 gold** where native money formatting is used. |
-| Combo `b_faith_money` | **40 / 60 / 80** | Success-only percentage bonuses: Faith **+100 / +150 / +200%**, donations **+100 / +200 / +300%**. No prayer-owned flat Faith/money. |
+| Combo `b_faith_money` | **40 / 60 / 80** | Success-only percentage bonuses: Faith **+100 / +150 / +200%**, donations **+100 / +250 / +500%**. No prayer-owned flat Faith/money. |
 | Prosperity `b_village` | **10 / 20 / 30** | Keep **1 / 2 / 3 Commercial Blessings**; remove unrelated prayer-owned Faith/money success outputs. |
 | Shoots & Roots `b_plant` | **10 / 30 / 50** | Verified repair of the stock scope mismatch; growth time **-20 / -30 / -40%**. The combined growth-time reduction from all sources is safety-capped at **95%**. |
 | Repentance `b_sins` | **20 / 40 / 60** | Daily confession probability **50 / 75 / 100%**. Duration **30 / 42 / 54 min**. |
@@ -73,20 +73,10 @@ The common donation base remains graveyard-driven. PrayerClarity uses the game's
 Combo is the percentage generalist:
 
 - Bronze: **+100% Faith, +100% donations**
-- Silver: **+150% Faith, +200% donations**
-- Gold: **+200% Faith, +300% donations**
+- Silver: **+150% Faith, +250% donations**
+- Gold: **+200% Faith, +500% donations**
 
 No prayer-owned flat Faith or money is added.
-
-### Accepted 0.2.48 development delta
-
-Public stable 0.2.47 remains represented in the stable table above. The runtime-accepted 0.2.48 development baseline changes **only Combo donations** to:
-
-- Bronze: **+100%**
-- Silver: **+250%**
-- Gold: **+500%**
-
-Combo Faith remains **+100 / +150 / +200%**, requirements remain **q40 / q60 / q80**, and no other prayer balance value changes.
 
 ## Better Save Soul endgame structure
 
@@ -151,6 +141,9 @@ Accepted presentation in 0.2.38:
 - New player-facing strings support all 11 project locales.
 
 ## Acceptance history relevant to the current roster
+
+- **0.2.48** accepted the final Combo Prayer donation ladder **+100 / +250 / +500%** while preserving Faith **+100 / +150 / +200%**, q40/q60/q80 and every other prayer balance value.
+- **0.2.49–0.2.51** changed shared Technology presentation only. 0.2.51 is the accepted stable alignment model: title / Base Result / On Success centered consistently with mouse and gamepad; mechanics/body rows remain left-aligned.
 
 - **0.2.0–0.2.4** established the initial Rebalanced roster, repaired Roots/Repentance/Combat ownership, and accepted 30/42/54-minute Repentance/Repose durations.
 - **0.2.13–0.2.16** established specialist purity, Combo/resource-family grammar, Repose Gold maximum-skull behavior, and q95 premium Gold gates.
