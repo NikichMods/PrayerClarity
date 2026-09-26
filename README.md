@@ -49,8 +49,8 @@ Neither edition requires user-facing configuration.
 - Graveyard Keeper **1.407**
 - BepInEx 5
 
-PrayerClarity verifies the supported `Assembly-CSharp` build before installing its patches. On an unverified game binary it disables itself instead of patching unknown code.
+Graveyard Keeper **1.407** with the verified `Assembly-CSharp` identity is the tested target. Other storefront/build identities are treated as **unverified**, not automatically rejected: PrayerClarity attempts best-effort activation through the same exact runtime contracts and records the detected MVID/compatibility mode in the BepInEx log. If a required contract is missing, the affected activation is contained rather than guessing another target.
 
 ## License
 
-PrayerClarity is released under the [MIT License](LICENSE).
+Current PrayerClarity source is released under the [Mozilla Public License 2.0](LICENSE). See [LICENSING.md](LICENSING.md) for historical MIT releases and licensing details.

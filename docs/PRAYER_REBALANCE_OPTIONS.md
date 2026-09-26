@@ -158,4 +158,4 @@ Current architecture/save-lifecycle status remains **A — no architecture actio
 Accepted runtime closure, 2026-09-26:
 - real successful Silver and Gold Imagination sermons were observed delivering `story:2 ×3` and `story:3 ×3` respectively. The physical three-Story payout path is therefore closed and no longer an evidence gap.
 
-Any future behavior change requires a new version; do not silently replace the accepted 0.2.38 bytes.
+Any future behavior change requires a new version; do not silently replace the accepted 0.2.51 bytes.
