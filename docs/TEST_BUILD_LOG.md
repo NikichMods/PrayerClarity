@@ -1,5 +1,26 @@
 # Test / Research Build Log
 
+## 2026-09-27 — Rebalanced 0.2.48 Combo donation-scaling candidate
+
+- Stable runtime remains Rebalanced 0.2.47 / `accepted/rebalanced-0.2.47`. Public Vanilla remains 1.0.33.
+- Baseline repository SHA: `cd0d751b80b58c4a4ea93548822a6f37f4f5935a`.
+- Candidate branch: `candidate/rebalanced-0.2.48`.
+- Gate-only commit: `02cc5619811db949dd4f8c6fbfb81ed787c5b526`.
+- Exact candidate source SHA: `42b284986f768b6dd1e1760f7d80c8e5763765b2`.
+- CI run: `36271945212`; result: **success**.
+- Artifact ID: `10916191327`.
+- Artifact: `PrayerClarity-rebalanced-0.2.48-ci-42b284986f768b6dd1e1760f7d80c8e5763765b2`.
+- Artifact ZIP digest: `sha256:31062e3173af49609813c1f2926f0be586f4cabedaa0e2da2cb3d563a876fbce`.
+- Rebalanced 0.2.48 DLL SHA-256: `38d51a9647d67b1b14f70a9045b8bbf493dae4b434251284bbab22c2bf1f10e3`.
+- Shared sibling Vanilla 1.0.54 DLL SHA-256: `f6266985ad5f21595b47d3f7e6568be0ee46399ac271e5ba64df83b7adb7ad2e`.
+- Production delta is intentionally one balance rule:
+  - Combo Prayer Faith remains **+100 / +150 / +200%**;
+  - Combo Prayer donations change **+100 / +200 / +300% -> +100 / +250 / +500%**;
+  - q40 / q60 / q80, Hard Book +7 Faith gate, fixed-output removal and all other prayers remain unchanged.
+- Ownership evidence: `RebalancedRuleSet` owns the three rates; `RebalancedStaticProjection.ApplyStockOwnedFields` writes them directly to stock `CraftDefinition.k_money`; stock `PrayLogics.CalculatePray` remains the final money calculation consumer. PrayerForecast/UI reads the same effective craft field.
+- Balance intent: against the accepted Donations specialist (+20 / +50 / +100 silver), all three same-quality pure-money crossovers become approximately **GQ 500 with Cardinal** or **GQ 667 without Cardinal**.
+- Focused acceptance: inspect Combo Prayer in Technology, one concrete prayer-item tooltip and the pulpit. Expected donation values are **100% / 250% / 500%** while Faith remains **100% / 150% / 200%**. No sermon execution is required because the native `k_money` calculation path is unchanged and already accepted.
+
 ## 2026-09-26 — Rebalanced 0.2.47 accepted stable
 
 - User runtime acceptance: **2026-09-26** — all requested 0.2.47 visual changes worked as expected and no problems were observed.
