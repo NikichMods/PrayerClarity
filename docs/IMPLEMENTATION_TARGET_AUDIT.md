@@ -1,10 +1,10 @@
 # PrayerClarity: Rebalanced — implementation target audit
 
-Status: **historical implementation-target audit, partially updated with later accepted seams**. It began on 2026-09-17 against PrayerClarity: Vanilla 1.0.20. For current Rebalanced 0.2.3 architecture/lifecycle decisions, `REBALANCED_NATIVE_SEAM_AUDIT.md` and `POST_AUDIT_VERDICT.md` are authoritative.
+Status: **historical implementation-target audit, partially updated with later accepted seams**. It began on 2026-09-17 against PrayerClarity: Vanilla 1.0.20. For the architecture/lifecycle decisions first closed in Rebalanced 0.2.3 and carried forward by later releases, `REBALANCED_NATIVE_SEAM_AUDIT.md` and `POST_AUDIT_VERDICT.md` are authoritative.
 
 Target game: Graveyard Keeper 1.407, `Assembly-CSharp` MVID `6f50b8e7-156b-49ac-bbe8-7505894b2364`.
 
-Historical presentation/runtime base used when this audit started: PrayerClarity: Vanilla **1.0.20**, source `c7ac91c1cea6c498fb406323725768b605d8139f`. Current stable baselines are Vanilla 1.0.25 and Rebalanced 0.2.3.
+Historical presentation/runtime base used when this audit started: PrayerClarity: Vanilla **1.0.20**, source `c7ac91c1cea6c498fb406323725768b605d8139f`. The then-current audit checkpoints later included Vanilla 1.0.25 and Rebalanced 0.2.3; current stable release identity lives in `README.md`, `DESIGN_NOTES.md`, and `TEST_BUILD_LOG.md`.
 
 Locked gameplay intent is in `PRAYER_REBALANCE_OPTIONS.md`. Stock behavior remains canonical in `PRAYER_MECHANICS.md`.
 
@@ -32,7 +32,7 @@ Do not maintain a second UI-only table of Rebalanced numbers. Do not replace the
 
 The early audit identified a clean load-time mutation window, but its instruction to use the first `CraftComponent.FillCraftsList()` as the production projection boundary is no longer the current implementation contract.
 
-For stable Rebalanced 0.2.3, use the lifecycle recorded in `POST_AUDIT_VERDICT.md`: the native `CraftComponent.ClearCraftsListOnGameStart` reset boundary plus validated/idempotent once-per-load static projection before ordinary resumed gameplay. No polling or recurring scans.
+For the accepted Rebalanced architecture first stabilized in 0.2.3, use the lifecycle recorded in `POST_AUDIT_VERDICT.md`: the native `CraftComponent.ClearCraftsListOnGameStart` reset boundary plus validated/idempotent once-per-load static projection before ordinary resumed gameplay. No polling or recurring scans.
 
 ### Live object identity — accepted runtime evidence
 
@@ -47,7 +47,7 @@ Therefore live `CraftDefinition` mutation is visible through normal GameBalance 
 
 ## Safe native/static prayer projections — current roster
 
-Project from the effective-rule source into live prayer `CraftDefinition`s when stock `PrayLogics.CalculatePray` already owns the desired behavior. Current stable 0.2.3 values are:
+Project from the effective-rule source into live prayer `CraftDefinition`s when stock `PrayLogics.CalculatePray` already owns the desired behavior. The following values describe the historical 0.2.3 checkpoint, not the current roster:
 
 - Faith: q20/40/60; remove prayer-owned percentage/off-theme outputs and use success-only flat +5/+10/+20 Faith;
 - Donations: q20/40/60; remove prayer-owned Faith/percentage outputs and use success-only flat +5/+10/+15 silver;
