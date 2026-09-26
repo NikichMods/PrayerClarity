@@ -231,23 +231,25 @@ No new balance round is required unless implementation evidence contradicts an a
 
 ## Current engineering state
 
-The current **public stable and accepted Rebalanced baseline** is **0.2.38**, frozen at `accepted/rebalanced-0.2.38` / `6f5ef168810945135cee57082cbf90d31776e46b`. The exact accepted DLL SHA-256 is `e547f7bb76e0ef512dc669ea30543dada5a2aeb8044b1c7ffcbe7fecf17303e5`.
+The current **public stable and accepted Rebalanced baseline** is **0.2.47**, frozen at `accepted/rebalanced-0.2.47` / `6b3aa5399c8913d368f2b09bab963326db17e7f3`. The exact accepted DLL SHA-256 is `2482a159c3108a7868123d7c2cac7a8a620fe537952fee0cda6024c6ea5c7c96`.
 
-0.2.38 carries forward the closed gameplay/save-lifecycle architecture from `POST_AUDIT_VERDICT.md` (**A — no architecture action**) and the accepted presentation/runtime work through 0.2.37. The final 0.2.38 pass closes three presentation tails: Gold-only Roots 95% combined-cap wording, native Gold denomination for the +100-silver Donations reward at the pulpit, and parenthetical Repose reliability-note presentation.
+0.2.47 carries forward the closed gameplay/save-lifecycle architecture from `POST_AUDIT_VERDICT.md` (**A — no architecture action**) and preserves the accepted Rebalanced roster/balance from 0.2.38. The 0.2.39–0.2.47 line is presentation/clarity work only.
 
 ### Current actionable UX / presentation backlog
 
-The three 0.2.38 presentation tails are **closed and runtime-accepted**.
+The Repose and prayer-item presentation work through 0.2.47 is **closed and runtime-accepted**:
 
-One new wording/design question is deliberately open for a future candidate:
+- Repose now uses one consistent player-facing model across Technology, prayer items, ordinary/terminal pulpit states and Character -> Temporary Effects.
+- The prayer-item parchment uses the game's standard/native width; the rejected fixed-200, ResizeFreely/420 and fixed-280 experiments are historical only.
+- The 100%-success requirement content is centered so wrapped Church Quality + cross remains coherent.
+- Base Result and On Success content are visibly left-aligned within the existing native tooltip span, while section headers and the requirement remain centered.
+- The accepted amount + inline-resource wrap repair remains scoped to PrayerClarity-owned prayer-item mechanics rows.
 
-- **Repose player-facing language — runtime-accepted in Rebalanced 0.2.45.** Prayer item, ordinary pulpit, terminal pulpit and Character -> Temporary Effects now present one consistent player-facing model. Concrete Bronze states that higher-quality bodies can become available but the best body is not guaranteed; Silver/Gold retain the shared outcome plus their reliability delta. Terminal Bronze uses the accepted native quality-star line-per-tier comparison, while terminal Silver/Gold explicitly refer to the best among bodies the Donkey can already bring and omit the false higher-tier sentence. The shared natural-limit wording and active terminal-context behavior are accepted. No further Repose presentation replay is required unless this implementation changes.
+No further in-game retest is required for these accepted 0.2.47 properties unless their implementation changes.
 
-- **Prayer-item parchment width — runtime-accepted in Rebalanced 0.2.45.** PrayerClarity no longer owns width/height/overflow for its inserted prayer-item mechanics rows. Standard game item-tooltip geometry is authoritative; PrayerClarity retains only the independently accepted conditional final-wrap repair for amount + inline-resource icons. The prior fixed-200, ResizeFreely/420 and fixed-280 experiments are rejected historical candidates and must not be reintroduced without new evidence.
+### Open balance question
 
-- **Prayer-item 100%-success requirement alignment — runtime-accepted in Rebalanced 0.2.46.** Under standard vanilla item-tooltip width, the requirement content is centered so a wrapped Church Quality number + cross remains visually coherent. The section header was already centered and remains unchanged.
-
-- **Prayer-item Base Result / On Success visual left alignment — candidate Rebalanced 0.2.47 / sibling Vanilla 1.0.53 pending focused visual acceptance.** 0.2.46 runtime proves the data-level alignments were already correct: Base Result and On Success are Left, Requirement is Center. The remaining mismatch comes from stock bubble layout centering each child widget as a whole; a short one-line Left UILabel therefore still looks centered because the widget shrinks to the text width. 0.2.47 does not change the outer parchment width or return to a fixed custom column. At the stock `WidgetsBubbleGUI.UpdateSizeAndWidgetsPositions` commit point, it expands only PrayerClarity-marked Left content rows to the already-existing native maximum child width, then lets stock UpdateSize/Reposition finish. Headers and Requirement stay centered; Base Result and On Success gain a shared visible left content edge.
+- **Combo Prayer donation-side scaling remains open for later product/balance discussion.** The stable 0.2.47 values remain **+100 / +200 / +300% donations** (with Faith **+100 / +150 / +200%**). No production balance change is authorized yet; the open question is whether the donation side stays tempting enough at the mid/late-game stage where Combo becomes relevant.
 
 **Closed product decision:**
 
