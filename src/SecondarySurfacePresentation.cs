@@ -58,7 +58,13 @@ namespace PrayerClarity
             R.Patch(harmonyId + ".activeeffects", typeof(SecondarySurfacePresentation), drawBuff, nameof(PerkBuffDrawPostfix));
             R.PatchPrefix(harmonyId + ".hudprayertimer.locale", typeof(SecondarySurfacePresentation), drawBuffIcon, nameof(BuffIconDrawPrefix));
             R.PatchPrefix(harmonyId + ".hudprayertimer", typeof(SecondarySurfacePresentation), redrawBuffIcon, nameof(BuffIconRedrawPrefix));
-            R.Patch(harmonyId + ".technology", typeof(SecondarySurfacePresentation), getTooltip, nameof(TechUnlockTooltipPostfix));
+            R.PatchHooks(
+                harmonyId + ".technology",
+                typeof(SecondarySurfacePresentation),
+                getTooltip,
+                nameof(TechUnlockTooltipPrefix),
+                nameof(TechUnlockTooltipPostfix),
+                null);
             R.Patch(harmonyId + ".prayertimer", typeof(SecondarySurfacePresentation), getTimerText, nameof(PlayerBuffTimerPostfix));
         }
 
@@ -211,7 +217,18 @@ namespace PrayerClarity
             }
         }
 
-        private static void TechUnlockTooltipPostfix(object __instance, object __0)
+        private static void TechUnlockTooltipPrefix(object __0, out int __state)
+        {
+            __state = -1;
+            if (__0 == null) return;
+
+            object data = R.Get(__0, "data");
+            IList list = data == null ? null : R.Get(data, "data_list") as IList;
+            if (list != null)
+                __state = list.Count;
+        }
+
+        private static void TechUnlockTooltipPostfix(object __instance, object __0, int __state)
         {
             try
             {
@@ -250,7 +267,7 @@ namespace PrayerClarity
 
                 NormalizeRebalancedBssLoreRows(__0, crafts, preferWideLayout);
                 PromoteAccumulatedBssWideLayout(__0, crafts);
-                NormalizePrayerTechnologyAlignment(__instance, __0);
+                NormalizePrayerTechnologyTitle(__0, __state);
                 TechnologyTooltipViewportClamp.MarkTechnologyTooltip(__0);
             }
             catch (Exception ex)
@@ -261,47 +278,42 @@ namespace PrayerClarity
             }
         }
 
-        private static void NormalizePrayerTechnologyAlignment(
-            object techUnlock,
-            object tooltip)
+        private static void NormalizePrayerTechnologyTitle(
+            object tooltip,
+            int titleIndex)
         {
-            if (techUnlock == null || tooltip == null) return;
+            if (tooltip == null || titleIndex < 0) return;
 
             object data = R.Get(tooltip, "data");
             IList list = data == null ? null : R.Get(data, "data_list") as IList;
-            if (list == null || list.Count == 0) return;
+            if (list == null || titleIndex >= list.Count) return;
 
             if (_bubbleTextType == null) _bubbleTextType = R.GameType("BubbleWidgetTextData");
             if (_bubbleTextType == null) return;
 
-            string title = null;
-            MethodInfo getData = R.Method(techUnlock.GetType(), "GetData", false, 0);
-            if (getData != null)
-            {
-                object unlockData = getData.Invoke(techUnlock, null);
-                title = unlockData == null ? null : R.Get(unlockData, "name") as string;
-            }
+            object titleRow = list[titleIndex];
+            if (titleRow == null || !_bubbleTextType.IsInstanceOfType(titleRow))
+                return;
 
-            string baseHeader = Localization.F("tech.base_result");
-            string successHeader = TechnologySuccessHeader();
+            ApplyTechnologyHeadingRole(titleRow);
+        }
 
-            for (int i = 0; i < list.Count; i++)
-            {
-                object row = list[i];
-                if (row == null || !_bubbleTextType.IsInstanceOfType(row)) continue;
+        private static void ApplyTechnologyHeadingRole(object row)
+        {
+            if (row == null) return;
 
-                string text = R.Get(row, "text") as string;
-                if (!string.Equals(text, title, StringComparison.Ordinal) &&
-                    !string.Equals(text, baseHeader, StringComparison.Ordinal) &&
-                    !string.Equals(text, successHeader, StringComparison.Ordinal))
-                    continue;
+            object alignment = R.Get(row, "alignment");
+            if (alignment != null)
+                R.Set(row, "alignment", Enum.Parse(alignment.GetType(), "Center"));
 
-                object alignment = R.Get(row, "alignment");
-                if (alignment != null)
-                    R.Set(row, "alignment", Enum.Parse(alignment.GetType(), "Center"));
+            TechnologyTooltipContentWidth.PreferPrayerTechnologyHeaderLayout(row);
+        }
 
-                TechnologyTooltipContentWidth.PreferPrayerTechnologyHeaderLayout(row);
-            }
+        private static object CreateTechnologyHeadingData(string text)
+        {
+            object row = CreateTextData(text, 3);
+            ApplyTechnologyHeadingRole(row);
+            return row;
         }
 
         private static bool TryReplaceVanillaPrayerMechanics(
@@ -338,6 +350,7 @@ namespace PrayerClarity
             if (body == null || !_bubbleTextType.IsInstanceOfType(body)) return false;
 
             R.Set(header, "text", Localization.F("tech.base_result"));
+            ApplyTechnologyHeadingRole(header);
             list[headerIndex + 1] = CreateTextData(sections.BaseResult, 4, maxWidth);
 
             int insertIndex = headerIndex + 2;
@@ -345,7 +358,7 @@ namespace PrayerClarity
             {
                 object separator = CreateBlankSeparator();
                 if (separator != null) list.Insert(insertIndex++, separator);
-                list.Insert(insertIndex++, CreateTextData(TechnologySuccessHeader(), 3));
+                list.Insert(insertIndex++, CreateTechnologyHeadingData(TechnologySuccessHeader()));
                 list.Insert(
                     insertIndex++,
                     CreateTextData(sections.SuccessBonuses, 4, maxWidth, preferWideLayout));
@@ -419,7 +432,7 @@ namespace PrayerClarity
 
             if (!string.IsNullOrEmpty(sections.BaseResult))
             {
-                list.Insert(insertIndex++, CreateTextData(Localization.F("tech.base_result"), 3));
+                list.Insert(insertIndex++, CreateTechnologyHeadingData(Localization.F("tech.base_result")));
                 list.Insert(insertIndex++, CreateTextData(sections.BaseResult, 4, maxWidth));
             }
 
@@ -427,7 +440,7 @@ namespace PrayerClarity
             {
                 object separator = CreateBlankSeparator();
                 if (separator != null) list.Insert(insertIndex++, separator);
-                list.Insert(insertIndex++, CreateTextData(TechnologySuccessHeader(), 3));
+                list.Insert(insertIndex++, CreateTechnologyHeadingData(TechnologySuccessHeader()));
                 list.Insert(insertIndex++, CreateTextData(sections.SuccessBonuses, 4, maxWidth));
             }
 
@@ -461,7 +474,7 @@ namespace PrayerClarity
 
             if (!string.IsNullOrEmpty(sections.BaseResult))
             {
-                AddTooltipData(tooltip, CreateTextData(Localization.F("tech.base_result"), 3));
+                AddTooltipData(tooltip, CreateTechnologyHeadingData(Localization.F("tech.base_result")));
                 AddTooltipData(tooltip, CreateTextData(sections.BaseResult, 4, maxWidth));
             }
 
@@ -469,7 +482,7 @@ namespace PrayerClarity
             {
                 object separator = CreateBlankSeparator();
                 if (separator != null) AddTooltipData(tooltip, separator);
-                AddTooltipData(tooltip, CreateTextData(TechnologySuccessHeader(), 3));
+                AddTooltipData(tooltip, CreateTechnologyHeadingData(TechnologySuccessHeader()));
                 AddTooltipData(
                     tooltip,
                     CreateTextData(sections.SuccessBonuses, 4, maxWidth, preferWideLayout));
