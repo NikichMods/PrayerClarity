@@ -231,7 +231,7 @@ Only after that visual/runtime check should this hypothesis replace the accepted
 
 ## 2026-09-27 — prayer Technology alignment unification candidate
 
-Status: **0.2.49 superseded after runtime failure; 0.2.50 correction pending**.
+Status: **closed / accepted in PrayerClarity: Rebalanced 0.2.51 and Vanilla 1.0.57**.
 
 ### UX rule
 
@@ -320,3 +320,20 @@ Candidate identity:
 - CI `36275212482` — success;
 - Rebalanced DLL SHA-256 `083168ec6cd76fd55366ca10426e212a30a3bc2c7ca61a9e9de0dc6f656c8ccd`;
 - Vanilla sibling DLL SHA-256 `3ff5f830a3ce20d1bf789e5f9ff0d3ac11cf9511d4457660b56c1f286dc31195`.
+
+
+### 0.2.51 runtime acceptance
+
+Status: **accepted result**, 2026-09-27.
+
+The semantic-role composition model passed the focused runtime acceptance:
+
+- Rebalanced mouse Technology: top prayer title, `Base Result`, and `On Success` are visibly centered; mechanics/body rows remain left-aligned.
+- Vanilla mouse Technology: the same centered-header hierarchy is correct.
+- Gamepad Technology was checked and remains correct in both editions.
+- Prayer-item controls were checked and retain the previously accepted title/header/body alignment.
+- No artificial parchment widening or new overlap was observed.
+
+This closes the 0.2.49–0.2.51 Technology alignment investigation. The accepted rule is to assign heading roles structurally/at composition time and let the already-proved native-span final writer handle visible centering. Do not return to localized-text matching for the stock title.
+
+No further in-game test is required unless this implementation changes.

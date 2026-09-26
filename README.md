@@ -4,31 +4,31 @@ PrayerClarity is a pair of alternative BepInEx mods for **Graveyard Keeper 1.407
 
 ## Editions
 
-### PrayerClarity: Vanilla — 1.0.33
+### PrayerClarity: Vanilla — 1.0.57
 
 *Understand what your prayers actually do — without changing how they work.*
 
 Keeps Graveyard Keeper's stock prayer mechanics and balance intact while improving prayer descriptions, quality comparisons, success requirements, pulpit information, item tooltips, and Character -> Temporary Effects.
 
-[Download PrayerClarity: Vanilla 1.0.33](https://github.com/NikichMods/PrayerClarity/releases/tag/v1.0.33)
+[Download PrayerClarity: Vanilla 1.0.57](https://github.com/NikichMods/PrayerClarity/releases/tag/v1.0.57)
 
-### PrayerClarity: Rebalanced — 0.2.47
+### PrayerClarity: Rebalanced — 0.2.51
 
 Uses the same Clarity presentation layer, but intentionally rebalances and repairs the prayer roster so different prayers and qualities create more meaningful choices. Runtime-sensitive prayer effects are implemented through narrow Graveyard Keeper-native seams where verified.
 
-[Download PrayerClarity: Rebalanced 0.2.47](https://github.com/NikichMods/PrayerClarity/releases/tag/rebalanced-v0.2.47)
+[Download PrayerClarity: Rebalanced 0.2.51](https://github.com/NikichMods/PrayerClarity/releases/tag/rebalanced-v0.2.51)
 
 **Install one edition, not both.**
 
 ## Current stable differences
 
-- **Vanilla 1.0.33:** keeps stock 1.407 prayer mechanics/balance and includes the accepted Clarity presentation plus the generalized gamepad prayer-Technology carousel.
-- **Rebalanced 0.2.47:** includes the same Clarity layer plus the accepted full-roster rebalance and Better Save Soul rework. Repose wording is synchronized across Technology, prayer items, the pulpit and Temporary Effects, including terminal progression states. Prayer-item tooltips use the game's native width, with centered success requirements and left-aligned result content.
+- **Vanilla 1.0.57:** keeps stock 1.407 prayer mechanics/balance. Prayer Technology titles and section headers are centered consistently with mouse and gamepad while mechanics rows remain left-aligned; the accepted prayer-item, pulpit, Temporary Effects, localization and gamepad-navigation presentation is preserved.
+- **Rebalanced 0.2.51:** includes the same Clarity layer plus the accepted full-roster rebalance and Better Save Soul rework. Combo Prayer uses Faith **+100 / +150 / +200%** and donations **+100 / +250 / +500%**; the accepted Repose and prayer-item presentation work is retained.
 
 ## Shared clarity features
 
 - **Pulpit:** explains guaranteed reward sources, exact success chance, prayer-owned success bonuses, special effects, and effect duration while preserving the sermon itself as the reveal moment for the final Faith/donation payout.
-- **Technology tree:** shows shared prayer properties once, then compact Bronze/Silver/Gold tier snapshots with the quality needed for 100% success and the values that actually change by tier.
+- **Technology tree:** shows shared prayer properties once, then compact Bronze/Silver/Gold tier snapshots with the quality needed for 100% success and the values that actually change by tier. Prayer titles, Base Result and On Success are centered consistently across mouse and gamepad; mechanics content remains left-aligned.
 - **Prayer item tooltips:** show the mechanics of the concrete prayer quality you are holding rather than repeating the full three-tier comparison.
 - **Character -> Temporary Effects:** shows the actual quantitative effect of active prayer buffs and expresses long remaining durations in in-game days.
 - **Localization:** PrayerClarity-owned text is included for all 11 interface languages supported by Graveyard Keeper: English, French, German, Simplified Chinese, Spanish, Brazilian Portuguese, Korean, Japanese, Russian, Italian, and Polish.

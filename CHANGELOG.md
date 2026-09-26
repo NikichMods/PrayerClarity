@@ -1,5 +1,21 @@
 # Changelog
 
+## PrayerClarity: Vanilla 1.0.57
+
+- Promotes the runtime-accepted shared Clarity presentation work through 1.0.57 without changing stock Graveyard Keeper 1.407 prayer mechanics or balance.
+- Prayer Technology titles, **Base Result**, and **On Success** now use the same centered hierarchy with mouse and gamepad while mechanics/body rows remain left-aligned.
+- Preserves the accepted prayer-item native-width layout, centered 100%-success requirement, left-aligned result content, amount + inline-resource wrap repair, pulpit presentation, Temporary Effects, localization and gamepad prayer-Technology navigation.
+- Stable publication reuses the exact runtime-tested 1.0.57 DLL without rebuilding.
+
+## PrayerClarity: Rebalanced 0.2.51
+
+- Promotes the runtime-accepted Rebalanced line through 0.2.51, including the accepted Combo Prayer donation update from 0.2.48 and the shared presentation work through 0.2.51.
+- Combo Prayer remains **+100 / +150 / +200% Faith** and now uses **+100 / +250 / +500% donations**.
+- Prayer Technology titles, **Base Result**, and **On Success** are centered consistently with mouse and gamepad while mechanics/body rows remain left-aligned.
+- Preserves the accepted Repose model across Technology, prayer items, pulpit and Temporary Effects, plus the native prayer-item width/alignment fixes from 0.2.47.
+- All other accepted Rebalanced mechanics, requirements, durations, payouts, RNG and Better Save Soul behavior are unchanged.
+- Stable publication reuses the exact runtime-tested 0.2.51 DLL without rebuilding.
+
 ## PrayerClarity: Rebalanced 0.2.47
 
 - Promotes the runtime-accepted post-0.2.38 presentation work as the new Rebalanced stable line without changing the accepted prayer balance or mechanics.

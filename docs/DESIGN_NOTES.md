@@ -1,6 +1,6 @@
 # PrayerClarity — Design Notes
 
-Status: product/architecture source of truth, reconciled 2026-09-27 with the accepted stable releases PrayerClarity: Vanilla 1.0.33 and PrayerClarity: Rebalanced 0.2.47.
+Status: product/architecture source of truth, reconciled 2026-09-27 with the accepted stable releases PrayerClarity: Vanilla 1.0.57 and PrayerClarity: Rebalanced 0.2.51.
 
 Detailed evidence and history live in specialized documents rather than being duplicated here:
 
@@ -38,8 +38,8 @@ Internal evidence/design layers remain distinct:
 
 Current accepted stable runtime identities are edition-specific:
 
-- **PrayerClarity: Vanilla 1.0.33** — accepted ref `accepted/vanilla-1.0.33`, exact source `93b66e747ffe1685003afb894b24f14416edb8c0`, release `v1.0.33`, DLL SHA-256 `30b23f9ed62148f3fd08e0c34ae54f165da0e639a041d1e9d7c4abe74268da8a`.
-- **PrayerClarity: Rebalanced 0.2.47** — accepted ref `accepted/rebalanced-0.2.47`, exact runtime source `6b3aa5399c8913d368f2b09bab963326db17e7f3`, release `rebalanced-v0.2.47`, DLL SHA-256 `2482a159c3108a7868123d7c2cac7a8a620fe537952fee0cda6024c6ea5c7c96`.
+- **PrayerClarity: Vanilla 1.0.57** — accepted ref `accepted/vanilla-1.0.57`, exact source `13c85c824bd2932b1175200368d212e03bbae79f`, release `v1.0.57`, DLL SHA-256 `3ff5f830a3ce20d1bf789e5f9ff0d3ac11cf9511d4457660b56c1f286dc31195`.
+- **PrayerClarity: Rebalanced 0.2.51** — accepted ref `accepted/rebalanced-0.2.51`, exact runtime source `13c85c824bd2932b1175200368d212e03bbae79f`, release `rebalanced-v0.2.51`, DLL SHA-256 `083168ec6cd76fd55366ca10426e212a30a3bc2c7ca61a9e9de0dc6f656c8ccd`.
 
 Both stable releases were published from their exact accepted CI artifacts without rebuilding. Later `main` documentation/repository-hygiene commits do not redefine those frozen runtime identities.
 
@@ -231,29 +231,34 @@ No new balance round is required unless implementation evidence contradicts an a
 
 ## Current engineering state
 
-The current **public stable Rebalanced release** is **0.2.47**. The current **accepted Rebalanced development/runtime baseline** is **0.2.48**, frozen at `accepted/rebalanced-0.2.48` / `42b284986f768b6dd1e1760f7d80c8e5763765b2`, with DLL SHA-256 `38d51a9647d67b1b14f70a9045b8bbf493dae4b434251284bbab22c2bf1f10e3`.
+The current stable releases are **PrayerClarity: Vanilla 1.0.57** and **PrayerClarity: Rebalanced 0.2.51**, both frozen from exact accepted source `13c85c824bd2932b1175200368d212e03bbae79f`.
 
-0.2.47 carries forward the closed gameplay/save-lifecycle architecture from `POST_AUDIT_VERDICT.md` (**A — no architecture action**) and preserves the accepted Rebalanced roster/balance from 0.2.38. The 0.2.39–0.2.47 line is presentation/clarity work only.
+Rebalanced 0.2.51 carries forward the closed gameplay/save-lifecycle architecture from `POST_AUDIT_VERDICT.md` (**A — no architecture action**). The only post-0.2.47 balance change is the runtime-accepted 0.2.48 Combo donation ladder: Faith remains **+100 / +150 / +200%**, donations are **+100 / +250 / +500%**. The 0.2.49–0.2.51 line is presentation-only.
 
-### Current actionable UX / presentation backlog
+### Accepted prayer-item and Repose presentation
 
-The Repose and prayer-item presentation work through 0.2.47 is **closed and runtime-accepted**:
+The Repose and prayer-item presentation work is **closed and runtime-accepted**:
 
-- Repose now uses one consistent player-facing model across Technology, prayer items, ordinary/terminal pulpit states and Character -> Temporary Effects.
+- Repose uses one consistent player-facing model across Technology, prayer items, ordinary/terminal pulpit states and Character -> Temporary Effects.
 - The prayer-item parchment uses the game's standard/native width; the rejected fixed-200, ResizeFreely/420 and fixed-280 experiments are historical only.
 - The 100%-success requirement content is centered so wrapped Church Quality + cross remains coherent.
 - Base Result and On Success content are visibly left-aligned within the existing native tooltip span, while section headers and the requirement remain centered.
 - The accepted amount + inline-resource wrap repair remains scoped to PrayerClarity-owned prayer-item mechanics rows.
 
-No further in-game retest is required for these accepted 0.2.47 properties unless their implementation changes.
+### Accepted Technology presentation
 
-### Current Technology presentation candidate
+- **0.2.51 / 1.0.57 is the accepted shared Technology alignment model.** Runtime acceptance on 2026-09-27 confirmed Rebalanced and Vanilla mouse tooltips, both gamepad paths, and prayer-item controls.
+- The stock prayer title, `Base Result`, and `On Success` are centered; mechanics/body rows remain left-aligned.
+- The title is identified structurally from the stock `TechUnlock.GetTooltip` row order rather than by localized-text matching.
+- Centered headings expand only to the already-existing native maximum child span at the accepted final layout commit point; the outer parchment width is not artificially widened.
+- Lore/crafting rows, viewport clamp, prayer mechanics, and non-prayer Technology tooltips remain preserved.
 
-- **Prayer Technology alignment unification — 0.2.49 and 0.2.50 superseded; Rebalanced 0.2.51 / Vanilla sibling 1.0.57 is the current candidate.** 0.2.50 proved the native-span final writer by centering Base Result and On Success on mouse without widening the parchment, but the stock-generated top title was still missed by localized text matching. 0.2.51 assigns semantic roles during composition: the current stock title is identified structurally by the pre-call row count, while PrayerClarity section headers are marked when created/reused. The same accepted native-span final writer then centers only those roles. Mechanics content, lore/crafting rows, outer width, viewport clamp and non-prayer Technology tooltips remain preserved.
+### Current accepted stable balance
 
-### Current accepted development balance
+- **Combo Prayer:** Faith **+100 / +150 / +200%**; donations **+100 / +250 / +500%**; q40/q60/q80 unchanged.
+- No other prayer balance value changed after the accepted 0.2.47 roster.
 
-- **Combo Prayer donation-side scaling — runtime-accepted in Rebalanced 0.2.48.** Faith remains **+100 / +150 / +200%** while donations are **+100 / +250 / +500%**. With the accepted Donations specialist (+20 / +50 / +100 silver), the same-quality pure-money crossover is roughly **GQ 500 with Cardinal** or **GQ 667 without Cardinal** for all three qualities. No other prayer balance value changed. Public stable remains 0.2.47 until separate promotion.
+No further in-game retest is required for these accepted properties unless their implementation changes.
 
 **Closed product decision:**
 
@@ -265,4 +270,4 @@ Known evidence gaps that are **not** active UX backlog:
 Accepted runtime closure, 2026-09-26:
 - real successful Silver and Gold Imagination sermons physically delivered **3 Silver Stories** and **3 Gold Stories** respectively, closing the former native-drop evidence gap.
 
-No further in-game retest is required for the accepted 0.2.47 properties unless their implementation is changed.
+No further in-game retest is required for the accepted 0.2.51 / 1.0.57 properties unless their implementation is changed.
