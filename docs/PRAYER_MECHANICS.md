@@ -389,7 +389,7 @@ Two stock-1.407 anomalies remain important boundaries:
 - Prayer of Repentance: timed buff exists, no gameplay consumer was found;
 - Prayer for Shoots and Roots: the `-20%` growth formula exists, but the stock prayer buff and formula read/write different parameter owners.
 
-**PrayerClarity: Vanilla 1.0.33** preserves these stock mechanics and presents them truthfully. **PrayerClarity: Rebalanced 0.2.38** intentionally repairs/reworks the affected behavior according to the separate accepted ruleset in `PRAYER_REBALANCE_OPTIONS.md`. Do not rewrite this stock evidence to match Rebalanced behavior.
+**PrayerClarity: Vanilla 1.0.57** preserves these stock mechanics and presents them truthfully. **PrayerClarity: Rebalanced 0.2.51** intentionally repairs/reworks the affected behavior according to the separate accepted ruleset in `PRAYER_REBALANCE_OPTIONS.md`. Do not rewrite this stock evidence to match Rebalanced behavior.
 
 ## Repose terminal corpse progression — direct closure
 
