@@ -1,34 +1,34 @@
 {
   "schema_version": 1,
-  "candidate_branch": "candidate/rebalanced-0.2.48",
-  "baseline_sha": "cd0d751b80b58c4a4ea93548822a6f37f4f5935a",
+  "candidate_branch": "candidate/rebalanced-0.2.49",
+  "baseline_sha": "42b284986f768b6dd1e1760f7d80c8e5763765b2",
   "changes": [
     {
-      "id": "combo-donation-scaling-100-250-500",
-      "observable_property": "PrayerClarity: Rebalanced Combo Prayer donation bonus scales by quality as +100% / +250% / +500% of the ordinary base-donation pool on sermon success, while its Faith bonus remains +100% / +150% / +200%.",
-      "canonical_owner": "RebalancedRuleSet entry b_faith_money owns the edition-specific Requirements, FaithBonusRates and MoneyBonusRates for Combo Prayer.",
-      "final_writer_or_commit_point": "RebalancedStaticProjection.ApplyStockOwnedFields writes MoneyBonusRates directly into the existing CraftDefinition.k_money field for each Combo tier. Stock PrayLogics.CalculatePray then consumes k_money for the success-only donation bonus. PrayerForecast.BuildTierDetails and the shared tooltip/pulpit renderers read the same effective CraftDefinition.k_money value, so gameplay and presentation share one owner.",
+      "id": "technology-prayer-heading-alignment",
+      "observable_property": "Prayer Technology tooltips use the same visual alignment hierarchy in Vanilla and Rebalanced, with mouse and gamepad: the top prayer title plus the Base Result and On Success section headers are centered, while the corresponding mechanics content remains left-aligned.",
+      "canonical_owner": "TechUnlock.GetTooltip(Tooltip) creates the stock Technology tooltip data used by both mouse child tooltips and TechTreeGUIItem gamepad tooltips. SecondarySurfacePresentation.TechUnlockTooltipPostfix is the existing PrayerClarity enrichment point that replaces/inserts the prayer sections and can normalize only prayer-owned/header rows in that same data list.",
+      "final_writer_or_commit_point": "BubbleWidgetText.Draw later applies each BubbleWidgetTextData.alignment to the UILabel. TechnologyPrayerCarousel rebuilds the selected gamepad prayer tooltip by calling the same TechUnlock.GetTooltip method, so data-level alignment is shared by mouse and controller without a second lifecycle.",
       "blast_radius": [
-        "Rebalanced Combo Prayer Bronze/Silver/Gold success-only donation bonus",
-        "Rebalanced Combo Prayer percentage values shown in Technology, prayer-item and pulpit presentation"
+        "Prayer-bearing Technology tooltip title/header alignment in PrayerClarity: Vanilla",
+        "Prayer-bearing Technology tooltip title/header alignment in PrayerClarity: Rebalanced",
+        "Mouse Technology prayer tooltips",
+        "Gamepad Technology prayer tooltips including the prayer carousel"
       ],
       "preserved_invariants": [
-        "Combo Faith bonus remains +100% / +150% / +200%",
-        "Combo Church Quality requirements remain 40 / 60 / 80",
-        "Combo Hard Book + 7 Faith production gate remains unchanged",
-        "Prayer for Donations remains +20 / +50 / +100 silver-equivalent",
-        "Base donation formula, failed-sermon base donations and stock PrayLogics calculation remain unchanged",
-        "No fixed Combo Faith/money output is reintroduced",
-        "PrayerClarity: Vanilla remains mechanically and numerically unchanged",
-        "No Technology, item-tooltip, pulpit or controller layout/alignment mechanism changes in this candidate"
+        "Base Result and On Success mechanics content remains left-aligned",
+        "Prayer lore/description alignment remains stock-owned and unchanged",
+        "Crafting-source rows remain stock-owned and unchanged",
+        "Technology width/viewport-clamp behavior remains unchanged",
+        "Prayer-item, pulpit and Temporary Effects alignment remains unchanged",
+        "Non-prayer Technology tooltips remain untouched",
+        "No prayer mechanics, values, localization strings or gamepad navigation behavior change"
       ],
-      "acceptance_evidence": "Production diff must be limited to the three Combo MoneyBonusRates plus candidate/build identity and documentation. Shared CI/localization validation must pass. Static inspection must confirm the effective craft path writes 1.0 / 2.5 / 5.0 to k_money. A focused in-game visual check of Combo Prayer in Technology, one prayer item and the pulpit should show 100% / 250% / 500% donation bonuses; no sermon execution is required because the unchanged native k_money calculation path is already accepted.",
+      "acceptance_evidence": "Production diff must be limited to shared Technology presentation alignment plus candidate/build identity. CI/localization/build must pass. In-game visual acceptance should check one prayer Technology with mouse and the same/another prayer Technology with gamepad: top title, Base Result and On Success centered; mechanics rows left-aligned; tooltip width and viewport placement unchanged. One Vanilla sibling visual check is sufficient to prove the same shared source path if Rebalanced is also checked.",
       "evidence_refs": [
-        "docs/PRAYER_MECHANICS.md: stock 1.407 success-only k_money formula and base-donation formula.",
-        "docs/PRAYER_REBALANCE_OPTIONS.md: stable 0.2.47 Combo owner/requirements and specialist/generalist role.",
-        "docs/PRAYER_POWER_BUDGET.md: current Combo donation-side scaling question and crossover analysis.",
-        "src/RebalancedRuleSet.cs and src/RebalancedStaticProjection.cs on baseline cd0d751b80b58c4a4ea93548822a6f37f4f5935a.",
-        "User product decision on 2026-09-27: Combo donation bonuses = +100% / +250% / +500%."
+        "Stock 1.407 TechUnlock.GetTooltip creates the prayer title and stock prayer rows as BubbleWidgetTextData with Left alignment.",
+        "Stock TechTreeGUIItem.InitGamepadTooltip calls TechUnlock.GetTooltip for visible unlocks; PrayerClarity TechnologyPrayerCarousel also rebuilds the selected tooltip through TechUnlock.GetTooltip.",
+        "BubbleWidgetText.Draw applies BubbleWidgetTextData.alignment directly to the UILabel.",
+        "User screenshot/request on 2026-09-27: Create Prayer..., Base Result and On Success should be centered and alignment principles should match across Vanilla/Rebalanced and mouse/gamepad."
       ],
       "state": "READY"
     }
