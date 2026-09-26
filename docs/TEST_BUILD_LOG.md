@@ -18,7 +18,10 @@
   5. terminal Repose states no longer imply that another ordinary body-quality tier can still be unlocked when the natural ceiling has been reached.
 - Prayer mechanics, balance, requirements, durations, payouts, corpse-generation behavior and RNG remain unchanged from the accepted Rebalanced ruleset.
 - Public sibling Vanilla remains **1.0.33**. The 1.0.53 sibling binary produced by the shared candidate workflow is not promoted by this Rebalanced release.
+- Stable promotion merge: `29e300b2d11bc6936e19ed8d9522caceecccbca2` (PR #40).
+- Publication workflow run: `36271343039`; result: **success**.
 - Stable release/tag: `rebalanced-v0.2.47`; canonical asset: `PrayerClarity.Rebalanced.dll`, published from the exact accepted candidate bytes without rebuilding.
+- Publication verification re-downloaded the release asset and confirmed SHA-256 `2482a159c3108a7868123d7c2cac7a8a620fe537952fee0cda6024c6ea5c7c96`; the tag resolves to exact accepted source `6b3aa5399c8913d368f2b09bab963326db17e7f3`.
 - No further in-game test is required unless the accepted implementation changes.
 
 ## 2026-09-26 — Rebalanced 0.2.47 / Vanilla 1.0.53 native-span left content candidate
