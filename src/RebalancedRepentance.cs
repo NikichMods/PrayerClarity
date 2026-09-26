@@ -56,7 +56,7 @@ namespace PrayerClarity
             {
                 if (_runtimeErrorLogged) return;
                 _runtimeErrorLogged = true;
-                _log?.LogError("PrayerClarity: Rebalanced Repentance probability projection failed closed; stock confession probability remains active for the affected read. " + ex);
+                _log?.LogError("PC_RUNTIME_FALLBACK edition=rebalanced feature=repentance action=stock-probability " + ex);
             }
         }
 

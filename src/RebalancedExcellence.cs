@@ -37,7 +37,7 @@ namespace PrayerClarity
             {
                 if (_runtimeErrorLogged) return;
                 _runtimeErrorLogged = true;
-                _log?.LogError("PrayerClarity: Rebalanced Excellence quality override failed closed; stock craft_q remains active. " + ex);
+                _log?.LogError("PC_RUNTIME_FALLBACK edition=rebalanced feature=excellence action=stock-craft-q " + ex);
             }
         }
     }

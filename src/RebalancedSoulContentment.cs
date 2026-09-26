@@ -75,7 +75,7 @@ namespace PrayerClarity
             {
                 if (_runtimeErrorLogged) return;
                 _runtimeErrorLogged = true;
-                _log?.LogError("PrayerClarity: Rebalanced Soul Contentment graph projection failed closed; stock +10% behavior remains for the affected portal. " + ex);
+                _log?.LogError("PC_RUNTIME_FALLBACK edition=rebalanced feature=soul-contentment-gain action=stock-coefficient " + ex);
             }
         }
 
@@ -104,7 +104,7 @@ namespace PrayerClarity
                 if (!_preservationErrorLogged)
                 {
                     _preservationErrorLogged = true;
-                    _log?.LogError("PrayerClarity: Rebalanced Soul Contentment preservation failed open; stock soul decay continues. " + ex);
+                    _log?.LogError("PC_RUNTIME_FALLBACK edition=rebalanced feature=soul-contentment-preservation action=stock-decay " + ex);
                 }
                 return true;
             }

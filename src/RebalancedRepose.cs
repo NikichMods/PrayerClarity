@@ -381,7 +381,7 @@ namespace PrayerClarity
         {
             if (_runtimeErrorLogged) return;
             _runtimeErrorLogged = true;
-            _log?.LogError("PrayerClarity: Rebalanced " + context + ". Vanilla corpse generation remains active for the affected call. " + ex);
+            _log?.LogError("PC_RUNTIME_FALLBACK edition=rebalanced feature=repose action=vanilla-generation context=\"" + context + "\" " + ex);
         }
     }
 }

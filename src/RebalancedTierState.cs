@@ -77,7 +77,7 @@ namespace PrayerClarity
             }
             catch (Exception ex)
             {
-                _log?.LogError("PrayerClarity: Rebalanced failed to capture successful prayer quality; custom tier-dependent mechanics are left unchanged. " + ex);
+                _log?.LogError("PC_RUNTIME_FALLBACK edition=rebalanced feature=tier-capture action=leave-tier-state-unchanged " + ex);
             }
         }
 
