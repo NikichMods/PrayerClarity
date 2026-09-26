@@ -298,6 +298,54 @@ The donation side therefore uses a clean 100/200/300 ladder, while the Faith sid
 With Cardinal active and the accepted Gold Donations +30 silver, the Gold pure-money crossover remains at roughly Graveyard Quality 250.
 
 
+## 2026-09-27 Combo donation scaling — selected 0.2.48 candidate
+
+Status: **product-approved balance candidate; production build 0.2.48 pending focused visual acceptance**.
+
+Current stable 0.2.47 resource-family values are:
+
+- Donations: flat **+20 / +50 / +100 silver**;
+- Combo Faith: **+100 / +150 / +200%**;
+- Combo donations: **+100 / +200 / +300%**;
+- Combo q: **40 / 60 / 80**.
+
+The accepted ordinary donation baseline is:
+
+`Base donations = Graveyard Quality * (0.03 + 0.01 * Cardinal)`.
+
+For pure-money comparison, both prayers keep the same base pool, so the specialist/generalist tie is where:
+
+`flat Donations bonus = Combo donation rate * Base donations`.
+
+The user selected the following Combo donation ladder for the next candidate:
+
+- Bronze: **+100%**;
+- Silver: **+250%**;
+- Gold: **+500%**.
+
+Faith stays **+100 / +150 / +200%**.
+
+With Cardinal active (`Base = 0.04 * GQ`):
+
+| Quality | Donations flat bonus | Combo donation bonus | Pure-money tie |
+| --- | ---: | ---: | ---: |
+| Bronze | +20s | +100% base | GQ **500** |
+| Silver | +50s | +250% base | GQ **500** |
+| Gold | +100s | +500% base | GQ **500** |
+
+Without Cardinal (`Base = 0.03 * GQ`), all three ties occur at approximately **GQ 667**.
+
+### Design reading
+
+This is intentionally not a smooth numeric ladder for its own sake. It normalizes the **economic crossover**, not the coefficient spacing:
+
+- before the crossover, the focused Donations prayer is the stronger pure-money choice;
+- after the crossover, the percentage Combo prayer scales past it;
+- Combo still pays the higher q40/60/80 gate and Hard Book +7 Faith recipe;
+- Combo additionally provides its unchanged Faith percentage, so it remains a generalist rather than a second money specialist.
+
+This supersedes the earlier 100/200/300 follow-up hypothesis for the 0.2.48 candidate. Stable 0.2.47 remains 100/200/300 until the candidate is accepted and promoted.
+
 ## 2026-09-23 Premium Gold q95 success-gate research
 
 Status: **accepted design for Rebalanced 0.2.16**.
