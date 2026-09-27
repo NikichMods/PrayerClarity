@@ -86,7 +86,7 @@ jobs:
             echo "DLL SHA-256: $dll_hash"
             echo "Nexus package: $nexus"
             echo "Nexus ZIP SHA-256: $nexus_hash"
-            echo "Supported game MVID: 6f50b8e7-156b-49ac-bbe8-7505894b2364"
+            echo "Verified game MVID: 6f50b8e7-156b-49ac-bbe8-7505894b2364"
             echo "Locales: en fr de zh_cn es pt_br ko ja ru it pl"
           } > dist/BUILD_INFO.txt
 
