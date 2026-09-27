@@ -92,3 +92,12 @@ The above runtime hardening is being implemented under the per-change READY gate
 - Vanilla 1.0.58.
 
 Until runtime/build acceptance, stable releases remain Vanilla 1.0.57 and Rebalanced 0.2.51.
+
+## Runtime smoke — Rebalanced 0.2.52
+
+Accepted on exact runtime artifact source `9a236d217ca335ac944087dcbb23504bb391fe26`.
+
+The returned Graveyard Keeper 1.407 BepInEx log shows Rebalanced 0.2.52 starting with the verified `Assembly-CSharp` MVID and reaching `PC_READY`. The save then completes the normal craft-list loading path and enters gameplay. No PrayerClarity compatibility warning, initialization failure, rollback failure, static-projection failure or runtime-fallback event appears in the complete log.
+
+Result: the engineering-hardening runtime smoke is accepted for Rebalanced 0.2.52 on the verified 1.407 host. Stable promotion remains separate.
+
