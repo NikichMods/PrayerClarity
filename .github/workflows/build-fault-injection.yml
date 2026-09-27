@@ -1,3 +1,4 @@
+# Research-only workflow. Never merge into a production candidate.
 name: Build PrayerClarity fault-injection research
 
 on:
