@@ -16,6 +16,11 @@ namespace PrayerClarity
             get { return _state == ProjectionState.Ready; }
         }
 
+        internal static bool IsDisabled
+        {
+            get { return _state == ProjectionState.Disabled; }
+        }
+
         internal static void MarkPending()
         {
             _state = ProjectionState.Pending;

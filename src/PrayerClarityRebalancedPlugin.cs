@@ -28,6 +28,7 @@ namespace PrayerClarity
                     return;
                 }
 
+                FaultInjection.Announce(Logger);
                 compatibility = GameCompatibility.Inspect(R.GameAssembly);
                 Logger.LogInfo(
                     "PC_START edition=rebalanced version=" + PluginVersion +
@@ -55,6 +56,7 @@ namespace PrayerClarity
                 RebalancedRepentance.Install(PluginGuid, Logger);
                 RebalancedRepose.Install(PluginGuid, Logger);
                 RebalancedCombat.Install(PluginGuid, Logger);
+                FaultInjection.AfterCoreCheckpoint();
                 RebalancedExcellence.Install(PluginGuid, Logger);
                 RebalancedSoulsRepose.Install(PluginGuid, Logger);
                 RebalancedThoroughCleansing.Install(PluginGuid, Logger);
@@ -64,12 +66,14 @@ namespace PrayerClarity
                 Logger.LogInfo(
                     "PC_READY edition=rebalanced version=" + PluginVersion +
                     " compatibility=" + compatibility.Mode);
+                FaultInjection.OnReady(Logger, compatibility);
             }
             catch (Exception ex)
             {
                 Exception rollbackFailure = null;
                 bool rolledBack = patches == null || patches.RollbackAll(out rollbackFailure);
                 PrayerEditionSemantics.Reset();
+                FaultInjection.OnCoreRollback(Logger, rolledBack);
 
                 Logger.LogError(
                     "PC_INIT_FAILED edition=rebalanced compatibility=" +
@@ -109,11 +113,13 @@ namespace PrayerClarity
             try
             {
                 install();
+                FaultInjection.AfterOptionalInstall(feature);
             }
             catch (Exception ex)
             {
                 Exception rollbackFailure;
                 bool rolledBack = patches.RollbackTo(savepoint, out rollbackFailure);
+                FaultInjection.OnOptionalRollback(Logger, feature, rolledBack);
                 if (rolledBack)
                 {
                     Logger.LogWarning(

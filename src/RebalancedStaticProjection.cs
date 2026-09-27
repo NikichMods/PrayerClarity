@@ -22,6 +22,33 @@ namespace PrayerClarity
                 Value = value;
             }
 
+            internal bool MatchesCurrent(out string mismatch)
+            {
+                object current;
+                FieldInfo currentField = Member as FieldInfo;
+                if (currentField != null)
+                    current = currentField.GetValue(Target);
+                else
+                {
+                    PropertyInfo currentProperty = Member as PropertyInfo;
+                    if (currentProperty == null)
+                    {
+                        mismatch = "unsupported-member=" + Member.Name;
+                        return false;
+                    }
+                    current = currentProperty.GetValue(Target, null);
+                }
+
+                if (object.Equals(current, Value))
+                {
+                    mismatch = null;
+                    return true;
+                }
+
+                mismatch = "member=" + Target.GetType().FullName + "." + Member.Name;
+                return false;
+            }
+
             internal void Restore()
             {
                 FieldInfo field = Member as FieldInfo;
@@ -54,6 +81,27 @@ namespace PrayerClarity
                 target.CopyTo(Items, 0);
             }
 
+            internal bool MatchesCurrent(out string mismatch)
+            {
+                if (Target.Count != Items.Length)
+                {
+                    mismatch = "list-count expected=" + Items.Length + " actual=" + Target.Count;
+                    return false;
+                }
+
+                for (int i = 0; i < Items.Length; i++)
+                {
+                    if (!object.Equals(Target[i], Items[i]))
+                    {
+                        mismatch = "list-item index=" + i;
+                        return false;
+                    }
+                }
+
+                mismatch = null;
+                return true;
+            }
+
             internal void Restore()
             {
                 Target.Clear();
@@ -72,6 +120,20 @@ namespace PrayerClarity
                 ProjectionSnapshot snapshot = new ProjectionSnapshot();
                 snapshot.CaptureAll();
                 return snapshot;
+            }
+
+            internal bool MatchesCurrent(out string mismatch)
+            {
+                foreach (ListSnapshot list in _lists)
+                    if (!list.MatchesCurrent(out mismatch))
+                        return false;
+
+                foreach (MemberSnapshot member in _members)
+                    if (!member.MatchesCurrent(out mismatch))
+                        return false;
+
+                mismatch = null;
+                return true;
             }
 
             internal bool Restore(out Exception failure)
@@ -245,6 +307,7 @@ namespace PrayerClarity
                 _projectedForCurrentLoad = true;
                 RebalancedRuntimeState.MarkReady();
                 _log?.LogDebug("PC_STATIC_PROJECTION_READY edition=rebalanced");
+                FaultInjection.OnProjectionReady(_log);
             }
             catch (Exception ex)
             {
@@ -253,6 +316,14 @@ namespace PrayerClarity
 
                 _projectionFailed = true;
                 RebalancedRuntimeState.Disable();
+
+                string mismatch = null;
+                bool snapshotMatches = snapshot != null && snapshot.MatchesCurrent(out mismatch);
+                FaultInjection.OnProjectionRollback(
+                    _log,
+                    rolledBack,
+                    snapshotMatches,
+                    mismatch);
 
                 _log?.LogError(
                     "PC_STATIC_PROJECTION_FAILED edition=rebalanced rollback=" +
@@ -268,6 +339,7 @@ namespace PrayerClarity
         {
             RebalancedExpressionProjection.Apply();
             ApplyCombatAliasProjection();
+            FaultInjection.AfterCombatAliasProjection();
             RetireProtectionCrafting();
 
             foreach (RebalancedPrayerRule rule in RebalancedRuleSet.All)

@@ -13,11 +13,14 @@
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <OutputPath>bin/Rebalanced/</OutputPath>
     <RestoreAdditionalProjectSources>https://api.nuget.org/v3/index.json;https://nuget.bepinex.dev/v3/index.json</RestoreAdditionalProjectSources>
+    <FaultScenario Condition="'$(FaultScenario)' == ''">none</FaultScenario>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="src/PrayerClarityRebalancedPlugin.cs" />
     <Compile Include="src/ReflectionBridge.cs" />
     <Compile Include="src/GameCompatibility.cs" />
+    <Compile Include="src/FaultInjection.cs" />
+    <Compile Include="$(IntermediateOutputPath)PrayerClarity.FaultScenario.g.cs" />
     <Compile Include="$(IntermediateOutputPath)PrayerClarity.BuildVersion.g.cs" />
     <Compile Include="src/PrayerEditionSemantics.cs" />
     <Compile Include="src/PrayerLoreResolver.cs" />
@@ -60,6 +63,11 @@
     <WriteLinesToFile
       File="$(IntermediateOutputPath)PrayerClarity.BuildVersion.g.cs"
       Lines='namespace PrayerClarity { internal static class BuildVersion { internal const string Value = "$(Version)"%3B } }'
+      Overwrite="true"
+      Encoding="UTF-8" />
+    <WriteLinesToFile
+      File="$(IntermediateOutputPath)PrayerClarity.FaultScenario.g.cs"
+      Lines='namespace PrayerClarity { internal static class FaultScenario { internal const string Value = "$(FaultScenario)"%3B } }'
       Overwrite="true"
       Encoding="UTF-8" />
   </Target>

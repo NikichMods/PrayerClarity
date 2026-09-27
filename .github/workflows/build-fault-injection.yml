@@ -1,0 +1,93 @@
+name: Build PrayerClarity fault-injection research
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'research/fault-injection-0.2.52'
+    paths:
+      - 'src/**'
+      - 'lang/**'
+      - 'lang_rebalanced/**'
+      - 'PrayerClarity.Rebalanced.csproj'
+      - '.github/workflows/build-fault-injection.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: prayerclarity-fault-injection-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v4
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Validate research baseline
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git merge-base HEAD 9a236d217ca335ac944087dcbb23504bb391fe26)" = "9a236d217ca335ac944087dcbb23504bb391fe26"
+          version="$(dotnet msbuild PrayerClarity.Rebalanced.csproj -nologo -getProperty:Version | tr -d '\r' | tail -n 1)"
+          test "$version" = "0.2.52"
+      - name: Validate localization contracts
+        run: python scripts/validate_localization.py lang lang_rebalanced
+      - name: Restore
+        run: dotnet restore PrayerClarity.Rebalanced.csproj
+      - name: Build all fault scenarios
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          for scenario in unverified optional-rollback core-rollback projection-rollback; do
+            dotnet build PrayerClarity.Rebalanced.csproj -c Release --no-restore -t:Rebuild -p:FaultScenario="$scenario"
+            src='bin/Rebalanced/PrayerClarity.Rebalanced.dll'
+            out="dist/PrayerClarity.Rebalanced-0.2.52-fault-${scenario}.dll"
+            test -f "$src"
+            cp "$src" "$out"
+            sha256sum "$out"
+          done
+
+          cat > dist/FAULT_TEST_INFO.txt <<'EOF'
+          PrayerClarity: Rebalanced 0.2.52 fault-injection research
+          Production base source: 9a236d217ca335ac944087dcbb23504bb391fe26
+
+          Install ONE DLL at a time, renamed to PrayerClarity.Rebalanced.dll if desired.
+          Never install more than one fault DLL together.
+
+          Uniform procedure: launch -> load the same save to active gameplay -> quit -> keep full LogOutput.log.
+
+          unverified:
+            expect PC_COMPAT_UNVERIFIED, PC_READY, and PC_TEST_ASSERT lines ending in PASS.
+          optional-rollback:
+            expect technology-carousel rollback=success, owner_cleanup=PASS, PC_READY, and projection_after_optional_failure=PASS.
+          core-rollback:
+            expect PC_INIT_FAILED rollback=success and PC_TEST_ASSERT owner_cleanup=PASS semantics_reset=PASS; no PC_READY.
+          projection-rollback:
+            expect PC_STATIC_PROJECTION_FAILED rollback=success runtime=disabled and PC_TEST_ASSERT snapshot_restore=PASS runtime_disabled=PASS.
+
+          These are destructive research builds by design and are not release candidates.
+          EOF
+
+          {
+            echo
+            echo "Research source SHA: $GITHUB_SHA"
+            echo "Production base source: 9a236d217ca335ac944087dcbb23504bb391fe26"
+            echo
+            for file in dist/*.dll; do
+              sha256sum "$file"
+            done
+          } >> dist/FAULT_TEST_INFO.txt
+      - name: Upload fault-injection bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: PrayerClarity-rebalanced-0.2.52-fault-injection-${{ github.sha }}
+          path: dist/*
+          if-no-files-found: error
+          retention-days: 14

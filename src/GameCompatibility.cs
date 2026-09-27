@@ -30,7 +30,8 @@ namespace PrayerClarity
         {
             if (gameAssembly == null) throw new ArgumentNullException(nameof(gameAssembly));
             Guid actual = gameAssembly.ManifestModule.ModuleVersionId;
-            return new GameCompatibilityStatus(actual, actual == VerifiedGameMvid);
+            bool verified = FaultInjection.AdjustCompatibility(actual == VerifiedGameMvid);
+            return new GameCompatibilityStatus(actual, verified);
         }
     }
 }
